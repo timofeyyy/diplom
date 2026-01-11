@@ -1,0 +1,7 @@
+*/node_modules
+/client/.vscode/*
+/client/.angular/*
+/test-ts
+/server/localhost+3*.pem
+/nginx-1.28.0
+/server/.env

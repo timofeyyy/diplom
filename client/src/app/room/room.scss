@@ -1,0 +1,248 @@
+// @import url('../../styles/variables.scss');
+@use "../../styles/variables.scss" as v;
+
+*::-webkit-scrollbar {
+    width: 0.25vw;
+    height: 0.25vw;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #155cce;
+    border-radius: 1vw;
+}
+
+.room {
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    background-color: #171717;
+    display: flex;
+    flex-direction: column;
+    header,
+    footer {
+        width: 100%;
+        height: 5%;
+    }
+    main {
+        width: 100%;
+        display: flex;
+        height: 95%;
+        box-sizing: border-box;
+        // padding: 1vw 2vw;
+        padding: 1.5vw;
+        .video-panel {
+            // margin: 0 1.5vw;
+            // padding: 0 1.2vw;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            .frame {
+                overflow: hidden;
+                border-radius: v.$common-border-radius;
+                border: 0.025vw solid rgb(54, 54, 54);
+                width: 100%;
+                // height: 100%;
+                position: relative;
+                video {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    transform: scale(1.01);
+                }
+                p {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 0.5vw 1.5vw;
+                    margin: 1vw;
+                    background-color: rgba($color: #000000, $alpha: 0.2);
+                    backdrop-filter: blur(10px);
+                    border-radius: v.$common-border-radius;
+                    color: white;
+                    font-size: max(1vw, 10px);
+                }
+            }
+            .current-frame {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                box-sizing: border-box;
+                // padding: 1vw;
+                // padding-right: 1vw;
+                // height: 100%;
+            }
+
+            .other-frames {
+                height: 40%;
+                .frame {
+                    background-color: #000000;
+                    p {
+                        font-size: max(1vw, 10px);
+                    }
+                    // border-radius: v.$common-border-radius;
+                }
+                // .template {
+                //     background-color: #000000;
+                //     width: 100%;
+                //     // height: 27%;
+                //     margin-bottom: 1vw;
+                //     border-radius: v.$common-border-radius;
+                // }
+            }
+        }
+        .tool-panel {
+            // display: none;
+            // width: 25%;
+            // height: 100%;
+            // background-color: #1e1d22;
+            // border-radius: 0.25vw;
+            margin-left: 1vw;
+            width: 35%;
+            height: 100%;
+            background-color: #1e1d22;
+            border-radius: v.$common-border-radius;
+            padding-left: 1.2vw;
+        }
+    }
+    footer {
+        height: 5%;
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .icon {
+                padding: 0.75vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0.5vw;
+                cursor: pointer;
+            }
+            .phone-off {
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                background: tomato;
+            }
+            .display,
+            .mic {
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                background: rgb(146, 146, 146);
+                transition: all ease 0.5s;
+            }
+            .display:hover,
+            .mic:hover {
+                background-color: rgb(92, 92, 228);
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .room {
+        main {
+            .video-panel {
+                // width: 75%;
+                height: 90%;
+                flex-direction: row;
+
+                .current-frame {
+                    height: 100%;
+                    // width: 70%;
+                    .frame {
+                        height: 100%;
+                        video {
+                            scale: 1.3;
+                        }
+                    }
+                }
+                .other-frames {
+                    // display: grid;
+                    // grid-auto-rows: 1fr 1fr 1fr;
+                    // grid-template-areas:
+                    //     "area1"
+                    //     "area2"
+                    //     "area3";
+                    // grid-gap: 2vw;
+                    width: 30%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    // padding: 1vw;
+                    padding-left: 1vw;
+                    padding-right: 0.5vw;
+                    width: 30%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding-left: 1vw;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    .frame {
+                        height: 27%;
+                        width: 100%;
+                        margin-bottom: 1vw;
+                    }
+                }
+                .full {
+                    width: 100%;
+                }
+                .hide {
+                    display: none;
+                }
+            }
+        }
+        footer {
+            // height: 10%;
+            box-sizing: border-box;
+            padding: 0.5vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .actions {
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .room {
+        main {
+            .video-panel {
+                flex-direction: column;
+                // width: 75%;
+                .current-frame {
+                    height: 70%;
+                    .frame {
+                        height: 100%;
+                    }
+                }
+                .other-frames {
+                    display: flex;
+                    padding-top: 1vw;
+                    overflow-y: hidden;
+                    overflow-x: scroll;
+                    height: 28%;
+                    padding-bottom: 0.5vw;
+                    .frame {
+                        margin-right: 1vw;
+                        flex: 0 0 max(30%, 150px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .room {
+        main {
+            .tool-panel {
+                display: none;
+            }
+        }
+    }
+}

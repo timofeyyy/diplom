@@ -1,0 +1,53 @@
+<div class="room">
+    <header>
+
+    </header>
+    <main>
+        <section class="video-panel">
+            <div #currentFrame class="current-frame" [ngClass]="{'full' : activeUsers.size == 1}">
+                
+            </div>
+            <!-- <div #otherFrames class="other-frames" [ngClass]="{'hide' : activeUsers.size == 1}">
+
+            </div> -->
+            
+            <div #otherFrames class="other-frames" [ngClass]="{'hide' : activeUsers.size == 1}">
+                <!-- <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div>
+                <div class="frame"></div> -->
+            </div>
+
+            <!-- <div #videoGrid id="video-grid">
+
+            </div> -->
+        </section>
+        <section class="tool-panel">
+
+        </section>
+    </main>
+    <!-- <footer> -->
+        <!-- <div class="actions">
+            <div class="phone-off icon">
+                <img src="assets/images/phone-off.svg" alt="">
+            </div>
+            <div class="mic icon" (click)="micro = !micro">
+
+                <img *ngIf="micro; else microff;" src="assets/images/mic.svg" alt="on">
+                <ng-template #microff>
+                    <img src="assets/images/mic-off.svg" alt="off">
+                </ng-template>
+            </div>
+            <div class="display icon" (click)="displayMedia = !displayMedia">
+                <img *ngIf="displayMedia; else displayMediaOff;" src="assets/images/picture-in-picture-2.svg" alt="on">
+                <ng-template #displayMediaOff>
+                    <img src="assets/images/user-round.svg" alt="off">
+                </ng-template>
+            </div>
+        </div> -->
+    <!-- </footer> -->
+</div>

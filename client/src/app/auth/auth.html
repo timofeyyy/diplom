@@ -1,0 +1,30 @@
+<main>
+    <form>
+    <h3>{{login ? 'Login' : 'Sign Up'}}</h3>
+        <p>Enter your credentionals to accces account</p>
+        <div class="field">
+            <label>Email</label>
+            <input type="text" placeholder="Enter email" />
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" placeholder="Enter password" />
+        </div>
+        <div class="field" *ngIf="!login">
+            <label>Password</label>
+            <input type="password" placeholder="Repeat password" />
+        </div>
+        <button>{{login ? 'Log in' : 'Create account'}}</button>
+        <span>{{login ? 'Dont have an account?' : 'Have already account?'}} <span class="form-switch" (click)="login=!login">{{login ? 'Sign Up' : 'Sign in'}}</span></span>
+        <div class="other">
+            <div class="line"></div>
+            <p>or</p>
+            <div class="line"></div>
+        </div>
+        <div class="auth-options">
+            <a href="/auth-serv/auth/google" class="option" (click)="signInThroughGoogle()">
+                <img src="/assets/images/google-auth.svg" />
+            </a>
+        </div>
+    </form>
+</main>

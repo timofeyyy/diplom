@@ -1,0 +1,199 @@
+*::-webkit-scrollbar {
+  width: 0.25vw;
+  height: 0.25vw;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #155cce;
+  border-radius: 1vw;
+}
+
+.room {
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: #171717;
+  display: flex;
+  flex-direction: column;
+}
+.room header,
+.room footer {
+  width: 100%;
+  height: 5%;
+}
+.room main {
+  width: 100%;
+  display: flex;
+  height: 95%;
+  box-sizing: border-box;
+  padding: 1.5vw;
+}
+.room main .video-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.room main .video-panel .frame {
+  overflow: hidden;
+  border-radius: 0.5vw;
+  border: 0.025vw solid rgb(54, 54, 54);
+  width: 100%;
+  position: relative;
+}
+.room main .video-panel .frame video {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(1.01);
+}
+.room main .video-panel .frame p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.5vw 1.5vw;
+  margin: 1vw;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-radius: 0.5vw;
+  color: white;
+  font-size: max(1vw, 10px);
+}
+.room main .video-panel .current-frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+.room main .video-panel .other-frames {
+  height: 40%;
+}
+.room main .video-panel .other-frames .frame {
+  background-color: #000000;
+}
+.room main .video-panel .other-frames .frame p {
+  font-size: max(1vw, 10px);
+}
+.room main .tool-panel {
+  margin-left: 1vw;
+  width: 35%;
+  height: 100%;
+  background-color: #1e1d22;
+  border-radius: 0.5vw;
+  padding-left: 1.2vw;
+}
+.room footer {
+  height: 5%;
+}
+.room footer .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.room footer .actions .icon {
+  padding: 0.75vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5vw;
+  cursor: pointer;
+}
+.room footer .actions .phone-off {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: tomato;
+}
+.room footer .actions .display,
+.room footer .actions .mic {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: rgb(146, 146, 146);
+  transition: all ease 0.5s;
+}
+.room footer .actions .display:hover,
+.room footer .actions .mic:hover {
+  background-color: rgb(92, 92, 228);
+}
+
+@media (min-width: 1200px) {
+  .room main .video-panel {
+    height: 90%;
+    flex-direction: row;
+  }
+  .room main .video-panel .current-frame {
+    height: 100%;
+  }
+  .room main .video-panel .current-frame .frame {
+    height: 100%;
+  }
+  .room main .video-panel .current-frame .frame video {
+    scale: 1.3;
+  }
+  .room main .video-panel .other-frames {
+    width: 30%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 1vw;
+    padding-right: 0.5vw;
+    width: 30%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 1vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .room main .video-panel .other-frames .frame {
+    height: 27%;
+    width: 100%;
+    margin-bottom: 1vw;
+  }
+  .room main .video-panel .full {
+    width: 100%;
+  }
+  .room main .video-panel .hide {
+    display: none;
+  }
+  .room footer {
+    box-sizing: border-box;
+    padding: 0.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .room footer .actions {
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1200px) {
+  .room main .video-panel {
+    flex-direction: column;
+  }
+  .room main .video-panel .current-frame {
+    height: 70%;
+  }
+  .room main .video-panel .current-frame .frame {
+    height: 100%;
+  }
+  .room main .video-panel .other-frames {
+    display: flex;
+    padding-top: 1vw;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 28%;
+    padding-bottom: 0.5vw;
+  }
+  .room main .video-panel .other-frames .frame {
+    margin-right: 1vw;
+    flex: 0 0 max(30%, 150px);
+  }
+}
+@media (max-width: 800px) {
+  .room main .tool-panel {
+    display: none;
+  }
+}/*# sourceMappingURL=room.css.map */

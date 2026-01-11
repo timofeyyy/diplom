@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package auth;
+
+service VerifyTokenService {
+  rpc VerifyToken (JWTRequest) returns (VerifyTokenResponse);
+  rpc SaveToken (JWTRequest) returns (VerifyTokenResponse);
+}
+
+message JWTRequest {
+  string id = 1;
+}
+
+message VerifyTokenResponse {
+  enum TokenStatus {
+    INVALID = 0; 
+    EXISTS = 1;
+    NOTEXISTS = -1;
+  }
+  TokenStatus status = 1;
+  optional string regDate = 2;
+}
