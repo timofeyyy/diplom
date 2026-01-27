@@ -4,10 +4,10 @@ import http from 'http'
 import dotenv from 'dotenv';
 import fs from 'fs'
 import { Server } from 'socket.io'
-import { getConfig } from './src/app-config'
+import { getConfig } from '../src/app-config'
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import { AppAlias, TokenStatus } from './src/enum'
+import { AppAlias, TokenStatus } from '../src/enum'
 import * as cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');

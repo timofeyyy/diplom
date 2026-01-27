@@ -1,5 +1,5 @@
 import express from 'express'
-import { getConfig } from './src/app-config'
+import { getConfig } from '../src/app-config'
 import path from 'path'
 import proxy from 'express-http-proxy'
 

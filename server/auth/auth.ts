@@ -6,7 +6,7 @@ import passport, { Profile } from 'passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import { getConfig } from './src/app-config';
+import { getConfig } from '../src/app-config';
 import fs from 'fs'
 
 const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');

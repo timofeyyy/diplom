@@ -13,7 +13,8 @@
     "grpc-serv-test": "nodemon grpc-serv-test.ts",
     "grpc-client-test": "nodemon grpc-client-test.ts",
     "front-serv-proxy": "nodemon front-serv-proxy.ts",
-    "front-serv": "nodemon front-serv.ts"
+    "front-serv": "nodemon front-serv.ts",
+    "test-redis": "nodemon redis_db/test.ts"
   },
   "author": "",
   "license": "ISC",
@@ -44,7 +45,7 @@
     "express-session": "^1.18.2",
     "http-proxy-middleware": "^3.0.5",
     "jsonwebtoken": "^9.0.3",
-    "nodemon": "^3.1.10",
+    "nodemon": "^3.1.11",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "peer": "^1.0.2",

@@ -1,8 +1,8 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import redisClient from './redis_db/connection';
+import redisClient from '../redis_db/connection';
 import redis from 'redis';
-import { TokenStatus } from './src/enum';
+import { TokenStatus } from '../src/enum';
 
 const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
 const proto = grpc.loadPackageDefinition(pkgDef) as any;

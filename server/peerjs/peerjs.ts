@@ -3,7 +3,7 @@ import https from 'https'
 import http from 'http'
 import fs from 'fs'
 import { ExpressPeerServer } from 'peer';
-import { getConfig } from './src/app-config';
+import { getConfig } from '../src/app-config';
 
 const app = express()
 // const config = getConfig()
