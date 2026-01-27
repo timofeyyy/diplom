@@ -1,0 +1,56 @@
+@use "../../styles/variables.scss" as v;
+
+nav {
+            padding: 0.5vw;
+
+    ul {
+        li {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            list-style-type: none;
+            text-align: center;
+            padding: 0.35vw;
+            border-radius: v.$app-border-radius;
+            margin-bottom: 0.5vw;
+            img, a {
+                margin: 0;
+            }
+            a {
+                font-size: v.$app-size6-vw;
+                color: white;
+                text-decoration: none;
+                // &:before {
+                //     margin: 0 auto;
+                //     display: block;
+                // width: v.$icon-width4;
+                // height: v.$icon-width4;
+                //     content: url("../../assets/images/main.svg");
+                // }
+            }
+            img {
+                width: v.$icon-width3;
+                height: v.$icon-height3;
+                // margin-right: .5vw;
+            }
+        }
+        .default {
+            &:hover {
+                background-color: gray;
+            }
+        }
+        .selected {
+            background-color: #155cce;
+        }
+    }
+}
+
+.collapse {
+    ul {
+        li {
+            a {
+                display: none;
+            }
+        }
+    }
+}

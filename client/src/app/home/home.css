@@ -1,0 +1,62 @@
+.home {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e1d22;
+}
+.home aside {
+  width: 20%;
+  background-color: #171717;
+  outline: 0.025vw solid rgb(45, 45, 45);
+  border-radius: 0 0.5vw 0.5vw 0;
+}
+.home aside .header {
+  border-bottom: 0.025vw solid rgb(45, 45, 45);
+  padding: 0.5vw 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home aside .header .logo p {
+  font-size: max(0.75vw, 7.5px);
+  color: white;
+}
+.home aside .header .extension-holder {
+  cursor: pointer;
+  padding: 0.25vw;
+  border: 0.1vw solid gray;
+  border-radius: 0.5vw;
+  margin-right: 0;
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  justify-self: flex-end;
+}
+.home aside .header .extension-holder img {
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+.home aside .header .logo,
+.home aside .header .extension-holder {
+  margin: 0;
+}
+.home aside .navigator {
+  margin: 0.5vw 0;
+  display: block;
+}
+.home .collapse {
+  width: 3%;
+}
+.home .collapse .header {
+  padding: 0.5vw 0;
+}
+.home .collapse .header .logo {
+  display: none;
+}
+.home .collapse .header .extension-holder {
+  margin: 0 auto;
+}
+.home main {
+  width: 100%;
+  box-sizing: border-box;
+}/*# sourceMappingURL=home.css.map */

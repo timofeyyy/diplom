@@ -6,22 +6,23 @@ import passport, { Profile } from 'passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
+import { getConfig } from './src/app-config';
+import fs from 'fs'
 
 const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
-const client = new proto.auth.VerifyTokenService(
-    'localhost:12000',
-    // sslCreds
-    grpc.credentials.createInsecure()
+const config = getConfig()
+const rootCert = fs.readFileSync(config.cert_local);
+
+const grpcClient = new proto.auth.VerifyTokenService(
+    `${config.host}:${config.port}`,
+    grpc.credentials.createSsl(rootCert)
 );
 
 dotenv.config({ path: __dirname + '/.env' })
 
 const SaveToken = (token: string, callback: any) => {
-    client.SaveToken({ id: token }, (err: any, response: any) => {
-        // console.log(response)
-        // console.log(err); 
-        // console.log(response);
+    grpcClient.SaveToken({ id: token }, (err: any, response: any) => {
         callback(
             err ?? null,
             response ?? null
@@ -33,8 +34,6 @@ const SaveToken = (token: string, callback: any) => {
 
 
 const app = express()
-// const store = new session.MemoryStore();
-
 app.use(session({
     secret: "secret",
     resave: false,
@@ -47,21 +46,21 @@ app.use(passport.initialize());
 // вызывает deserializeUser
 // кладёт пользователя в req.user
 // Без express-session он не работает
-app.use(passport.session());
+// app.use(passport.session());
 passport.use(new Strategy(
     {
         clientID: process.env.GOOGLE_CLIENT_ID as string,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        callbackURL: "https://localhost:3000/auth-serv/google/callback"
+        callbackURL: `https://${config.host}:${config.port}/auth-serv/google/callback`
         // callbackURL: "http://localhost:10000/google/callback"
     },
     (accesToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) => {
-        console.log("отправка в бд инфы о пользователе")
+        // console.log("отправка в бд инфы о пользователе")
         // console.log(profile)
-        const user: any = {}
-        user.displayName = profile.displayName;
-        user.email = profile.emails;
-        user.picture = profile.photos![0].value;
+        // const user: any = {}
+        // user.displayName = profile.displayName;
+        // user.email = profile.emails;
+        // user.picture = profile.photos![0].value;
 
 
         return done(null, profile)
@@ -76,32 +75,22 @@ app.use((req, res, next) => {
     next();
 });
 
-function ensureAuth(req: any, res: any, next: any) {
-    if (req.isAuthenticated()) return next();
-    res.redirect('https://localhost:3000/user-auth');
-}
-
-app.get('/test_auth', ensureAuth, (req, res) => {
+app.get('/test_auth', (req, res) => {
     console.log("test_auth")
     res.send("auth")
 })
 
-app.get("/login", (req, res) => {
-    res.send("<a href='/auth/google'>Login</a>")
-})
+// app.get("/login", (req, res) => {
+//     res.send("<a href='/auth/google'>Login</a>")
+// })
 
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"], prompt: "consent", accessType: "offline" })
 )
 
 app.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), (req, res) => {
     const user: any = req.user;
-    console.log("callback")
     const token = jwt.sign(
-        {
-            sub: user.id,
-            email: user.emails[0].value,
-            jti: crypto.randomUUID()
-        },
+        user,
         process.env.JWT_SECRET!,
         { expiresIn: '1h' }
     );
@@ -114,27 +103,26 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
                 httpOnly: false,
                 secure: true,
                 sameSite: 'none',
-                // maxAge: 1000
                 maxAge: 24 * 60 * 60 * 1000
             });
-            // console.log(token)
-            res.redirect('https://localhost:3000/home');
+            res.redirect(`https://${config.host}:${config.port}/front-serv/home`);
         }
         else {
-            res.redirect('https://localhost:3000/error');
+            res.redirect(`https://${config.host}:${config.port}/front-serv/error`);
         }
     })
-    // res.redirect("/login")
 })
 
 
 app.get("/logout", (req, res) => {
-    console.log(`log out ${req.session.id}`)
-    req.logOut(() => {
-        req.session.destroy(() => console.log("Пользовтаель отключился"))
-        console.log(`log out ${req.session.id}`)
-        res.redirect("/login")
-    })
+    // res.redirect("/login")
+    // console.log(`log out ${req.session.id}`)
+    // req.logOut(() => {
+        res.clearCookie("jwt")
+        // req.session.destroy(() => console.log("Пользовтаель отключился"))
+        // console.log(`log out ${req.session.id}`)
+        res.redirect("/user-auth")
+    // })
 })
 
 app.listen(10000, () => console.log("auth"))

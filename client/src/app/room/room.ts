@@ -38,16 +38,24 @@ export class Room implements AfterViewInit {
     this.appConfig.getConfig().subscribe((config: any) => {
       console.log(config)
       this.config = config
-
+      console.log(document.cookie)
       const query: Map<string, string> = new Map(Object.entries((this.route.snapshot.queryParamMap as any).params))
       this.roomId = query.get("roomId")
       // this.userName = query.get("userName")
       this.userName = crypto.randomUUID()
+      console.log(`https://${config.host}:${config.port}`)
       this.socket = io(`https://${config.host}:${config.port}`, {
         secure: true,
         transports: ["websocket"],
+        withCredentials: true,
       });
-      this.onClientStreamLoaded()
+      this.socket.on('connect_error', (err) => {
+        console.log('Connection error:', err.message);
+      });
+      this.socket.on('connect', () => {
+        console.log("connected")
+        this.onClientStreamLoaded()
+      });
     })
   }
 

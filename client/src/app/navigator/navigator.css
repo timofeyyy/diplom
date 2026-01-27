@@ -1,0 +1,35 @@
+nav {
+  padding: 0.5vw;
+}
+nav ul li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+  text-align: center;
+  padding: 0.35vw;
+  border-radius: 0.5vw;
+  margin-bottom: 0.5vw;
+}
+nav ul li img, nav ul li a {
+  margin: 0;
+}
+nav ul li a {
+  font-size: max(0.75vw, 7.5px);
+  color: white;
+  text-decoration: none;
+}
+nav ul li img {
+  width: max(2vw, 20px);
+  height: max(2vh, 20px);
+}
+nav ul .default:hover {
+  background-color: gray;
+}
+nav ul .selected {
+  background-color: #155cce;
+}
+
+.collapse ul li a {
+  display: none;
+}/*# sourceMappingURL=navigator.css.map */

@@ -7,12 +7,13 @@ import { ExpressPeerServer } from 'peer';
 import { getConfig } from './src/app-config'
 
 const app = express()
-// const config = getConfig()
-// const server = https.createServer({
-//     key: fs.readFileSync(config.key, 'utf-8'),
-//     cert: fs.readFileSync(config.cert, 'utf-8'),
-// }, app);
-const server = http.createServer({}, app);
+
+const config = getConfig()
+const server = https.createServer({
+    key: fs.readFileSync(config.key_local, 'utf-8'),
+    cert: fs.readFileSync(config.cert_local, 'utf-8'),
+}, app);
+// const server = http.createServer({}, app);
 app.use(express.static("src"))
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');

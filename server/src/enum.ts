@@ -3,3 +3,7 @@ export enum TokenStatus {
     EXISTS = 1,
     NOTEXISTS = -1
 }
+
+export enum AppAlias {
+    JAIL = "unauthorized users"
+}

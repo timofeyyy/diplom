@@ -33,7 +33,6 @@ server.addService(proto.hello.HelloService.service, {
 server.bindAsync(
     '0.0.0.0:12000',
     grpc.ServerCredentials.createInsecure(),
-    // serverCredentials,
     () => {
         console.log('gRPC server started');
         server.start();

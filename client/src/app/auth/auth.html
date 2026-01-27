@@ -22,8 +22,8 @@
             <div class="line"></div>
         </div>
         <div class="auth-options">
-            <a href="/auth-serv/auth/google" class="option" (click)="signInThroughGoogle()">
-                <img src="/assets/images/google-auth.svg" />
+            <a *ngIf="config && config.host && config.port" [href]="`https://${config.host}:${config.port}/auth-serv/auth/google`" class="option">
+                <img src="assets/images/google-auth.svg" />
             </a>
         </div>
     </form>

@@ -10,14 +10,21 @@ const server = new grpc.Server();
 
 server.addService(proto.auth.VerifyTokenService.service, {
     VerifyToken: (call: any, callback: any) => {
+        console.log("VerifyToken")
         redisClient.connect()
             .then(async (client: redis.RedisClientType) => {
                 const jwtId = call.request.id;
-                let tokens = await client.get("tokens")
+                let tokensStr = await client.get("tokens");
+                let tokens: Record<string, string> = tokensStr ? JSON.parse(tokensStr) : {};
                 let status: TokenStatus;
+                console.log(jwtId)
+                console.log("\n\n\n\n\n")
                 console.log(tokens)
                 const response: any = {}
-                if (tokens && jwtId && tokens.hasOwnProperty(jwtId)) {
+                if (tokens && jwtId) {
+                    console.log(tokens[jwtId])
+                }
+                if (tokens && jwtId && tokens[jwtId]) {
                     status = TokenStatus.EXISTS
                     response.regDate = tokens[jwtId]
                 }

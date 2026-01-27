@@ -23,16 +23,13 @@ export class Auth implements OnInit {
   ngOnInit(): void {
     this.appConfig.getConfig().subscribe((config: any) => {
       this.config = config
+      console.log(config)
     })
   }
 
   login: boolean = true
 
-  signInThroughGoogle() : void {
-    //   this.router.navigate(['/auth-serv/auth/google']);
 
-    // this.router.navigateByUrl(`https://localhost:3000/auth-serv/auth/google`).then((data) => console.log(data))
-  }
 
 }
 
