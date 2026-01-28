@@ -8,10 +8,11 @@ import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
 import { getConfig } from '../src/app-config';
 import fs from 'fs'
-
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
-const proto = grpc.loadPackageDefinition(pkgDef) as any;
+import path from 'path';
 const config = getConfig()
+const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
+const proto = grpc.loadPackageDefinition(pkgDef) as any;
+
 const rootCert = fs.readFileSync(config.cert_local);
 
 const grpcClient = new proto.auth.VerifyTokenService(
@@ -19,7 +20,7 @@ const grpcClient = new proto.auth.VerifyTokenService(
     grpc.credentials.createSsl(rootCert)
 );
 
-dotenv.config({ path: __dirname + '/.env' })
+dotenv.config({ path: path.join(__dirname, "..", '/.env') })
 
 const SaveToken = (token: string, callback: any) => {
     grpcClient.SaveToken({ id: token }, (err: any, response: any) => {

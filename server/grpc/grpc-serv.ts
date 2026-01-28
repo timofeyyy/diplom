@@ -4,7 +4,9 @@ import redisClient from '../redis_db/connection';
 import redis from 'redis';
 import { TokenStatus } from '../src/enum';
 
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
+import { getConfig } from '../src/app-config';
+const config = getConfig();
+const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 const server = new grpc.Server();
 

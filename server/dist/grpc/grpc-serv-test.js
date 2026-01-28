@@ -35,29 +35,20 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const grpc = __importStar(require("@grpc/grpc-js"));
 const protoLoader = __importStar(require("@grpc/proto-loader"));
-// import fs from 'fs'
-// import { getConfig } from './src/app-config';
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/test.proto');
+const app_config_1 = require("../src/app-config");
+const config = (0, app_config_1.getConfig)();
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.test);
 const proto = grpc.loadPackageDefinition(pkgDef);
 const server = new grpc.Server();
-// const config = getConfig()
 server.addService(proto.hello.HelloService.service, {
     Hello: (call, callback) => {
         const num = call.request.number;
+        console.log("hello from client");
         callback(null, {
             result: num + 1
         });
     }
 });
-// const server = https.createServer({
-//     key: fs.readFileSync(config.key, 'utf-8'),
-//     cert: fs.readFileSync(config.cert, 'utf-8'),
-// }, app);
-// const serverCredentials = grpc.ServerCredentials.createSsl(
-//     null,
-//     [{ cert_chain: fs.readFileSync(config.cert_local), private_key: fs.readFileSync(config.key_local) }], 
-//     true
-// );
 server.bindAsync('0.0.0.0:12000', grpc.ServerCredentials.createInsecure(), () => {
     console.log('gRPC server started');
     server.start();

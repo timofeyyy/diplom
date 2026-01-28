@@ -49,7 +49,9 @@ const grpc = __importStar(require("@grpc/grpc-js"));
 const protoLoader = __importStar(require("@grpc/proto-loader"));
 const connection_1 = __importDefault(require("../redis_db/connection"));
 const enum_1 = require("../src/enum");
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
+const app_config_1 = require("../src/app-config");
+const config = (0, app_config_1.getConfig)();
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef);
 const server = new grpc.Server();
 server.addService(proto.auth.VerifyTokenService.service, {

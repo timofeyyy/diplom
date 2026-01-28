@@ -56,18 +56,13 @@ const protoLoader = __importStar(require("@grpc/proto-loader"));
 const enum_1 = require("../src/enum");
 const cookie = __importStar(require("cookie"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
-const proto = grpc.loadPackageDefinition(pkgDef);
 const config = (0, app_config_1.getConfig)();
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
+const proto = grpc.loadPackageDefinition(pkgDef);
 const rootCert = fs_1.default.readFileSync(config.cert_local);
 const grpcClient = new proto.auth.VerifyTokenService(`${config.host}:${config.port}`, grpc.credentials.createSsl(rootCert));
 dotenv_1.default.config({ path: __dirname + '/.env' });
 const app = (0, express_1.default)();
-// const config = getConfig()
-// app.use((req, res, next) => {
-//     console.log("hdfdh")
-//     next()
-// })
 app.get("/test_iosocket", (req, res) => {
     res.send("iosocket");
 });

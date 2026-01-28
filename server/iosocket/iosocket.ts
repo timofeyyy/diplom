@@ -10,9 +10,13 @@ import * as protoLoader from '@grpc/proto-loader';
 import { AppAlias, TokenStatus } from '../src/enum'
 import * as cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-const pkgDef = protoLoader.loadSync(__dirname + '/grpc/auth.proto');
+
+
+const config = getConfig();
+const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
+
+
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
-const config = getConfig()
 const rootCert = fs.readFileSync(config.cert_local);
 const grpcClient = new proto.auth.VerifyTokenService(
     `${config.host}:${config.port}`,
@@ -22,12 +26,6 @@ const grpcClient = new proto.auth.VerifyTokenService(
 dotenv.config({ path: __dirname + '/.env' })
 
 const app = express()
-// const config = getConfig()
-// app.use((req, res, next) => {
-//     console.log("hdfdh")
-//     next()
-// })
-
 
 app.get("/test_iosocket", (req, res) => {
     res.send("iosocket")
