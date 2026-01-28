@@ -9,8 +9,10 @@ import * as protoLoader from '@grpc/proto-loader';
 import { getConfig } from '../src/app-config';
 import fs from 'fs'
 import path from 'path';
+import cookieParser from 'cookie-parser';
+
 const config = getConfig()
-const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 
 const rootCert = fs.readFileSync(config.cert_local);
@@ -30,11 +32,20 @@ const SaveToken = (token: string, callback: any) => {
         )
     })
 }
+const RemoveToken = (token: string, callback: any) => {
+    grpcClient.RemoveToken({ id: token }, (err: any, response: any) => {
+        callback(
+            err ?? null,
+            response ?? null
+        )
+    })
+}
 
 
 
 
 const app = express()
+app.use(cookieParser())
 app.use(session({
     secret: "secret",
     resave: false,
@@ -104,7 +115,7 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
                 httpOnly: false,
                 secure: true,
                 sameSite: 'none',
-                maxAge: 24 * 60 * 60 * 1000
+                maxAge: 5 * 60 * 1000
             });
             res.redirect(`https://${config.host}:${config.port}/front-serv/home`);
         }
@@ -116,13 +127,36 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
 
 
 app.get("/logout", (req, res) => {
+
     // res.redirect("/login")
     // console.log(`log out ${req.session.id}`)
     // req.logOut(() => {
-        res.clearCookie("jwt")
-        // req.session.destroy(() => console.log("Пользовтаель отключился"))
-        // console.log(`log out ${req.session.id}`)
-        res.redirect("/user-auth")
+    // res.clearCookie("jwt")
+    // Cookies that have not been signed
+    const token = req.cookies["jwt"]
+    if (token) {
+        // console.log(jwt)
+        RemoveToken(token, (err: any, response: any) => {
+            console.log(err)
+            console.log("\n\n\n\n\n")
+            console.log(response)
+            if (response) {
+                res.clearCookie("jwt")
+                res.redirect(`https://${config.host}:${config.port}/front-serv/user-auth`);
+            }
+            else {
+                res.redirect(`https://${config.host}:${config.port}/front-serv/error`);
+            }
+        })
+    }
+    else {
+        res.sendStatus(401)
+    }
+
+
+    // req.session.destroy(() => console.log("Пользовтаель отключился"))
+    // console.log(`log out ${req.session.id}`)
+
     // })
 })
 

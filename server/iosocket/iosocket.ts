@@ -10,20 +10,24 @@ import * as protoLoader from '@grpc/proto-loader';
 import { AppAlias, TokenStatus } from '../src/enum'
 import * as cookie from 'cookie';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 
 
 const config = getConfig();
-const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 
 
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 const rootCert = fs.readFileSync(config.cert_local);
+// console.log(config.cert_local)
+// console.log(config)
+
 const grpcClient = new proto.auth.VerifyTokenService(
     `${config.host}:${config.port}`,
     grpc.credentials.createSsl(rootCert)
 );
 
-dotenv.config({ path: __dirname + '/.env' })
+dotenv.config({ path: path.join(__dirname, "..", '/.env') })
 
 const app = express()
 

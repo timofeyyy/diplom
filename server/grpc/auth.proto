@@ -5,6 +5,7 @@ package auth;
 service VerifyTokenService {
   rpc VerifyToken (JWTRequest) returns (VerifyTokenResponse);
   rpc SaveToken (JWTRequest) returns (VerifyTokenResponse);
+  rpc RemoveToken (JWTRequest) returns (VerifyTokenResponse);
 }
 
 message JWTRequest {

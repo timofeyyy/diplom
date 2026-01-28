@@ -123,10 +123,10 @@ app.get("/logout", (req, res) => {
     // res.redirect("/login")
     // console.log(`log out ${req.session.id}`)
     // req.logOut(() => {
-    res.clearCookie("jwt");
+    // res.clearCookie("jwt");
     // req.session.destroy(() => console.log("Пользовтаель отключился"))
     // console.log(`log out ${req.session.id}`)
-    res.redirect("/user-auth");
+    // res.redirect("/user-auth");
     // })
 });
 app.listen(10000, () => console.log("auth"));

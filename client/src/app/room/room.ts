@@ -38,7 +38,14 @@ export class Room implements AfterViewInit {
     this.appConfig.getConfig().subscribe((config: any) => {
       console.log(config)
       this.config = config
-      console.log(document.cookie)
+      const cookies = document.cookie.split("; ")
+      const jwt = cookies.find((val: string) => val.toLowerCase().includes("jwt"))
+
+      if(!jwt) {
+        this.router.navigateByUrl("/user-auth")
+        return;
+      }
+      console.log()
       const query: Map<string, string> = new Map(Object.entries((this.route.snapshot.queryParamMap as any).params))
       this.roomId = query.get("roomId")
       // this.userName = query.get("userName")
@@ -51,6 +58,7 @@ export class Room implements AfterViewInit {
       });
       this.socket.on('connect_error', (err) => {
         console.log('Connection error:', err.message);
+        this.router.navigateByUrl("/error")
       });
       this.socket.on('connect', () => {
         console.log("connected")

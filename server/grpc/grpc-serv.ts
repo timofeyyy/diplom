@@ -6,7 +6,7 @@ import { TokenStatus } from '../src/enum';
 
 import { getConfig } from '../src/app-config';
 const config = getConfig();
-const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts.auth);
+const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 const server = new grpc.Server();
 
@@ -59,6 +59,28 @@ server.addService(proto.auth.VerifyTokenService.service, {
                     status: TokenStatus.EXISTS,
                     regDate: date
                 })
+            })
+            .catch((err: any) => {
+                callback(err, null)
+            })
+    },
+    RemoveToken: (call: any, callback: any) => {
+        redisClient.connect()
+            .then(async (client: redis.RedisClientType) => {
+                const jwtId = call.request.id;
+                let tokensStr = await client.get("tokens");
+                let tokens: Record<string, string> = tokensStr ? JSON.parse(tokensStr) : {};
+                const response: any = {}
+                console.log(tokens, jwtId)
+                if (tokens[jwtId]) {
+                    delete tokens[jwtId];
+                    response.status = TokenStatus.EXISTS
+                    await client.set("tokens", JSON.stringify(tokens))
+                }
+                else {
+                    response.status = TokenStatus.INVALID
+                }
+                callback(null, response)
             })
             .catch((err: any) => {
                 callback(err, null)
