@@ -10,7 +10,7 @@ const server = new grpc.Server();
 server.addService(proto.hello.HelloService.service, {
     Hello: (call: any, callback: any) => {
         const num = call.request.number;
-console.log("hello from client");
+	console.log("hello from client");
         callback(null, {
             result: num + 1
         });

@@ -15,10 +15,10 @@ const config = getConfig()
 const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 
-const rootCert = fs.readFileSync(config.cert_local);
+const rootCert = fs.readFileSync(config.root_ca_pem);
 
 const grpcClient = new proto.auth.VerifyTokenService(
-    `${config.host}:${config.port}`,
+    `localhost:${config.port}`,
     grpc.credentials.createSsl(rootCert)
 );
 

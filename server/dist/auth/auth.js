@@ -47,10 +47,11 @@ const protoLoader = __importStar(require("@grpc/proto-loader"));
 const app_config_1 = require("../src/app-config");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const config = (0, app_config_1.getConfig)();
 const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.auth);
 const proto = grpc.loadPackageDefinition(pkgDef);
-const rootCert = fs_1.default.readFileSync(config.cert_local);
+const rootCert = fs_1.default.readFileSync(config.root_ca_pem);
 const grpcClient = new proto.auth.VerifyTokenService(`${config.host}:${config.port}`, grpc.credentials.createSsl(rootCert));
 dotenv_1.default.config({ path: path_1.default.join(__dirname, "..", '/.env') });
 const SaveToken = (token, callback) => {
@@ -58,7 +59,13 @@ const SaveToken = (token, callback) => {
         callback(err !== null && err !== void 0 ? err : null, response !== null && response !== void 0 ? response : null);
     });
 };
+const RemoveToken = (token, callback) => {
+    grpcClient.RemoveToken({ id: token }, (err, response) => {
+        callback(err !== null && err !== void 0 ? err : null, response !== null && response !== void 0 ? response : null);
+    });
+};
 const app = (0, express_1.default)();
+app.use((0, cookie_parser_1.default)());
 app.use((0, express_session_1.default)({
     secret: "secret",
     resave: false,
@@ -110,7 +117,7 @@ app.get("/google/callback", passport_1.default.authenticate("google", { failureR
                 httpOnly: false,
                 secure: true,
                 sameSite: 'none',
-                maxAge: 24 * 60 * 60 * 1000
+                maxAge: 5 * 60 * 1000
             });
             res.redirect(`https://${config.host}:${config.port}/front-serv/home`);
         }
@@ -123,10 +130,29 @@ app.get("/logout", (req, res) => {
     // res.redirect("/login")
     // console.log(`log out ${req.session.id}`)
     // req.logOut(() => {
-    // res.clearCookie("jwt");
+    // res.clearCookie("jwt")
+    // Cookies that have not been signed
+    const token = req.cookies["jwt"];
+    if (token) {
+        // console.log(jwt)
+        RemoveToken(token, (err, response) => {
+            console.log(err);
+            console.log("\n\n\n\n\n");
+            console.log(response);
+            if (response) {
+                res.clearCookie("jwt");
+                res.redirect(`https://${config.host}:${config.port}/front-serv/user-auth`);
+            }
+            else {
+                res.redirect(`https://${config.host}:${config.port}/front-serv/error`);
+            }
+        });
+    }
+    else {
+        res.sendStatus(401);
+    }
     // req.session.destroy(() => console.log("Пользовтаель отключился"))
     // console.log(`log out ${req.session.id}`)
-    // res.redirect("/user-auth");
     // })
 });
 app.listen(10000, () => console.log("auth"));

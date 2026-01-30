@@ -107,6 +107,28 @@ server.addService(proto.auth.VerifyTokenService.service, {
             .catch((err) => {
             callback(err, null);
         });
+    },
+    RemoveToken: (call, callback) => {
+        connection_1.default.connect()
+            .then((client) => __awaiter(void 0, void 0, void 0, function* () {
+            const jwtId = call.request.id;
+            let tokensStr = yield client.get("tokens");
+            let tokens = tokensStr ? JSON.parse(tokensStr) : {};
+            const response = {};
+            console.log(tokens, jwtId);
+            if (tokens[jwtId]) {
+                delete tokens[jwtId];
+                response.status = enum_1.TokenStatus.EXISTS;
+                yield client.set("tokens", JSON.stringify(tokens));
+            }
+            else {
+                response.status = enum_1.TokenStatus.INVALID;
+            }
+            callback(null, response);
+        }))
+            .catch((err) => {
+            callback(err, null);
+        });
     }
 });
 server.bindAsync('0.0.0.0:12000', grpc.ServerCredentials.createInsecure(), () => {

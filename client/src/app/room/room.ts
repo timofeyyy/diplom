@@ -58,7 +58,7 @@ export class Room implements AfterViewInit {
       });
       this.socket.on('connect_error', (err) => {
         console.log('Connection error:', err.message);
-        this.router.navigateByUrl("/error")
+        //this.router.navigateByUrl("/error")
       });
       this.socket.on('connect', () => {
         console.log("connected")
