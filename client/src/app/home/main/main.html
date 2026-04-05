@@ -1,0 +1,52 @@
+@if(action == 'create') {
+    <app-create-room (close)="action = undefined"/>
+}
+<main class="sections">
+    <section class="actions">
+        <div class="wrapper">
+            <h1>Quick actions</h1>
+            <div class="cards">
+                <div class="card">
+                    <div class="icon">
+                        <img src="/assets/images/statistic.svg" alt="stat">
+                    </div>
+                    <div class="content">
+                        <h3>Statistic</h3>
+                        <p>This section gives you a clear overview of your activity in the app. </p>
+                    </div>
+                </div>
+                <div class="card" (click)="doAction('create')">
+                    <div class="icon">
+                        <img src="/assets/images/meeting.svg" alt="create">
+                        <!-- <img src="/assets/images/button_7586854.png" alt=""> -->
+                    </div>
+                    <div class="content">
+                        <h3>Create room</h3>
+                        <p>Launch a new meeting and invite participants instantly.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <!-- <img src="/assets/images/meeting-room.png" alt=""> -->
+                        <img src="/assets/images/join-room.svg" alt="join_id">
+                        <!-- <img src="/assets/images/meeting1.svg" alt=""> -->
+                    </div>
+                    <div class="content">
+                        <h3>Join by room id</h3>
+                        <p>Connect to an existing room using a unique ID.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <img src="/assets/images/qr-code.svg" alt="qr_code">
+                    </div>
+                    <div class="content">
+                        <h3>Join by qe code</h3>
+                        <p>Scan a QR code to join a meeting in seconds. A fast and convenient way to connect.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>

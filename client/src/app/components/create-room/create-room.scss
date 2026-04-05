@@ -1,0 +1,72 @@
+@use "../../../styles/variables/variables.scss" as v;
+
+.window {
+    border-radius: .5vw;
+    background-color: #1e1d22;
+    padding: max(1vw, 10px);
+    width: max(20vw, 200px);
+    header {
+        h3 {
+            color: white;
+            font-size: v.$app-size4-vw;
+        }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+            margin: 0;
+            width: v.$icon-width4;
+            cursor: pointer;
+        }
+        h3 {
+            margin: 0;
+        }
+    }
+    form {
+        padding: max(1vw, 10px) 0;
+        // .field-horizontal {
+        //     display: flex;
+        // }
+        // .field {
+        //     display: flex;
+        //     justify-content: flex-start;
+        //     margin: 0 max(1vw, 10px) max(1vw, 10px) 0;
+        //     label {
+        //         color: white;
+        //         font-size: v.$app-size5-5-vw;
+        //     }
+        //     .switcher {
+        //         margin-left: max(1vw, 10px);
+        //     }
+        //     input {
+        //         margin: 0;
+        //         transition: 0.3s ease all;
+        //         color: white;
+        //         background-color: transparent;
+        //         border: none;
+        //         padding: max(0.25vw, 2.5px) 0;
+        //         font-size: v.$app-size5-5-vw;
+        //         font-weight: lighter;
+        //         &:focus {
+        //             border: none;
+        //             outline: none;
+        //         }
+        //     }
+        // }
+
+    }
+    // footer {
+    //     button {
+    //         font-size: v.$app-size5-5-vw;
+    //         color: white;
+    //         border: none;
+    //         outline: none;
+    //         background-color: transparent;
+    //         border-radius: 0.5vw;
+    //         padding: max(0.5vw, 5px) max(1vw, 10px);
+    //         margin: 0 0 0 max(0.25vw, 2.5px);
+    //         cursor: pointer;
+    //         background-color: #2748c3;
+    //     }
+    // }
+}

@@ -1,0 +1,182 @@
+$themes: (
+  // --- уже были ---
+  bright-playful: (
+    first: #f6f7fb,
+    second: #4f4dbb,
+    third: #ff7a59,
+    fourth: #ffd166,
+    fifth: #06d6a0
+  ),
+
+  minimal-light: (
+    first: #ffffff,
+    second: #f1f3f5,
+    third: #dee2e6,
+    fourth: #495057,
+    fifth: #212529
+  ),
+
+  dark-modern: (
+    first: #121212,
+    second: #1e1e2f,
+    third: #4f4dbb,
+    fourth: #ff4d6d,
+    fifth: #f1f1f1
+  ),
+
+  // --- НОВЫЕ ТЕМЫ ---
+
+  // Corporate / Business
+  corporate-blue: (
+    first: #f4f7fb,
+    second: #1e3a8a,
+    third: #3b82f6,
+    fourth: #93c5fd,
+    fifth: #1f2937
+  ),
+
+  // Monochrome (gray scale)
+  monochrome: (
+    first: #f8f9fa,
+    second: #e9ecef,
+    third: #adb5bd,
+    fourth: #6c757d,
+    fifth: #212529
+  ),
+
+  // Complementary (blue + orange)
+  complementary-blue-orange: (
+    first: #f4f7fb,
+    second: #2563eb,
+    third: #f97316,
+    fourth: #fdba74,
+    fifth: #1e293b
+  ),
+
+  // Analogous (blue → violet → pink)
+  analogous-purple: (
+    first: #f5f3ff,
+    second: #4f46e5,
+    third: #7c3aed,
+    fourth: #ec4899,
+    fifth: #1f2937
+  ),
+
+  // Triadic (balanced colorful)
+  triadic: (
+    first: #fefefe,
+    second: #ef4444,
+    third: #22c55e,
+    fourth: #3b82f6,
+    fifth: #111827
+  ),
+
+  // Pastel
+  pastel-dream: (
+    first: #fffafd,
+    second: #ffc8dd,
+    third: #cdb4db,
+    fourth: #bde0fe,
+    fifth: #a2d2ff
+  ),
+
+  // Retro / Vintage
+  retro-vintage: (
+    first: #fdf0d5,
+    second: #d4a373,
+    third: #b08968,
+    fourth: #7f5539,
+    fifth: #3a2f2f
+  ),
+
+  // Neon / Cyberpunk
+  cyberpunk: (
+    first: #0a0a0f,
+    second: #ff00ff,
+    third: #00ffff,
+    fourth: #ffea00,
+    fifth: #ffffff
+  ),
+
+  // Luxury (black + gold)
+  luxury: (
+    first: #0b0b0b,
+    second: #1c1c1c,
+    third: #d4af37,
+    fourth: #f5e6ca,
+    fifth: #ffffff
+  ),
+
+  // Nature / Earth
+  earthy: (
+    first: #f5f5dc,
+    second: #606c38,
+    third: #283618,
+    fourth: #dda15e,
+    fifth: #bc6c25
+  ),
+
+  // Ocean / Blue tones
+  ocean: (
+    first: #eef6fb,
+    second: #0077b6,
+    third: #00b4d8,
+    fourth: #90e0ef,
+    fifth: #03045e
+  ),
+
+  // Sunset gradient style
+  sunset: (
+    first: #fff1e6,
+    second: #ff6b6b,
+    third: #f06595,
+    fourth: #cc5de8,
+    fifth: #5f3dc4
+  ),
+
+  // Forest dark
+  forest-dark: (
+    first: #0b1d13,
+    second: #1b4332,
+    third: #2d6a4f,
+    fourth: #40916c,
+    fifth: #d8f3dc
+  ),
+
+  // Tech / SaaS
+  saas-clean: (
+    first: #f8fafc,
+    second: #4f4dbb,
+    third: #6366f1,
+    fourth: #a5b4fc,
+    fifth: #1e293b
+  ),
+
+  // Warm minimal
+  warm-minimal: (
+    first: #fffaf5,
+    second: #f4a261,
+    third: #e76f51,
+    fourth: #e9c46a,
+    fifth: #264653
+  )
+);
+
+
+
+@mixin theme($theme-name, $theme-map) {
+  body.#{$theme-name} {
+    --color-bg: map-get($theme-map, first);
+    --color-primary: map-get($theme-map, second);
+    --color-secondary: map-get($theme-map, third);
+    --color-accent: map-get($theme-map, fourth);
+    --color-text: map-get($theme-map, fifth);
+
+    --gradient: linear-gradient(
+      135deg,
+      map-get($theme-map, second),
+      map-get($theme-map, third),
+      map-get($theme-map, fourth)
+    );
+  }
+}

@@ -1,0 +1,44 @@
+@use "../../../../../styles/variables/variables.scss" as v;
+
+.field {
+    label {
+        font-weight: 500;
+        color: white;
+        font-size: v.$app-size6-vw;
+        transition: 0.3s ease all;
+        padding-left: max(.5vw, 5px);
+        margin: 0;
+    }
+    .option {
+        display: flex;
+    align-items: center;
+    margin-bottom: max(.25vw, 2.5px);
+    }
+
+    transition: 0.3s ease all;
+    margin: max(1vw, 10px) 0;
+    // justify-content: flex-end;
+    // width: 50%;
+    // border-bottom: 0.1vw solid v.$border-color;
+ 
+    width: -webkit-fill-available;
+    input {
+        width:  v.$app-size6-vw;
+        margin: 0;
+        transition: 0.3s ease all;
+        color: white;
+        background-color: transparent;
+        border: none;
+        padding: max(0.25vw, 2.5px) 0;
+        font-size: v.$app-size5-5-vw;
+        font-weight: lighter;
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+    img {
+        margin-right: max(0.5vw, 5px);
+        width: v.$icon-width6;
+    }
+}

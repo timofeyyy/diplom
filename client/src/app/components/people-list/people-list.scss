@@ -1,0 +1,90 @@
+@use "../../../styles/variables/variables.scss" as v;
+
+ul {
+    padding: max(1vw, 10px) 0;
+    li {
+        cursor: pointer;
+        &:hover {
+            background-color: rgba($color: v.$border-color, $alpha: 0.4);
+        }
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: max(0.5vw, 5px) max(1vw, 10px);
+        img {
+            margin: 0 max(1vw, 10px) 0 0;
+            width: v.$icon-width2;
+            height: v.$icon-width2;
+            border-radius: 50%;
+        }
+        .info {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-weight: lighter;
+            p {
+                margin: 0;
+            }
+            .username {
+                color: white;
+                font-size: v.$app-size5-5-vw;
+            }
+            .when {
+                color: gray;
+                font-size: v.$app-size5-5-vw;
+            }
+        }
+    }
+    .phantom {
+        align-items: start;
+        img {
+            background-color: v.$home-bg;
+            position: relative;
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: v.$home-bg;
+                animation: phantom 1s ease infinite;
+            }
+        }
+        .info {
+            margin: max(.5vw, 5px);
+            padding: max(.5vw, 5px);
+            width: max(10vw, 100px);
+            animation: phantom 1s ease infinite;
+            border-radius: .5vw;
+        }
+    }
+    .empty {
+        font-size: v.$app-size5-vw;
+        color: gray;
+        font-weight: bold;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        cursor: auto;
+        &:hover {
+            background: none;
+        }
+    }
+}
+
+@keyframes phantom {
+    0% {
+        background-color: rgb(82, 82, 82);
+    }
+
+    50% {
+        background-color: gray;
+    }
+
+    100% {
+        background-color: rgb(82, 82, 82);
+    }
+}

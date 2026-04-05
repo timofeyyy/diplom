@@ -1,0 +1,18 @@
+<div class="attachment-popup">
+    <div class="attachment-popup-window">
+        <p class="attachemnt-header">{{attahcments.length}} Изображений выбрано</p>
+        <app-attachments-displayer class="attachment-displayer" [attahcments]="displayedAttachments" [deleteOption]="true" />
+        <footer class="footer-wrapper">
+            <div class="field field-underlined" [ngClass]="{'focused': focus}">
+                <input [(ngModel)]="message" [ngModelOptions]="{ standalone: true }" type="text" placeholder="Сообщение"
+                    (focus)="focus = true" (blur)="focus = false">
+                
+            </div>
+            <div class="footer-actions">
+                <button (click)="add()">Добавить</button>
+                <button (click)="save()" >Отправить</button>
+                <button (click)="close()">Назад</button>
+            </div>
+        </footer>
+    </div>
+</div>

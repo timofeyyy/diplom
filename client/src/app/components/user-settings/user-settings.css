@@ -1,0 +1,67 @@
+.popup-window {
+  align-items: flex-start;
+}
+.popup-window .window {
+  margin: max(5vw, 50px) 0;
+  overflow: hidden;
+  border-radius: 0.5vw;
+  width: max(25vw, 250px);
+  background-color: #171717;
+}
+.popup-window .window header {
+  background-color: #1e1d22;
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+  display: flex;
+  align-items: center;
+  padding: max(1vw, 10px);
+}
+.popup-window .window header * {
+  margin: 0;
+}
+.popup-window .window header img {
+  width: max(1vw, 10px);
+  cursor: pointer;
+}
+.popup-window .window header h3 {
+  color: white;
+  font-weight: 500;
+  font-size: max(1.25vw, 12.5px);
+}
+.popup-window .window header .right {
+  width: 50%;
+  margin-left: max(1vw, 10px);
+  display: flex;
+  justify-content: flex-end;
+}
+.popup-window .window header .right * {
+  margin-left: max(1vw, 10px);
+}
+.popup-window .window header .left {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+.popup-window .window header .left * {
+  margin-right: max(1vw, 10px);
+}
+.popup-window .window .main {
+  overflow-y: scroll;
+  max-height: 70vh;
+  transition: 0.3s all ease;
+}
+.popup-window .window .main .component {
+  animation: appear ease-in-out 0.3s;
+}
+
+.component {
+  position: relative;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=user-settings.css.map */

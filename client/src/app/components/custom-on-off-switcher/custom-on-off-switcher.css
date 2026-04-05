@@ -1,0 +1,67 @@
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: max(2.5vw, 25px);
+  height: max(1.2vw, 12px);
+}
+
+.toggle-switch .toggle-input {
+  display: none;
+}
+
+.toggle-switch .toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max(2.5vw, 25px);
+  height: max(1.2vw, 12px);
+  background-color: #2196f3;
+  border-radius: max(1vw, 10px);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch .toggle-label::before {
+  content: "";
+  position: absolute;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+  border-radius: 50%;
+  top: max(0.1vw, 1px);
+  left: max(0.1vw, 1px);
+  background-color: #fff;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all ease 0.3s;
+}
+
+.toggle-switch .toggle-input:checked + .toggle-label {
+  background-color: #4caf50;
+}
+
+.toggle-switch .toggle-input:checked + .toggle-label::before {
+  left: max(1.4vw, 14px);
+}
+
+.toggle-switch.light .toggle-label {
+  background-color: #bebebe;
+}
+
+.toggle-switch.light .toggle-input:checked + .toggle-label {
+  background-color: #9b9b9b;
+}
+
+.toggle-switch.light .toggle-input:checked + .toggle-label::before {
+  left: max(1.4vw, 14px);
+}
+
+.toggle-switch.dark .toggle-label {
+  background-color: #4b4b4b;
+}
+
+.toggle-switch.dark .toggle-input:checked + .toggle-label {
+  background-color: #717171;
+}
+
+.toggle-switch.dark .toggle-input:checked + .toggle-label::before {
+  left: max(1.4vw, 14px);
+}/*# sourceMappingURL=custom-on-off-switcher.css.map */

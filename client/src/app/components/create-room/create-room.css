@@ -1,0 +1,26 @@
+.window {
+  border-radius: 0.5vw;
+  background-color: #1e1d22;
+  padding: max(1vw, 10px);
+  width: max(20vw, 200px);
+}
+.window header h3 {
+  color: white;
+  font-size: max(1.25vw, 12.5px);
+}
+.window header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.window header img {
+  margin: 0;
+  width: max(1.5vw, 15px);
+  cursor: pointer;
+}
+.window header h3 {
+  margin: 0;
+}
+.window form {
+  padding: max(1vw, 10px) 0;
+}/*# sourceMappingURL=create-room.css.map */

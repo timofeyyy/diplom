@@ -1,29 +1,26 @@
+@if(response) {
+    <app-notification  [body]="response!" (closeEvent)="response = undefined" />
+} 
+<app-popup-settings-options />
 <div class="home">
-    <!-- <header>
-        
-    </header>
+    <app-navigator class="navigator" />
     <main>
-        <aside>
-
-        </aside>
-        <section>
-
-        </section>
-    </main> -->
-    <aside [ngClass]="{collapse: collapse}">
-        <div class="header">
-            <div class="logo">
-                <p>VideoConferenceApp</p>
-                <!-- <img src="/favicon.ico" alt="logo"> -->
-            </div>
-            
-            <div class="extension-holder" (click)="collapse=!collapse">
-                <img [src]="'assets/images/collapse.svg'" alt="collapse">
-            </div>
+        <app-horizontal-header />
+        <div class="content">
+            @switch (action) {
+                @case (TabEnum.HOME) {
+                    <app-main />
+                }
+                @case (TabEnum.FRIENDS) {
+                    <app-friends />
+                }
+            }
         </div>
-        <app-navigator class="navigator" [collapse]="collapse" />
-    </aside>
-    <main>
-
     </main>
+   @if(notificationState) {
+     <app-notifications class="notofications"/>
+   }
+   @if(attachmentsState) {
+        <app-attachments-popup />
+   }
 </div>

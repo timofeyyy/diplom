@@ -1,55 +1,144 @@
-@use "../../styles/variables.scss" as v;
+@use "../../styles/variables/variables.scss" as v;
 
-nav {
-            padding: 0.5vw;
-
-    ul {
-        li {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            list-style-type: none;
-            text-align: center;
-            padding: 0.35vw;
-            border-radius: v.$app-border-radius;
-            margin-bottom: 0.5vw;
-            img, a {
-                margin: 0;
-            }
-            a {
-                font-size: v.$app-size6-vw;
+aside {
+    margin: 0;
+    height: 100%;
+    width: max(15vw, 150px);
+    background-color: v.$navigator-bg;
+    border-right: 0.025vw solid v.$border-color;
+    // height: 100%;
+    // display: flex;
+    // justify-content: space-between;
+    // border: 0.025vw solid rgb(54, 54, 54);
+    border-radius: 0 .5vw .5vw 0;
+    header {
+        // background-color: #1e1d22;
+        border-bottom: 0.025vw solid rgb(45, 45, 45);
+        padding: 0.5vw 1vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .logo {
+            p {
+                font-size: v.$app-size5-5-vw;
                 color: white;
-                text-decoration: none;
-                // &:before {
-                //     margin: 0 auto;
+                // &::before {
+                //     content: url("../../../public/favicon.ico");
+                //     width: v.$icon-width5;
+                //     height: v.$icon-height5;
                 //     display: block;
-                // width: v.$icon-width4;
-                // height: v.$icon-width4;
-                //     content: url("../../assets/images/main.svg");
                 // }
             }
+        }
+        .extension-holder {
+            cursor: pointer;
+            padding: 0.25vw;
+            outline: 0.1vw solid gray;
+            border-radius: .5vw;
+            margin-right: 0;
+            width: max-content;
+            display: flex;
+            justify-self: flex-end;
             img {
-                width: v.$icon-width3;
-                height: v.$icon-height3;
-                // margin-right: .5vw;
+                width: v.$icon-width5;
+                // height: v.$icon-width5;
             }
         }
-        .default {
-            &:hover {
-                background-color: gray;
+        .logo,
+        .extension-holder {
+            margin: 0;
+            img {
+                transform: rotate(-180deg);
             }
         }
-        .selected {
-            background-color: #155cce;
+    }
+    // .navigator {
+    //     margin: 0.5vw 0;
+    //     display: block;
+    // }
+
+    nav {
+        padding: 1vw 0.65vw;
+
+        ul {
+            li {
+                cursor: pointer;
+                display: flex;
+                justify-content: flex-start;
+                // align-items: center;
+                list-style-type: none;
+                text-align: center;
+                padding: 0.35vw;
+
+                border-radius: .5vw;
+                margin-bottom: 0.5vw;
+                div {
+                    position: relative;
+                    margin: 0;
+                    width: 100%;
+                }
+                p {
+                    margin: 0;
+                    height: 100%;
+                    line-height: 1;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    text-align: left;
+                    width: 100%;
+                    font-weight: lighter;
+                    font-size: v.$app-size5-5-vw;
+                    // font-size: max(0.7vw, 7px);
+                    color: white;
+                    text-decoration: none;
+                    padding-left: 0.5vw;
+                    // &:before {
+                    //     margin: 0 auto;
+                    //     display: block;
+                    // width: v.$icon-width4;
+                    // height: v.$icon-width4;
+                    //     content: url("../../assets/images/main.svg");
+                    // }
+                }
+                img {
+                    margin: 0;
+                    width: v.$icon-width5;
+                    // height: v.$icon-height3;
+                    // margin-right: .5vw;
+                }
+            }
+            .default {
+                &:hover {
+                    background-color: v.$li-hover-color;
+                }
+            }
+            .selected {
+                background-color: v.$theme-color-blue;
+            }
         }
     }
 }
 
 .collapse {
+    width: unset;
     ul {
         li {
-            a {
+            p {
                 display: none;
+            }
+            justify-content: center;
+            // padding: 0.35vw;
+        }
+    }
+    header {
+        padding: 0.5vw 0;
+        .logo {
+            display: none;
+        }
+        .extension-holder {
+            margin: 0 auto;
+            img {
+                transform: rotate(0deg);
             }
         }
     }

@@ -1,0 +1,11 @@
+<main class="custom-alert">
+    <div class="content">
+            <div class="upper">
+                <h6 [ngStyle]="{'display': header ? 'block' : 'none' }">{{header}}</h6>
+                <p>{{parahraph}}</p>
+            </div>
+            <div class="bottom">
+                <button (click)="close()">Close</button>
+            </div>
+        </div>
+</main>

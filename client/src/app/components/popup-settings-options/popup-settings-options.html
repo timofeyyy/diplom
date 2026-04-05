@@ -1,0 +1,7 @@
+@if(action) {
+    @switch (action.action) {
+        @case (SettingsOptions.USER_SETTINGS) {
+            <app-user-settings [user]="action.payload.user" [state]="action.payload.mode" />
+        }
+    }
+}

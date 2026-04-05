@@ -1,0 +1,81 @@
+@use "../../../../styles/variables/variables.scss" as v;
+
+.phantom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .field-change {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.avatar {
+    padding: max(1vw, 10px);
+    overflow: hidden;
+    border-radius: .5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: max(0.5vw, 5px);
+    img {
+        border-radius: 50%;
+        width: max(5vw, 50px);
+    }
+    p {
+        color: lightgray;
+        padding-top: 0.5vw;
+        font-size: v.$app-size5-vw;
+    }
+    .photo {
+        position: relative;
+        .upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: v.$icon-width4;
+            height: v.$icon-width4;
+            background-color: v.$theme-color-blue;
+            padding: max(0.4vw, 4px);
+            overflow: hidden;
+            display: flex;
+            border-radius: 50%;
+            border: 0.15vw solid #1e1d22;
+            cursor: pointer;
+            img {
+                border-radius: 50%;
+                width: 100%;
+            }
+        }
+    }
+}
+.fields {
+    background-color: v.$navigator-bg;
+    padding: max(1vw, 10px) 0;
+    .field {
+        &:hover {
+            background-color: v.$border-color;
+        }
+        display: flex;
+        justify-content: flex-start;
+        cursor: pointer;
+        font-size: v.$app-size5-5-vw;
+        font-weight: lighter;
+        padding: max(1vw, 10px);
+        img {
+            margin: 0 max(1vw, 10px) 0 0;
+            width: v.$icon-width5;
+        }
+        .value {
+            margin: 0 0 0 auto;
+            color: grey;
+            text-align: end;
+        }
+        .key {
+            margin: 0;
+            color: white;
+        }
+    }
+}

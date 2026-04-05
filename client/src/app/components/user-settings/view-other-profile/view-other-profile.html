@@ -1,0 +1,69 @@
+<section class="avatar">
+    <img [src]="opponent.avatar" alt="">
+    <p>{{opponent.userName}}</p>
+    @if(friendStatus) {
+        @switch (friendStatus) {
+            @case (FriendStatus.UNKNOWN) {
+                <button class="send" (click)="receiverRequestRealTime(false)">Send friend request</button>
+            }
+            @case (FriendStatus.SUBSCRIBED) {
+                <button class="sent" (click)="receiverRequestRealTime(true)">Friend request sent</button>
+            }
+            @case (FriendStatus.DECIDE) {
+                <button class="accept" (click)="receiverRequestRealTime(false)">Accept</button>
+                <button class="delete" (click)="senderRequestRealTime(true)">Decline</button>
+            }
+            @case (FriendStatus.FREIND) {
+                <button class="delete" (click)="receiverRequestRealTime(true)">Remove friend</button>
+            }
+        }
+    }
+    
+    
+</section>
+<section class="fields">
+    <div class="field">
+        <p class="value">
+            {{opponent.email}}
+        </p>
+        <p class="key">
+            email
+        </p>
+    </div>
+    
+    <div class="field">
+        <p class="value">
+            {{opponent.birthday ?? "unset"}}
+        </p>
+        <p class="key">
+            birthday
+        </p>
+    </div>
+</section>
+@if(mockFriends.length) {
+<div class="friends">
+    <div class="head">
+        <h3>Friends</h3>
+        <div class="search">
+            <img src="/assets/images/search.svg" alt="">
+            <input class="search" type="text" placeholder="Search" (change)="search($event)">
+
+        </div>
+    </div>
+    <app-people-list [currentList]="mockFriends" />
+    <!-- <ul>
+        @for (friend of mockFriends; track friend._id) {
+        <li>
+            <img [src]="friend.avatar" alt="friends">
+            <div class="info">
+                <p class="username">{{friend.userName}}</p>
+                <p class="when">last seen </p>
+            </div>
+        </li>
+        }
+        @empty {
+        <li>List is empty</li>
+        }
+    </ul> -->
+</div>
+}

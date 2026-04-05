@@ -1,14 +1,16 @@
-@font-face {
-    font-family: "FrendlySans";
-    src: url("/assets/fonts/FriendlySans-Regular.otf");
-}
+@use "../../styles/variables/variables.scss" as v;
 
-$common-large-size: max(2vw, 20px);
-$common-medium-size: max(1vw, 12px);
-$common-low-size: max(0.8vw, 10px);
+// @font-face {
+//     font-family: "FrendlySans";
+//     src: url("/assets/fonts/FriendlySans-Regular.otf");
+// }
 
-$space-vertical-desktop: 1vw;
-$space-vertical-mobile: 1.5vw;
+// $common-large-size: max(2vw, 20px);
+// $common-medium-size: max(1vw, 12px);
+// $common-low-size: max(0.8vw, 10px);
+
+// $space-vertical-desktop: 1vw;
+// $space-vertical-mobile: 1.5vw;
 
 // * {
 // font-family: 'FrendlySans';
@@ -23,143 +25,214 @@ main {
     justify-content: center;
     // background-color: #171717;
     background: linear-gradient(to bottom, #151e2f 0%, #253a53 100%);
-    form {
+}
+form {
+    .wrappers {
+        display: flex;
+    }
+    .wrapper {
+        margin: 0 auto;
+        // width: 100%;
+        width: max(72%, 230px);
+        transition: 0.3s ease all;
+    }
+    .bottom {
+        width: 100%;
+    }
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: max(30%, 350px);
+    height: max(unset, 450px);
+    // background-color: #171717;
+    background-color: v.$auth-bg;
+    border-radius: 1vw;
+    padding: max(2vw, 20px);
+    color: white;
+    text-align: center;
+    h3 {
+        font-size: max(2vw, 20px);
+    }
+    p {
+        font-weight: lighter;
+        font-size: v.$app-size5-vw;
+        font-weight: lighter;
+        padding: max(1.5vw, 15px) 0;
+    }
+    span {
+        font-size: v.$app-size5-vw;
+        font-weight: lighter;
+    }
+    .suggest {
+        display: block;
+    }
+    .form-switch {
+        text-decoration: underline;
+        color: rgb(17, 96, 214);
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .recovery {
+        color: gray;
+        padding-top: max(0.5vw, 5px);
+        font-size: v.$app-size5-5-vw;
+        font-weight: lighter;
+        display: block;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .field {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        // width: max(70%, 230px);
+        width: 100%;
+        margin-bottom: 1vw;
+        // padding-bottom: 0.25vw;
+        input {
+            transition: 0.3s ease all;
+            width: 100%;
+            // padding: 0.75vw;
+            padding: max(0.75vw, 8px);
+            border-radius: 0.5vw;
+            font-size: v.$app-size5-5-vw;
+            // font-size: $common-low-size;
+            background-color: #2e2e2e;
+            color: white;
+        }
+        input:focus,
+        input {
+            outline: none;
+            border: none;
+        }
+        label,
+        input {
+            margin: 0;
+        }
+        label {
+            transition: 0.3s ease all;
+            font-weight: bolder;
+            margin: 0;
+            padding-bottom: 0.5vw;
+            font-size: v.$app-size5-5-vw;
+        }
+        .warning {
+            display: none;
+        }
+    }
+
+    button {
+        transition: 0.3s ease all;
+        // width: 70%;
+        width: 100%;
+        // width: max(72%, 230px);
+        padding: max(0.5vw, 8px);
+        margin: max(1vw, 10px) 0;
+        border-radius: 0.5vw;
+        font-weight: bold;
+        border: none;
+        font-size: v.$app-size5-vw;
+        background-color: white;
+        color: black;
+        cursor: pointer;
+        &:hover {
+            background-color: rgb(23, 173, 68);
+            color: white;
+        }
+    }
+
+    .other {
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
-        width: max(30%, 380px);
-        height: max(unset, 450px);
-        // background-color: #171717;
-        background-color: #0e131d;
-        border-radius: 1vw;
-        padding: 2.5vw;
-        color: white;
-        text-align: center;
-        h3 {
-            font-size: $common-large-size;
+        width: 70%;
+        .line {
+            background-color: lightgray;
+            // width: .1vw;
+            height: 0.1vw;
+            margin: 0.5vw 0;
+            width: 100%;
         }
         p {
-            font-weight: lighter;
-            font-size: $common-medium-size;
-            font-weight: lighter;
-            padding: max(1.5vw, 15px) 0;
+            font-size: v.$app-size5-5-vw;
+            // font-size: $common-low-size;
+            margin: 0 max(0.25vw, 2.5px);
+            color: lightgray;
+            text-transform: uppercase;
         }
-        span {
-            font-size: $common-medium-size;
-            font-weight: lighter;
-        }
-        .form-switch {
-            text-decoration: underline;
-            color: rgb(17, 96, 214);
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .field {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-            width: max(70%, 230px);
-            padding-bottom: max($space-vertical-desktop, 10px);
-            input {
-                width: 100%;
-                // padding: 0.75vw;
-                padding: max(0.75vw, 8px);
-                border-radius: 0.5vw;
-                font-size: $common-low-size;
-                background-color: #2e2e2e;
-                color: white;
-            }
-            input:focus,
-            input {
-                outline: none;
-                border: none;
-            }
-            label,
-            input {
-                margin: 0;
-            }
-            label {
-                font-weight: bolder;
-                margin: 0;
-                padding-bottom: 0.5vw;
-                font-size: $common-low-size;
-            }
-        }
-
-        button {
-            width: 70%;
-            padding: max(0.5vw, 8px);
-            margin: max($space-vertical-desktop, 10px) 0;
+    }
+    .auth-options {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .option {
+            margin: 0 0.5vw;
             border-radius: 0.5vw;
-            font-weight: bold;
-            border: none;
-            font-size: $common-medium-size;
-        }
-
-        .other {
+            border: 0.1vw solid lightgray;
+            padding: max(0.5vw, 10px) max(1vw, 15px);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 70%;
-            .line {
-                background-color: lightgray;
-                // width: .1vw;
-                height: 0.1vw;
-                margin: 0.5vw 0;
-                width: 100%;
-            }
-            p {
-                font-size: $common-low-size;
-                margin: 0 0.5vw;
-                color: lightgray;
-                text-transform: uppercase;
-            }
-        }
-        .auth-options {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            .option {
-                margin: 0 0.5vw;
-                border-radius: 0.5vw;
-                border: 0.1vw solid lightgray;
-                padding: max(0.5vw, 10px) max(1vw, 15px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                img {
-                    width: max(3vw, 20px);
-                    height: max(3vh, 20px);
-                }
+            cursor: pointer;
+            img {
+                width: max(3vw, 20px);
+                height: max(3vh, 20px);
             }
         }
     }
+
+    .invalid {
+        margin-bottom: 0;
+        input {
+            color: v.$invalid-color;
+            outline: 0.15vw solid v.$invalid-color;
+        }
+        label {
+            color: v.$invalid-color;
+        }
+        .warning {
+            display: flex;
+            align-items: flex-end;
+            // font-size: v.$icon-width6;
+            font-size: v.$app-size5-5-vw;
+            text-align: left;
+            // margin: 0.5vw 0;
+            &::before {
+                margin-bottom: auto;
+                content: url("../../assets/images/warning.svg");
+                display: block;
+                width: v.$app-size5-5-vw;
+                padding-right: 0.25vw;
+            }
+            margin: 0.5vw 0;
+            padding: 0;
+        }
+    }
 }
-
-
 @media (max-width: 600px) {
     main {
-        form {
-            width: 100%;
-            height: 100%;
-            .field, button, .other {
-                width: max(50%, 200px);
-                // padding: $space-vertical-mobile 0;
-            }
-            // button {
-            //     margin: $space-vertical-mobile 0;
-            // }
-            // .auth-options {
-            //     .option {
-            //         img {
-            //             width;
-            //         }
-            //     }
-            // }
+         form {
+        width: 100%;
+        height: 100%;
+        .field,
+        button,
+        .other {
+            width: max(50%, 200px);
+            // padding: $space-vertical-mobile 0;
         }
+        // button {
+        //     margin: $space-vertical-mobile 0;
+        // }
+        // .auth-options {
+        //     .option {
+        //         img {
+        //             width;
+        //         }
+        //     }
+        // }
+    }
     }
 }

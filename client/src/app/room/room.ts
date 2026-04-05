@@ -4,14 +4,13 @@ import { Peer } from 'peerjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
-import { AppConfigService } from '../../service/app-config.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AppConfigService } from '../../service/config/app-config.service';
 
 @Component({
   selector: 'app-room',
-  imports: [NgClass, HttpClientModule],
+  imports: [NgClass],
   templateUrl: './room.html',
-  providers: [AppConfigService],
+  providers: [],
   styleUrl: './room.css',
   encapsulation: ViewEncapsulation.ShadowDom
 })
@@ -33,38 +32,37 @@ export class Room implements AfterViewInit {
     private appConfig: AppConfigService
   ) { }
 
-  config: any
+  // config: any
   ngAfterViewInit(): void {
-    this.appConfig.getConfig().subscribe((config: any) => {
-      console.log(config)
-      this.config = config
-      const cookies = document.cookie.split("; ")
-      const jwt = cookies.find((val: string) => val.toLowerCase().includes("jwt"))
+    // const config = this.appConfig.getAll()
+    // this.appConfig.getConfig().subscribe((config: any) => {
+    // console.log(config)
+    // this.config = config
+    // const cookies = document.cookie.split("; ")
+    // const jwt = cookies.find((val: string) => val.toLowerCase().includes("jwt"))
 
-      if(!jwt) {
-        this.router.navigateByUrl("/user-auth")
-        return;
-      }
-      console.log()
-      const query: Map<string, string> = new Map(Object.entries((this.route.snapshot.queryParamMap as any).params))
-      this.roomId = query.get("roomId")
-      // this.userName = query.get("userName")
-      this.userName = crypto.randomUUID()
-      console.log(`https://${config.host}:${config.port}`)
-      this.socket = io(`https://${config.host}:${config.port}`, {
-        secure: true,
-        transports: ["websocket"],
-        withCredentials: true,
-      });
-      this.socket.on('connect_error', (err) => {
-        console.log('Connection error:', err.message);
-        //this.router.navigateByUrl("/error")
-      });
-      this.socket.on('connect', () => {
-        console.log("connected")
-        this.onClientStreamLoaded()
-      });
-    })
+    // if(!jwt) {
+    //   this.router.navigateByUrl("/user-auth")
+    //   return;
+    // }
+    console.log()
+    const query: Map<string, string> = new Map(Object.entries((this.route.snapshot.queryParamMap as any).params))
+    this.roomId = query.get("roomId")
+    // this.userName = query.get("userName")
+    this.userName = crypto.randomUUID()
+    this.socket = io(`http://${this.appConfig.get('host')}:${this.appConfig.get('port')}`, {
+      path: "/conference",
+      secure: false,
+      transports: ["websocket"],
+      withCredentials: true,
+    });
+    this.socket.on('connect_error', (err) => {
+      console.log('Connection error:', err.message);
+    });
+    this.socket.on('connect', () => {
+      console.log("connected")
+      this.onClientStreamLoaded()
+    });
   }
 
 
@@ -80,12 +78,12 @@ export class Room implements AfterViewInit {
       .then(stream => {
         this.myVideoStream = stream;
         const peer = new Peer(undefined as unknown as string, {
-          host: this.config.host,
-          port: this.config.port,
-          path: "/peerjs/peerjs1",
-          secure: true,
+          host: this.appConfig.get('host'),
+          port: 8000,
+          path: "/peerjs1",
+          secure: false,
           config: {
-            iceServers: this.config.iceServers
+            iceServers: this.appConfig.get('iceServers')
           }
         });
         peer.on("call", call => {
@@ -93,14 +91,13 @@ export class Room implements AfterViewInit {
           // console.log("incoming call");
           call.answer(stream);
 
-          //добавить фантом, лодер
           console.log(`addVideoStream call`)
           call.on("stream", userVideoStream => this.addVideoStream(userVideoStream, call.peer));
         });
 
         peer.on("open", id => {
           // console.log("my peer id:", id);
-          this.socket!.emit("join-room", this.roomId, id, this.userName);
+          this.socket!.emit("join-video-room", this.roomId, id, this.userName);
           console.log(`addVideoStream open`)
           this.addVideoStream(stream, id);
         });
@@ -175,7 +172,8 @@ export class Room implements AfterViewInit {
       this.activeUsers.delete(userId);
       this.removeVideoStream(userId)
       this.activeUsers.forEach(call => {
-        call.close();
+        if (call)
+          call.close();
       });
       this.activeUsers.clear();
       peer.destroy();

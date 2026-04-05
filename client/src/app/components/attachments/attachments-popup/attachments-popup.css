@@ -1,0 +1,45 @@
+.attachment-popup {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.attachment-popup .attachment-popup-window {
+  max-height: 80vh;
+  padding: max(1vw, 10px);
+  border-radius: 0.5vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #202020;
+}
+.attachment-popup .attachment-popup-window .attachemnt-header {
+  font-size: max(1vw, 10px);
+  font-weight: 500;
+  color: white;
+  margin: 0 max(1vw, 10px) max(1vw, 10px) max(1vw, 10px);
+}
+.attachment-popup .attachment-popup-window .attachment-displayer {
+  overflow-y: scroll;
+  display: block;
+  margin: 0 max(1vw, 10px);
+  border-radius: 0.5vw;
+}
+.attachment-popup .attachment-popup-window .footer-wrapper {
+  margin-top: 1vw;
+  display: block;
+}
+.attachment-popup .attachment-popup-window .footer-wrapper .field {
+  margin: max(1vw, 10px);
+}
+.attachment-popup .attachment-popup-window .footer-wrapper .footer-actions {
+  display: flex;
+  align-items: center;
+}
+.attachment-popup .attachment-popup-window .footer-wrapper .footer-actions button:nth-child(2) {
+  margin-left: auto;
+}/*# sourceMappingURL=attachments-popup.css.map */

@@ -1,0 +1,83 @@
+<main class="popup-window">
+    <div class="window" #window>
+        <header>
+            <div class="left">
+                @if(History.length > 1) {
+                    <img class="back" src="/assets/images/back.svg" alt="back" (click)="back()">
+                }
+                @if(state === SettingsOptions.USER_EDIT) {
+                    <h3>Info</h3>
+                }
+            </div>
+            <div class="right">
+                @if(state === SettingsOptions.USER_VIEW) {
+                    <img class="edit" src="/assets/images/edit.svg" alt="edit" (click)="openNewWindow(SettingsOptions.USER_EDIT)">
+                }
+                <img class="close" src="/assets/images/close.svg" alt="close" (click)="close()">
+            </div>
+
+        </header>
+        <section class="main">
+            @switch (state) {   
+                @case(SettingsOptions.USER_VIEW) {
+                    <app-view-profile class="component" />
+                }
+                @case(SettingsOptions.OTHER_USER_VIEW) {
+                    <app-view-other-profile class="component" [opponent]="user" />
+                }
+                @case (SettingsOptions.USER_EDIT) {
+                    <app-edit-profile class="component" />
+                }
+            }
+        </section>
+
+        <!-- <section class="main"> 
+            <section class="avatar">
+                <img [src]="me.avatar" alt="">
+                <p>{{me.userName}}</p>
+            </section>
+            <section class="fields">
+                <div class="field">
+                    <p class="value">
+                        {{me.email}}
+                    </p>
+                    <p class="key">
+                        email
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="value">
+                        {{'*********'}}
+                    </p>
+                    <p class="key">
+                        password
+                    </p>
+                </div>
+            </section>
+            <div class="friends">
+                <div class="head">
+                    <h3>Friends</h3>
+                    <div class="search">
+                        <img src="/assets/images/search.svg" alt="">
+                        <input class="search" type="text" placeholder="Search" (change)="search($event)">
+
+                    </div>
+                </div>
+                <ul>
+                    @for (friend of mockFriends; track friend._id) {
+                        <li>
+                            <img [src]="friend.avatar" alt="friends">
+                            <div class="info">
+                                <p class="username">{{friend.userName}}</p>
+                                <p class="when">last seen </p>
+                            </div>
+                        </li>
+                    } 
+                    @empty {
+                        <li>List is empty</li>
+                    }
+                </ul>
+            </div>
+        </section> -->
+    </div>
+</main>

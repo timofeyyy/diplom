@@ -1,0 +1,18 @@
+<div class="field-change">
+    <div class="window">
+        <h3>Fill the field</h3>
+        <div class="field field-underlined" [ngClass]="{'focused': focus, 'warning': warning}">
+            <p>Name</p>
+            <input [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" type="text" placeholder="Search"
+                (focus)="focus = true" (blur)="focus = false" (change)="validateField()">
+
+            @if(warning) {
+            <p class="err">{{warning}}</p>
+            }
+        </div>
+        <footer>
+            <button (click)="close.emit()">Cancel</button>
+            <button (click)="validate()">Save</button>
+        </footer>
+    </div>
+</div>

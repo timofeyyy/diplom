@@ -1,7 +1,3 @@
-@font-face {
-  font-family: "FrendlySans";
-  src: url("/assets/fonts/FriendlySans-Regular.otf");
-}
 main {
   width: 100vw;
   height: 100vh;
@@ -10,102 +6,140 @@ main {
   justify-content: center;
   background: linear-gradient(to bottom, #151e2f 0%, #253a53 100%);
 }
-main form {
+
+form .wrappers {
+  display: flex;
+}
+form .wrapper {
+  margin: 0 auto;
+  width: max(72%, 230px);
+  transition: 0.3s ease all;
+}
+form .bottom {
+  width: 100%;
+}
+form {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: max(30%, 380px);
+  width: max(30%, 350px);
   height: max(unset, 450px);
   background-color: #0e131d;
   border-radius: 1vw;
-  padding: 2.5vw;
+  padding: max(2vw, 20px);
   color: white;
   text-align: center;
 }
-main form h3 {
+form h3 {
   font-size: max(2vw, 20px);
 }
-main form p {
+form p {
   font-weight: lighter;
-  font-size: max(1vw, 12px);
+  font-size: max(1vw, 10px);
   font-weight: lighter;
   padding: max(1.5vw, 15px) 0;
 }
-main form span {
-  font-size: max(1vw, 12px);
+form span {
+  font-size: max(1vw, 10px);
   font-weight: lighter;
 }
-main form .form-switch {
+form .suggest {
+  display: block;
+}
+form .form-switch {
   text-decoration: underline;
   color: rgb(17, 96, 214);
   font-weight: 500;
   cursor: pointer;
 }
-main form .field {
+form .recovery {
+  color: gray;
+  padding-top: max(0.5vw, 5px);
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+  display: block;
+  text-decoration: underline;
+  cursor: pointer;
+}
+form .field {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: max(70%, 230px);
-  padding-bottom: max(1vw, 10px);
+  width: 100%;
+  margin-bottom: 1vw;
 }
-main form .field input {
+form .field input {
+  transition: 0.3s ease all;
   width: 100%;
   padding: max(0.75vw, 8px);
   border-radius: 0.5vw;
-  font-size: max(0.8vw, 10px);
+  font-size: max(0.88vw, 8.8px);
   background-color: #2e2e2e;
   color: white;
 }
-main form .field input:focus,
-main form .field input {
+form .field input:focus,
+form .field input {
   outline: none;
   border: none;
 }
-main form .field label,
-main form .field input {
+form .field label,
+form .field input {
   margin: 0;
 }
-main form .field label {
+form .field label {
+  transition: 0.3s ease all;
   font-weight: bolder;
   margin: 0;
   padding-bottom: 0.5vw;
-  font-size: max(0.8vw, 10px);
+  font-size: max(0.88vw, 8.8px);
 }
-main form button {
-  width: 70%;
+form .field .warning {
+  display: none;
+}
+form button {
+  transition: 0.3s ease all;
+  width: 100%;
   padding: max(0.5vw, 8px);
   margin: max(1vw, 10px) 0;
   border-radius: 0.5vw;
   font-weight: bold;
   border: none;
-  font-size: max(1vw, 12px);
+  font-size: max(1vw, 10px);
+  background-color: white;
+  color: black;
+  cursor: pointer;
 }
-main form .other {
+form button:hover {
+  background-color: rgb(23, 173, 68);
+  color: white;
+}
+form .other {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 70%;
 }
-main form .other .line {
+form .other .line {
   background-color: lightgray;
   height: 0.1vw;
   margin: 0.5vw 0;
   width: 100%;
 }
-main form .other p {
-  font-size: max(0.8vw, 10px);
-  margin: 0 0.5vw;
+form .other p {
+  font-size: max(0.88vw, 8.8px);
+  margin: 0 max(0.25vw, 2.5px);
   color: lightgray;
   text-transform: uppercase;
 }
-main form .auth-options {
+form .auth-options {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-main form .auth-options .option {
+form .auth-options .option {
   margin: 0 0.5vw;
   border-radius: 0.5vw;
   border: 0.1vw solid lightgray;
@@ -115,9 +149,36 @@ main form .auth-options .option {
   justify-content: center;
   cursor: pointer;
 }
-main form .auth-options .option img {
+form .auth-options .option img {
   width: max(3vw, 20px);
   height: max(3vh, 20px);
+}
+form .invalid {
+  margin-bottom: 0;
+}
+form .invalid input {
+  color: #ae1b3f;
+  outline: 0.15vw solid #ae1b3f;
+}
+form .invalid label {
+  color: #ae1b3f;
+}
+form .invalid .warning {
+  display: flex;
+  align-items: flex-end;
+  font-size: max(0.88vw, 8.8px);
+  text-align: left;
+}
+form .invalid .warning::before {
+  margin-bottom: auto;
+  content: url("../../assets/images/warning.svg");
+  display: block;
+  width: max(0.88vw, 8.8px);
+  padding-right: 0.25vw;
+}
+form .invalid .warning {
+  margin: 0.5vw 0;
+  padding: 0;
 }
 
 @media (max-width: 600px) {
@@ -125,7 +186,9 @@ main form .auth-options .option img {
     width: 100%;
     height: 100%;
   }
-  main form .field, main form button, main form .other {
+  main form .field,
+  main form button,
+  main form .other {
     width: max(50%, 200px);
   }
 }/*# sourceMappingURL=auth.css.map */

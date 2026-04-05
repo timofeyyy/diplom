@@ -1,0 +1,18 @@
+<div class="field-change">
+    <div class="window">
+        <h3>Set status</h3>
+        <div class="field">
+            <div class="option">
+                <input [(ngModel)]="status" [ngModelOptions]="{ standalone: true }" type="radio" id="Display" value="Display" name="status"> <label for="Display">Display</label>
+            </div>
+            <div class="option">
+                <input [(ngModel)]="status" [ngModelOptions]="{ standalone: true }" type="radio" id="Hide" value="Hide" name="status"> <label for="Hide">Hide</label>
+            </div>
+
+        </div>
+        <footer>
+            <button (click)="close.emit()">Cancel</button>
+            <button (click)="send()">Save</button>
+        </footer>
+    </div>
+</div>

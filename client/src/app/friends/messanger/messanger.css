@@ -1,0 +1,328 @@
+.graph {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  background-color: lightblue;
+  height: 100vh;
+}
+
+.messanger {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.messanger header {
+  height: max(3.5vw, 35px);
+  background-color: #17181d;
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+}
+.messanger header,
+.messanger footer,
+.messanger main {
+  width: 100%;
+}
+.messanger footer {
+  height: max(3vw, 30px);
+  background-color: #17181d;
+  border-top: 0.1vw solid rgb(45, 45, 45);
+}
+.messanger footer form {
+  width: 100%;
+  display: flex;
+}
+.messanger main {
+  flex-grow: 1;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  position: relative;
+}
+.messanger main .messages {
+  padding: max(1vw, 10px);
+  max-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.messanger main .messages .date-header p {
+  color: white;
+  font-size: max(0.75vw, 7.5px);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: max(1vw, 10px) auto;
+}
+.messanger main .messages .date-header {
+  position: sticky;
+  top: 1vw;
+}
+.messanger main .messages .message {
+  overflow: hidden;
+  border-radius: 0.5vw;
+  margin: max(1vw, 10px);
+  color: white;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+}
+.messanger main .messages .message p {
+  padding-right: max(0.5vw, 5px);
+}
+.messanger main .messages .message span {
+  font-size: max(0.75vw, 7.5px);
+  color: #868fbd;
+}
+.messanger main .messages .message {
+  transition: ease all 0.2s;
+}
+.messanger main .messages .message .text {
+  padding: max(0.25vw, 2.5px) max(1vw, 10px);
+  display: flex;
+  align-items: center;
+}
+.messanger main .messages .message .text .text-message {
+  margin-left: 0;
+  padding-right: max(0.5vw, 5px);
+}
+.messanger main .messages .message .text .message-date,
+.messanger main .messages .message .text .message-status {
+  margin-right: 0;
+}
+.messanger main .messages .message .text .message-status {
+  margin-left: max(0.5vw, 5px);
+}
+.messanger main .messages .message .text * {
+  padding: 0;
+}
+.messanger main .messages .message .images {
+  display: grid;
+}
+.messanger main .messages .message .image {
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+.messanger main .messages .message .image::before {
+  transition: all ease 0.3s;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.messanger main .messages .message .image:hover::before {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.messanger main .messages .message .solo .image {
+  height: max(20vw, 200px);
+  width: max(30vw, 300px);
+}
+.messanger main .messages .message .duo {
+  grid-template-columns: repeat(2, max(17vw, 170px));
+}
+.messanger main .messages .message .duo .image {
+  height: max(15vw, 150px);
+  width: 100%;
+}
+.messanger main .messages .message .multiple-double-col {
+  grid-template-columns: repeat(2, max(12vw, 120px));
+}
+.messanger main .messages .message .multiple-double-col .image {
+  height: max(10vw, 100px);
+}
+.messanger main .messages .message .multiple-tripple-col {
+  grid-template-columns: repeat(3, max(8vw, 80px));
+}
+.messanger main .messages .message .multiple-tripple-col .image {
+  height: max(6vw, 60px);
+}
+.messanger main .messages .message .multiple > *:first-child {
+  grid-column: 1/-1;
+  height: max(20vw, 200px);
+}
+.messanger main .messages .message .multiple .image {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.messanger main .messages .sender {
+  justify-self: flex-end;
+  align-items: flex-end;
+  background-color: #4f4dbb;
+}
+.messanger main .messages .oponnent {
+  justify-self: flex-start;
+  align-items: flex-end;
+  background-color: #484848;
+}
+.messanger main .options {
+  position: fixed;
+  bottom: 3.5vw;
+  border-radius: 0.5vw;
+  border: 0.1vw solid rgb(45, 45, 45);
+  background-color: rgb(45, 45, 45);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.messanger main .options .option {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-left: 0;
+}
+.messanger main .options .option:hover {
+  background-color: #4f4dbb;
+}
+.messanger main .options .option input {
+  display: none;
+}
+.messanger main .options .option .content {
+  display: flex;
+  align-items: center;
+  padding: max(0.5vw, 5px);
+  color: white;
+  font-size: max(0.88vw, 8.8px);
+}
+.messanger main .options .option .icon {
+  width: max(0.9vw, 9px);
+  height: max(0.9vw, 9px);
+  margin-right: max(0.5vw, 5px);
+  background: url("../../../assets/images/clip.svg") no-repeat center;
+  background-size: contain;
+  margin-left: 0;
+}
+.messanger main .options .option .icon.file {
+  background-image: url("../../../assets/images/clip.svg");
+}
+.messanger main .options .option .text {
+  margin-left: 0;
+}
+.messanger header {
+  background-color: #1e1d22;
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: max(1vw, 10px);
+}
+.messanger header * {
+  margin: 0;
+}
+.messanger header img {
+  width: max(1vw, 10px);
+  cursor: pointer;
+}
+.messanger header p {
+  color: white;
+  font-weight: lighter;
+  font-size: max(0.88vw, 8.8px);
+}
+.messanger header .when {
+  color: gray;
+}
+.messanger .right {
+  width: 50%;
+  margin-left: max(1vw, 10px);
+  display: flex;
+  justify-content: flex-end;
+}
+.messanger .right * {
+  margin-left: max(1vw, 10px);
+}
+.messanger .right img {
+  cursor: pointer;
+  width: max(1.5vw, 15px);
+}
+.messanger .right button {
+  margin: 0;
+  background: transparent;
+}
+.messanger .left {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+.messanger .left * {
+  margin-right: max(1vw, 10px);
+}
+.messanger .left .attach {
+  cursor: pointer;
+  margin: auto max(1vw, 10px) auto 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max(1.5vw, 15px);
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.messanger .left .attach img {
+  cursor: pointer;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.messanger .left .attach input {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+}
+.messanger footer {
+  margin: 0;
+  display: flex;
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+  padding: max(0.25vw, 2.5px) max(1vw, 10px);
+  width: -webkit-fill-available;
+}
+.messanger footer input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: max(0.5vw, 5px) 0;
+  font-size: max(1vw, 10px);
+  font-weight: lighter;
+}
+.messanger footer input:focus {
+  border: none;
+  outline: none;
+}
+.messanger footer input::-moz-placeholder {
+  color: gray;
+}
+.messanger footer input::placeholder {
+  color: gray;
+}
+.messanger footer input {
+  color: white;
+}
+.messanger footer img {
+  margin-right: max(0.5vw, 5px);
+  width: max(0.8vw, 8px);
+}
+.messanger .attachments {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.messanger .attachments .attachments-wrapper {
+  border-radius: 0.5vw;
+  background-color: gray;
+  padding: max(1vw, 10px);
+}/*# sourceMappingURL=messanger.css.map */

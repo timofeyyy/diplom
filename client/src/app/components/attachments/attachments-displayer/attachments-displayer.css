@@ -1,0 +1,121 @@
+.images {
+  display: grid;
+  margin-bottom: max(1vw, 10px);
+}
+
+.image .content {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+.image .content::before {
+  transition: all ease 0.3s;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.image .content:hover::before {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.image {
+  position: relative;
+}
+.image .remove-icon {
+  position: absolute;
+  top: 0.5vw;
+  right: 0.5vw;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5vw;
+  padding: max(0.25vw, 2.5px) max(1vw, 10px);
+  cursor: pointer;
+}
+.image .remove-icon img {
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+
+.solo .image {
+  height: max(20vw, 200px);
+  width: max(30vw, 300px);
+}
+
+.duo {
+  grid-template-columns: repeat(2, max(17vw, 170px));
+}
+.duo .image {
+  height: max(15vw, 150px);
+  width: 100%;
+}
+
+.multiple-double-col {
+  grid-template-columns: repeat(2, max(12vw, 120px));
+}
+.multiple-double-col .image {
+  height: max(10vw, 100px);
+}
+
+.multiple-tripple-col {
+  grid-template-columns: repeat(3, max(8vw, 80px));
+}
+.multiple-tripple-col .image {
+  height: max(6vw, 60px);
+}
+
+.multiple > *:first-child {
+  grid-column: 1/-1;
+  height: max(20vw, 200px);
+}
+.multiple .image {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.files {
+  display: flex;
+  flex-direction: column;
+}
+.files .file {
+  position: relative;
+  margin: max(0.5vw, 5px);
+}
+.files .file .file-content {
+  display: flex;
+  align-items: center;
+  gap: max(1vw, 10px);
+  padding: max(1vw, 10px);
+  border-radius: 12px;
+  border: 0.1vw solid #1f1f1f;
+  cursor: pointer;
+  transition: 0.2s;
+  max-width: max(30vw, 300px);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+.files .file .file-content .file-info {
+  color: black;
+}
+.files .file .file-icon {
+  font-size: max(2vw, 20px);
+}
+.files .file .file-info .file-name {
+  font-size: max(1vw, 10px);
+  font-weight: 500;
+  word-break: break-all;
+}
+.files .file .remove-icon {
+  position: absolute;
+  top: max(0.5vw, 5px);
+  right: max(0.5vw, 5px);
+  cursor: pointer;
+}/*# sourceMappingURL=attachments-displayer.css.map */

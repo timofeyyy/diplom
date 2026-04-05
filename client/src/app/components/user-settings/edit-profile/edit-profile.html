@@ -1,0 +1,67 @@
+@if(state && me) {
+    <div class="phantom">
+        @switch (state) {
+            @case (UserFields.USERNAME) {
+                <app-field-change class="field-change" [username]="me.userName" (close)="state = undefined" />
+            }
+            @case (UserFields.BIRTHDAY) {
+                <app-calendar-pick [pickedDate]="meDate" class="field-change" (close)="state = undefined" />
+            }
+            @case (UserFields.PASSWORD) {
+                <app-password-field [email]="me.email" class="field-change" (close)="state = undefined" />
+            }
+             @case (UserFields.STATUS_LAST_SEEN) {
+                <app-status-when [status]="me.status.show ? 'Display' : 'Hide'" class="field-change" (close)="state = undefined" />
+            }
+        }
+    </div>
+}
+@if(me) {
+    <section class="avatar">
+        <div class="photo">
+            <img [src]="me.avatar" alt="">
+            <div class="upload">
+                <img src="/assets/images/new.svg" alt="upload">
+            </div>
+        </div>
+        <p>{{me.userName}}</p>
+    </section>
+    <section class="fields">
+        <div class="field" (click)="state = UserFields.USERNAME">
+            <img src="/assets/images/edit.svg" alt="">
+            <p class="key">
+                Name
+            </p>
+            <p class="value">
+                {{me.userName}}
+            </p>
+        </div>
+        <div class="field" (click)="state = UserFields.PASSWORD">
+            <img src="/assets/images/edit.svg" alt="">
+            <p class="key">
+                Password
+            </p>
+            <p class="value">
+                {{'*********'}}
+            </p>
+        </div>
+        <div class="field" (click)="state = UserFields.BIRTHDAY">
+            <img src="/assets/images/edit.svg" alt="">
+            <p class="key">
+                Birthday
+            </p>
+            <p class="value">
+                {{me.birthday ?? "unset"}}
+            </p>
+        </div>
+        <div class="field" (click)="state = UserFields.STATUS_LAST_SEEN">
+            <img src="/assets/images/edit.svg" alt="">
+            <p class="key">
+                Status
+            </p>
+            <p class="value">
+                {{me.status.show ? (me.status.lastTime! | date:'dd.MM.yyyy HH:mm') : "recently seen"}}
+            </p>
+        </div>
+    </section>
+}

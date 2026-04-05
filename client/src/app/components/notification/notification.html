@@ -1,0 +1,18 @@
+<main class="custom-notification">
+    @if(body) {
+        <div class="notification" [ngClass]="{'content': true, 'hide': hide, 'error' : body.statusCode >= 400, 'complete': body.statusCode < 400 }">
+            <div class="icon notification">
+                <img [src]="`/assets/images/${body.statusCode >= 400 ? 'warning-white' : 'tick-circle'}.svg`" alt="err">
+            </div>
+            <div class="message notification">
+                <h3>{{body.statusCode >= 400 ? 'Error' : 'Success'}}</h3>
+                <h4>{{body.transcript}} {{body.statusCode}}</h4>
+                <p>{{body.message}}</p>
+            </div>
+            <div class="close notification">
+                <img src="/assets/images/close-white.svg" (click)="close()" alt="close">
+            </div>
+        </div>
+    }
+
+</main>

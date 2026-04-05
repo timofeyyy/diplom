@@ -1,0 +1,46 @@
+header {
+  width: 100%;
+  color: white;
+  padding: 0.5vw 1vw;
+  border-bottom: 0.025vw solid rgb(45, 45, 45);
+  background-color: #1e1d22;
+  display: flex;
+  justify-content: flex-end;
+}
+header .avatar {
+  display: flex;
+  justify-self: flex-end;
+  margin: 0;
+  margin-left: max(1vw, 10px);
+  cursor: pointer;
+  border-radius: 30%;
+  width: max(1.5vw, 15px);
+  height: max(1.5vw, 15px);
+}
+header .avatar img {
+  width: 100%;
+  height: 100%;
+}
+header .profile {
+  border: 0.1vw solid gray;
+  overflow: hidden;
+}
+header .notifications {
+  position: relative;
+}
+header .notifications .counter {
+  position: absolute;
+  top: -0.5vw;
+  right: -0.5vw;
+  background-color: red;
+  color: white;
+  padding: max(0.25vw, 2.5px);
+  font-size: max(0.65vw, 6.5px);
+  border-radius: 0.5vw;
+  margin: 0 0 0 max(0.5vw, 5px);
+  transform: scale(0.75);
+  min-width: max(1.2vw, 12px);
+}
+header .notifications .counter p {
+  text-align: center;
+}/*# sourceMappingURL=horizontal-header.css.map */

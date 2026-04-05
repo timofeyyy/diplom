@@ -1,0 +1,21 @@
+<main class="viewer">
+    <div class="viewer-wrapper">
+        <img class="closer" src="/assets/images/close.svg" alt="закрыть" (click)="close.emit()" />
+        <div class="handler left">
+             @if(currentIndex != 0) {
+                 <img src="/assets/images/left.svg" alt="" (click)="prev()">
+            }
+           
+        </div>
+        <div class="content">
+            <div class="image" [ngStyle]="{'background-image': `url('${currentImage}')`}">
+                {{currentIndex}}
+            </div>
+        </div>
+        <div class="handler right">
+            @if(currentIndex != urls!.length - 1) {
+                <img src="/assets/images/left.svg" alt="" (click)="next()">
+            }
+        </div>
+    </div>
+</main>

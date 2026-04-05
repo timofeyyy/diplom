@@ -1,0 +1,32 @@
+.avatar button {
+  transition: all ease 0.5s;
+  border-radius: 0.5vw;
+  font-size: max(0.75vw, 7.5px);
+  margin-top: max(1vw, 10px);
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  cursor: pointer;
+  font-weight: 500;
+  border: 0.1vw solid darkgray;
+}
+.avatar .send {
+  background-color: #8888dc;
+}
+.avatar .send:hover {
+  color: white;
+  background-color: #17ad44;
+}
+.avatar .sent {
+  color: white;
+  background-color: #17ad44;
+}
+.avatar .sent:hover {
+  background-color: #ae1b3f;
+}
+.avatar .accept {
+  color: white;
+  background-color: #17ad44;
+}
+.avatar .delete {
+  background-color: #ae1b3f;
+  color: white;
+}/*# sourceMappingURL=view-other-profile.css.map */

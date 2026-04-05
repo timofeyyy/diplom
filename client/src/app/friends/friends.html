@@ -1,0 +1,76 @@
+<div class="friends">
+    <section class="people">
+        <!-- <div class="chat-types">
+            <p class="chat-type">
+                Chats
+            </p>
+            <p class="chat-type">
+                Grop discussions
+            </p>
+        </div> -->
+        <div class="chat-types-2">
+            <div class="chat-type default people-all" [ngClass]="{'selected': chatListType == ChatListEnum.PEOPLE}"
+                (click)="chatListType = ChatListEnum.PEOPLE; selectChats()">
+                <p>Люди </p>
+                @if(chatsList.people.length) {
+                    <div class="counter"><p>{{chatsList.people.length}}</p></div>
+                }
+            </div>
+            <!-- <div class="chat-type default" [ngClass]="{'selected': chatListType == ChatListEnum.WORK_GROUPS}"
+                (click)="chatListType = ChatListEnum.WORK_GROUPS; selectChats()">
+                <p>Рабочие группы</p>
+            </div> -->
+            <div class="chat-type default friends" [ngClass]="{'selected': chatListType == ChatListEnum.FRIENDS}"
+                (click)="chatListType = ChatListEnum.FRIENDS; selectChats()">
+                <p>Друзья</p>
+                
+                @if(chatsList.friends.length) {
+                    <div class="counter"><p>{{chatsList.friends.length}}</p></div>
+                }
+            </div>
+            <div class="chat-type default input-chats" [ngClass]="{'selected': chatListType == ChatListEnum.INPUT}"
+                (click)="chatListType = ChatListEnum.INPUT; selectChats()">
+                <p>Входящие</p>
+                @if(chatsList.input.length) {
+                    <div class="counter"><p>{{chatsList.input.length}}</p></div>
+                }
+            </div>
+            <div class="chat-type defaul output-chats" [ngClass]="{'selected': chatListType == ChatListEnum.OUTPUT}"
+                (click)="chatListType = ChatListEnum.OUTPUT; selectChats()">
+                <p>Исходящие</p>
+                @if(chatsList.output.length) {
+                    <div class="counter"><p>{{chatsList.output.length}}</p></div>
+                }
+            </div>
+        </div>
+        @if(chatListType == ChatListEnum.PEOPLE) {
+            <div class="search">
+                <input type="text" [formControl]="searchControl" placeholder="Поиск">
+            </div>
+        }
+        @if(inputValue && result.length) {
+        <header>
+            <h3>
+
+                Найдено {{result.length}} людей
+
+
+            </h3>
+            <div class="line"></div>
+        </header>
+        }
+
+
+        <app-people-list [currentList]="result" [loader]="loader" [command]="stateMessanger" />
+        <!-- <div class="people">
+            <div class="user">
+                
+            </div>
+        </div> -->
+    </section>
+    <section class="chat">
+        @if( opponent) {
+        <app-messanger [user]="opponent" (close)="opponent = undefined" />
+        }
+    </section>
+</div>

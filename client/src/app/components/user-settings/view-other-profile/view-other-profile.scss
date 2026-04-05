@@ -1,0 +1,46 @@
+@use "../../../../styles/variables/variables.scss" as v;
+
+.avatar {
+    button {
+        transition: all ease 0.5s;
+        border-radius: .5vw;
+        font-size: v.$app-size6-vw;
+        margin-top: max(1vw, 10px);
+        padding: max(0.5vw, 5px) max(1vw, 10px);
+        cursor: pointer;
+        font-weight: 500;
+        border: 0.1vw solid darkgray;
+    } 
+ 
+    .send {
+        background-color: v.$light-blue;
+        &:hover {
+            color: white;
+            background-color: v.$complete-color;
+        }
+    }
+
+    .sent {
+        color: white;
+        background-color: v.$complete-color;
+        // background-color: v.$yellow-color;
+        // background-color: v.$light-blue;
+        &:hover {
+            background-color: v.$invalid-color;
+        }
+    }
+
+    .accept {
+        color: white;
+        background-color: v.$complete-color;
+    }
+
+    .delete {
+        // background-color: v.$light-blue;
+        background-color: v.$invalid-color;
+        // &:hover {
+        color: white;
+        //     background-color: v.$invalid-color;
+        // }
+    }
+}

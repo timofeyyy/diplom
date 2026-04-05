@@ -1,0 +1,155 @@
+.friends {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #443974, #1e1d22);
+}
+.friends .people {
+  background: #1e1d22;
+  border-right: 0.1vw solid rgb(45, 45, 45);
+  width: 20%;
+  height: 100%;
+}
+.friends .people header {
+  display: flex;
+  align-items: center;
+  margin: max(1vw, 10px) max(1vw, 10px) 0 max(1vw, 10px);
+}
+.friends .people header h3 {
+  margin: 0;
+  color: white;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: 500;
+}
+.friends .people header .line {
+  height: 0.1vw;
+  background-color: rgb(45, 45, 45);
+}
+.friends .people .search {
+  padding: max(1vw, 10px) max(1vw, 10px) 0 max(1vw, 10px);
+  width: 100%;
+}
+.friends .people .search input {
+  font-size: max(0.88vw, 8.8px);
+  width: 100%;
+  border: 0.025vw solid rgb(45, 45, 45);
+  outline: none;
+  background: rgb(45, 45, 45);
+  color: grey;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px);
+}
+.friends .people .chat-types-2 {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  margin: max(1vw, 10px) max(1vw, 10px) 0 max(1vw, 10px);
+  padding-bottom: max(1vw, 10px);
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+}
+.friends .people .chat-types-2 .chat-type {
+  background: rgb(45, 45, 45);
+  cursor: pointer;
+  margin: 0;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  font-weight: 400;
+  font-size: max(0.75vw, 7.5px);
+  color: gray;
+  border: 0.025vw solid rgb(45, 45, 45);
+  transition: 0.3s ease all;
+}
+.friends .people .chat-types-2 .chat-type:first-child {
+  border-radius: 0.5vw 0 0 0.5vw;
+}
+.friends .people .chat-types-2 .chat-type:last-child {
+  border-radius: 0 0.5vw 0.5vw 0;
+}
+.friends .people .chat-types-2 .chat-type {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.friends .people .chat-types-2 .chat-type p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1;
+}
+.friends .people .chat-types-2 .chat-type p::before {
+  margin-right: max(0.5vw, 5px);
+}
+.friends .people .chat-types-2 .chat-type .counter {
+  background-color: #2748c3;
+  color: white;
+  padding: max(0.25vw, 2.5px);
+  font-size: max(0.65vw, 6.5px);
+  border-radius: 0.5vw;
+  margin: 0 0 0 max(0.5vw, 5px);
+  transform: scale(0.75);
+  min-width: max(1.2vw, 12px);
+}
+.friends .people .chat-types-2 .chat-type .counter p {
+  text-align: center;
+}
+.friends .people .chat-types-2 .people-all > p::before {
+  display: inline-block;
+  width: max(0.9vw, 9px);
+  content: url("../../assets/images/people-all-chats-colorful.svg");
+}
+.friends .people .chat-types-2 .friends > p::before {
+  display: inline-block;
+  width: max(0.9vw, 9px);
+  content: url("../../assets/images/friends-colorful.svg");
+}
+.friends .people .chat-types-2 .input-chats > p::before {
+  display: inline-block;
+  width: max(0.9vw, 9px);
+  content: url("../../assets/images/input-colorful.svg");
+}
+.friends .people .chat-types-2 .output-chats > p::before {
+  display: inline-block;
+  width: max(0.9vw, 9px);
+  content: url("../../assets/images/output-colorful.svg");
+}
+.friends .people .chat-types-2 .default:hover {
+  color: white;
+}
+.friends .people .chat-types-2 .selected {
+  color: #8888dc;
+  background-color: rgb(55, 55, 55);
+}
+.friends .people .chat-types-2 {
+  flex-direction: column;
+}
+.friends .people .chat-types-2 .chat-type {
+  width: 100%;
+}
+.friends .people .chat-types-2 .chat-type:first-child {
+  border-radius: 0.5vw 0.5vw 0 0;
+}
+.friends .people .chat-types-2 .chat-type:last-child {
+  border-radius: 0 0 0.5vw 0.5vw;
+}
+.friends .chat {
+  background-color: #13151c;
+  width: 80%;
+  height: 100%;
+}
+
+@media (max-width: 830px) {
+  .friends .people .chat-types-2 {
+    flex-direction: column;
+  }
+  .friends .people .chat-types-2 .chat-type {
+    width: 100%;
+  }
+  .friends .people .chat-types-2 .chat-type:first-child {
+    border-radius: 0.5vw 0.5vw 0 0;
+  }
+  .friends .people .chat-types-2 .chat-type:last-child {
+    border-radius: 0 0 0.5vw 0.5vw;
+  }
+}/*# sourceMappingURL=friends.css.map */

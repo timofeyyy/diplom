@@ -1,0 +1,88 @@
+ul {
+  padding: max(1vw, 10px) 0;
+}
+ul li {
+  cursor: pointer;
+}
+ul li:hover {
+  background-color: rgba(45, 45, 45, 0.4);
+}
+ul li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+}
+ul li img {
+  margin: 0 max(1vw, 10px) 0 0;
+  width: max(2.5vw, 25px);
+  height: max(2.5vw, 25px);
+  border-radius: 50%;
+}
+ul li .info {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: lighter;
+}
+ul li .info p {
+  margin: 0;
+}
+ul li .info .username {
+  color: white;
+  font-size: max(0.88vw, 8.8px);
+}
+ul li .info .when {
+  color: gray;
+  font-size: max(0.88vw, 8.8px);
+}
+ul .phantom {
+  align-items: start;
+}
+ul .phantom img {
+  background-color: #1e1d22;
+  position: relative;
+}
+ul .phantom img::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1e1d22;
+  animation: phantom 1s ease infinite;
+}
+ul .phantom .info {
+  margin: max(0.5vw, 5px);
+  padding: max(0.5vw, 5px);
+  width: max(10vw, 100px);
+  animation: phantom 1s ease infinite;
+  border-radius: 0.5vw;
+}
+ul .empty {
+  font-size: max(1vw, 10px);
+  color: gray;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  cursor: auto;
+}
+ul .empty:hover {
+  background: none;
+}
+
+@keyframes phantom {
+  0% {
+    background-color: rgb(82, 82, 82);
+  }
+  50% {
+    background-color: gray;
+  }
+  100% {
+    background-color: rgb(82, 82, 82);
+  }
+}/*# sourceMappingURL=people-list.css.map */

@@ -1,0 +1,40 @@
+@if(attahcments.length) {
+<div class="images" [ngClass]="getImageClass(images.length)">
+    @for (src of images; track $index) {
+    <div class="image">
+        @if(deleteOption) {
+        <div class="remove-icon" (click)="remove($index)">
+            <img src="/assets/images/delete1.svg" alt="del">
+        </div>
+        }
+        <div class="content" (click)="viewImage($index, images)" [ngStyle]="{'background-image': `url('${src}')`}">
+        </div>
+    </div>
+    }
+</div>
+}
+
+@if(files.length) {
+<div class="files">
+    @for (file of files; track $index) {
+    <div class="file">
+
+        @if(deleteOption) {
+        <div class="remove-icon" (click)="remove($index)">
+            <img src="/assets/images/delete1.svg" alt="del">
+        </div>
+        }
+
+        <div class="file-content" (click)="openFile(file)">
+            <div class="file-icon">📄</div>
+
+            <div class="file-info">
+                <p class="file-name">{{ getFileName(file) }}</p>
+            </div>
+        </div>
+
+    </div>
+    }
+</div>
+}
+

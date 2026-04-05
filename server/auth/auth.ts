@@ -115,7 +115,7 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
                 httpOnly: false,
                 secure: true,
                 sameSite: 'none',
-                maxAge: 5 * 60 * 1000
+                maxAge: 60 * 60 * 1000
             });
             res.redirect(`https://${config.host}:${config.port}/front-serv/home`);
         }

@@ -1,0 +1,6 @@
+export enum NotificationTypes {
+    MESSEAGE_RECEIVE,
+    FRIEND_REQUEST_SENDED,
+    FRIEND_REQUEST_CANCELED,
+    UNREAD_MESSAGES
+}

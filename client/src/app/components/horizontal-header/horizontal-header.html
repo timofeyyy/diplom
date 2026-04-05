@@ -1,0 +1,20 @@
+<header>
+    <div class="avatar notifications">
+        @if(me) {
+        <img src="/assets/images/bell-alert.svg" alt="уведомление" (click)="notifications()">
+        @if(updatedCounter) {
+        <div class="counter">
+            <p>{{updatedCounter}}</p>
+        </div>
+        }
+        }
+    </div>
+    <div class="avatar profile" (click)="openSettings=true">
+        @if(me) {
+        <img [src]="me.avatar" alt="настройки пользователя">
+        }
+    </div>
+    @if(openSettings) {
+    <app-popup-setting-overview-menu style="margin: 0;" (close)="openSettings=false" />
+    }
+</header>

@@ -1,0 +1,38 @@
+<main class="popup-window">
+    <div class="window">
+        <header>
+            <h3>New room</h3>
+            <img src="/assets/images/close.svg" alt="close" (click)="close.emit()">
+        </header>
+        <section>
+            <form>
+                <div class="field field-horizontal">
+                    <p>Ограничения</p>
+                    <app-custom-on-off-switcher class="switcher" (onStateChnged)="constaint = $event" />
+                </div>
+
+                <div class="field field-underlined " [ngClass]="{'field-disabled': constaint}" >
+                    <p>Количество участников 1-10</p>
+                    <input [(ngModel)]="validationOptions.count.value" [ngModelOptions]="{ standalone: true }" type="number" max="10" min="0"
+                        placeholder="Поиск" (focus)="validationOptions.count.focus = true" (blur)="validationOptions.count.focus= false" (keydown)="preventInvalid($event)">
+
+                    @if(validationOptions.count.warning) {
+                    <p class="err">{{validationOptions.count.warning}}</p>
+                    }
+                </div>
+                <div class="field field-underlined " [ngClass]="{'field-disabled': constaint}" >
+                    <p>Количество мин 1-120</p>
+                    <input [(ngModel)]="validationOptions.count.value" [ngModelOptions]="{ standalone: true }" type="number" max="10" min="0"
+                        placeholder="Поиск" (focus)="validationOptions.count.focus = true" (blur)="validationOptions.count.focus= false" (keydown)="preventInvalid($event)">
+
+                    @if(validationOptions.count.warning) {
+                    <p class="err">{{validationOptions.count.warning}}</p>
+                    }
+                </div>
+            </form>
+        </section>
+        <footer>
+            <button (click)="createAndJoin()">Create and join</button>
+        </footer>
+    </div>
+</main>

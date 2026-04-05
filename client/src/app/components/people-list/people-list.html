@@ -1,0 +1,31 @@
+<ul>
+    @if(loader) {
+         @for (item of currentList; track $index) {
+            <li class="phantom">
+                <img alt="friends">
+                <div class="info"></div>
+            </li>
+        }
+    }
+    @else {
+           @for (user of currentList; track $index) {
+            <li (click)="execCommand(user, $index)">
+                <img [src]="user.avatar" >
+                <div class="info">
+                    <p class="username">{{user.userName}}</p>
+                    <!-- <p class="when">{{ friend!._id! | displayStatus:
+                     
+                        (friend.status?.lastTime | date)!
+                       
+                        | async }}</p> -->
+                        <p class="when" [innerHTML]="user | displayStatus | async">
+                            <!-- {{user | displayStatus | async}} -->
+                        </p>
+                </div>
+            </li>
+        }
+        @empty {
+            <li class="empty">No contacts</li>
+        }
+    }
+</ul>

@@ -1,0 +1,66 @@
+.sections {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.sections .actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vw;
+}
+.sections .actions h1 {
+  color: white;
+  font-size: max(1.5vw, 15px);
+  text-align: center;
+}
+.sections .actions .cards {
+  width: max(30vw, 300px);
+}
+.sections .actions .cards .card {
+  background-color: #1e1d22;
+  margin-top: max(1vw, 10px);
+  width: 100%;
+  border-radius: 0.5vw;
+  border: 0.1vw solid grey;
+  padding: max(1vw, 10px);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.sections .actions .cards .card:hover {
+  background-color: darkgray;
+}
+.sections .actions .cards .card:hover .content {
+  color: black;
+}
+.sections .actions .cards .card .icon {
+  margin: 0;
+  width: max(4vw, 40px);
+  background-color: #454f73;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5vw;
+  padding: 0.5vw;
+}
+.sections .actions .cards .card .icon img {
+  width: 100%;
+}
+.sections .actions .cards .card .content {
+  margin-left: 1vw;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: white;
+}
+.sections .actions .cards .card .content h3 {
+  font-weight: 500;
+  font-size: max(1vw, 10px);
+  margin-bottom: 0.35vw;
+}
+.sections .actions .cards .card .content p {
+  font-size: max(1vw, 10px);
+  font-weight: lighter;
+  line-height: 1.2;
+}/*# sourceMappingURL=main.css.map */

@@ -7,3 +7,7 @@
 /server/.env
 /server/dist/.env
 /ssl
+/nest-js-start
+/ssl-test
+*.docx
+*.drawio

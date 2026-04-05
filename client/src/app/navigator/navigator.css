@@ -1,35 +1,106 @@
-nav {
-  padding: 0.5vw;
+aside {
+  margin: 0;
+  height: 100%;
+  width: max(15vw, 150px);
+  background-color: #101218;
+  border-right: 0.025vw solid rgb(45, 45, 45);
+  border-radius: 0 0.5vw 0.5vw 0;
 }
-nav ul li {
+aside header {
+  border-bottom: 0.025vw solid rgb(45, 45, 45);
+  padding: 0.5vw 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+aside header .logo p {
+  font-size: max(0.88vw, 8.8px);
+  color: white;
+}
+aside header .extension-holder {
+  cursor: pointer;
+  padding: 0.25vw;
+  outline: 0.1vw solid gray;
+  border-radius: 0.5vw;
+  margin-right: 0;
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  justify-self: flex-end;
+}
+aside header .extension-holder img {
+  width: max(1vw, 10px);
+}
+aside header .logo,
+aside header .extension-holder {
+  margin: 0;
+}
+aside header .logo img,
+aside header .extension-holder img {
+  transform: rotate(-180deg);
+}
+aside nav {
+  padding: 1vw 0.65vw;
+}
+aside nav ul li {
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   list-style-type: none;
   text-align: center;
   padding: 0.35vw;
   border-radius: 0.5vw;
   margin-bottom: 0.5vw;
 }
-nav ul li img, nav ul li a {
+aside nav ul li div {
+  position: relative;
   margin: 0;
+  width: 100%;
 }
-nav ul li a {
-  font-size: max(0.75vw, 7.5px);
+aside nav ul li p {
+  margin: 0;
+  height: 100%;
+  line-height: 1;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  text-align: left;
+  width: 100%;
+  font-weight: lighter;
+  font-size: max(0.88vw, 8.8px);
   color: white;
   text-decoration: none;
+  padding-left: 0.5vw;
 }
-nav ul li img {
-  width: max(2vw, 20px);
-  height: max(2vh, 20px);
+aside nav ul li img {
+  margin: 0;
+  width: max(1vw, 10px);
 }
-nav ul .default:hover {
-  background-color: gray;
+aside nav ul .default:hover {
+  background-color: rgb(75, 75, 75);
 }
-nav ul .selected {
-  background-color: #155cce;
+aside nav ul .selected {
+  background-color: #2748c3;
 }
 
-.collapse ul li a {
+.collapse {
+  width: unset;
+}
+.collapse ul li p {
   display: none;
+}
+.collapse ul li {
+  justify-content: center;
+}
+.collapse header {
+  padding: 0.5vw 0;
+}
+.collapse header .logo {
+  display: none;
+}
+.collapse header .extension-holder {
+  margin: 0 auto;
+}
+.collapse header .extension-holder img {
+  transform: rotate(0deg);
 }/*# sourceMappingURL=navigator.css.map */

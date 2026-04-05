@@ -1,0 +1,88 @@
+.field p {
+  font-weight: 500;
+  color: white;
+  font-size: max(0.75vw, 7.5px);
+  transition: 0.3s ease all;
+}
+.field {
+  transition: 0.3s ease all;
+  margin: max(1vw, 10px) 0;
+  width: -webkit-fill-available;
+}
+.field input {
+  transition: 0.3s ease all;
+  color: white;
+  background-color: transparent;
+  border: none;
+  padding: max(0.25vw, 2.5px) 0;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+}
+.field input:focus {
+  border: none;
+  outline: none;
+}
+.field .input-underlined {
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+}
+.field img {
+  margin-right: max(0.5vw, 5px);
+  width: max(0.8vw, 8px);
+}
+
+.field-underlined {
+  border-bottom: 0.1vw solid rgb(45, 45, 45);
+}
+
+.field-horizontal {
+  display: flex;
+  align-items: center;
+}
+.field-horizontal * {
+  margin-left: 0;
+  margin-right: max(1vw, 10px);
+}
+
+.focused p {
+  color: #2748c3;
+}
+.focused input::-moz-placeholder {
+  color: transparent;
+}
+.focused input::placeholder {
+  color: transparent;
+}
+.focused {
+  border-bottom: 0.1vw solid #2748c3;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.switcher {
+  display: flex;
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: white;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: #2748c3;
+}
+
+.field-disabled {
+  opacity: 0.3;
+}/*# sourceMappingURL=form.css.map */

@@ -1,0 +1,74 @@
+@use "../../../styles/variables/variables.scss" as v;
+
+.menu {
+    position: relative;
+    z-index: 1;
+    .float-menu {
+        width: max(16vw, 160px);
+        position: absolute;
+        top: 3.5vw;
+        right: 0;
+        border-radius: .5vw;
+        border: 0.1vw solid v.$border-color;
+        padding: 1vw 1vw 0.25vw;
+        background-color: v.$navigator-bg;
+
+        .profile {
+            background-color: v.$border-color;
+            padding: max(2vw, 20px) max(1vw, 10px);
+            overflow: hidden;
+            border-radius: .5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: max(0.5vw, 5px);
+            img {
+                border-radius: 50%;
+                width: max(3vw, 30px);
+            }
+            p {
+                padding-top: 0.5vw;
+                font-size: v.$app-size5-5-vw;
+            }
+        }
+
+        ul {
+            li {
+                padding: 0.25vw 0.5vw;
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        ul li,
+        .log-out .wrapper {
+            img {
+                width: v.$icon-width5;
+                margin: 0 0.5vw 0 0;
+            }
+            p {
+                font-weight: lighter;
+                font-size: v.$app-size5-5-vw;
+                margin: 0;
+            }
+
+            &:hover {
+                background-color: v.$li-hover-color;
+            }
+            cursor: pointer;
+            border-radius: .5vw;
+        }
+        .log-out {
+            border-top: 0.1vw solid grey;
+            margin: 0.75vw 0 0.5vw 0;
+            .wrapper {
+                padding: 0.25vw 0.5vw;
+                display: flex;
+                width: 100%;
+                margin-top: 0.5vw;
+            }
+        }
+    }
+}

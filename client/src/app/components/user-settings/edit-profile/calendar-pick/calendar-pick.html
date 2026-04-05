@@ -1,0 +1,52 @@
+<div class="field-change">
+  <!-- <div class="window"> -->
+  <!-- <h3>Fill the field</h3> -->
+  <div class="window">
+    <div class="window__opts">
+      <select name="window__month" id="window__month" [(ngModel)]="monthStr" (change)="pickMonth($event)">
+        @for (item of currentMonthes; track $index) {
+          <option>{{item}}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="currentFullYear" name="window__year" id="window__year" (change)="pickFullYear($event)">
+        @for (item of years; track $index) {
+        <option>{{item}}</option>
+        }
+      </select>
+    </div>
+    <div class="window__body">
+      <!-- <div class="window__days">
+          <div>M</div>
+          <div>T</div>
+          <div>W</div>
+          <div>T</div>
+          <div>F</div>
+          <div>S</div>
+          <div>S</div>
+        </div> -->
+      <div class="window__icon window__icon__left">
+        <img src="/assets/images/left.svg" alt="" (click)="prev()">
+      </div>
+      <div class="window__dates">
+        @for (item of diplayedCells; track $index) {
+        <div (click)="pickDate(item.date)" class="window__date"  [ngClass]="{'window__date--grey': !item.active, 'selected': item.date == PickedDate?.getDate() && currentMonth == PickedDate?.getMonth() && PickedDate?.getFullYear() == currentFullYear}"><span>{{item.date}}</span></div>
+        }
+      </div>
+      <div class="window__icon window__icon__right">
+        <img src="/assets/images/left.svg" alt="" (click)="next()">
+      </div>
+    </div>
+    <footer>
+      <button (click)="close.emit()">Cancel</button>
+      <button (click)="validate()">Save</button>
+    </footer>
+    <!-- <div class="window__buttons">
+        <button class="window__button window__button--grey">Back</button>
+
+        <button class="window__button window__button--primary">Apply</button>
+      </div> -->
+  </div>
+
+  <!-- </div> -->
+</div>
