@@ -3,7 +3,11 @@ export enum SettingsOptions {
     USER_EDIT = "user_edit",
     USER_VIEW = "user_view",
     OTHER_USER_VIEW = "other_user_view",
-    UPDATE_USER_DATA = "update_user_data"
+    UPDATE_USER_DATA = "update_user_data",
+    AVATAR_PICKER = "avatar_picker",
+    AVATAR_HISTORY="avatar_history",
+    AVATAR_EDITOR="avatar_editor",
+    CONFERENCE_CREATE="conference_create"
 }
 
 export enum UserFields {

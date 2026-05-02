@@ -1,0 +1,10 @@
+@for (notification of notifications; track $index) {
+@switch(notification.notificationType) {
+@case (FriendStatusEnum.MUTUALLY) {
+<app-notification-request-mutually [notification]="notification" />
+}
+@case (FriendStatusEnum.INCOMMING) {
+<app-notification-request-incomming [notification]="notification" />
+}
+}
+} 

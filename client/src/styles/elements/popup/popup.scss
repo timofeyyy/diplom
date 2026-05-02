@@ -1,0 +1,65 @@
+@use "../../elements/icon/icon.scss" as icon;
+
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.popup-blured {
+    backdrop-filter: blur(10px);
+}
+
+.popup-window {
+    background-color: var(--main-main);
+    border-radius: 0.5vw;
+    overflow: hidden;
+} 
+
+.popup-header {
+    background-color: var(--main-main);
+    border-bottom: 0.1vw solid black;
+    display: flex;
+    align-items: center;
+    padding: max(1vw, 10px);  
+    * {
+        margin: 0;
+    }
+    img {
+        width:max(1vw, 10px);
+        cursor: pointer;
+    }
+    h3 {
+        color: white;
+        font-weight: 500;
+        font-size:max(1.25vw, 12.5px);
+    }
+    .icon {
+        margin: 0 0.5vw 0 0;
+        cursor: pointer;
+    }
+    .right {
+        margin-left: max(1vw, 10px);
+        display: flex;
+        justify-content: flex-end;
+        gap: max(1vw, 10px);
+        margin-left: auto;
+    }
+
+    .left {
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: max(1vw, 10px);
+    }
+}
+ 

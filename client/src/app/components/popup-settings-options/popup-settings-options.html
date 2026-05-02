@@ -1,7 +1,17 @@
 @if(action) {
-    @switch (action.action) {
-        @case (SettingsOptions.USER_SETTINGS) {
-            <app-user-settings [user]="action.payload.user" [state]="action.payload.mode" />
-        }
-    }
+    <div class="popup">
+        <div class="popup-window">  
+            @switch (action.action) {
+                @case (SettingsOptions.USER_SETTINGS) {
+                    <app-user-settings [user]="action.payload.user" [state]="action.payload.mode" [header]="action.payload.header" />
+                }
+                @case (SettingsOptions.AVATAR_PICKER) {
+                    <app-avatar-main [state]="action.payload.mode" [selectedFile]="action.payload.selectedFile" [header]="action.payload.header"  />
+                }
+                @case (SettingsOptions.CONFERENCE_CREATE) {
+                    <app-create-room />
+                }
+            }
+        </div>
+    </div>
 }

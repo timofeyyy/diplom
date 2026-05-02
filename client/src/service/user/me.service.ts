@@ -1,53 +1,37 @@
 import { Injectable } from "@angular/core";
-import { SettingsOptions } from "../../etc/enum/settings.enum";
 import { UserDto } from "../../dto/user.dto";
-import { AuthHttpRequirementService } from "../http/auth.http.requirements.service";
+import { RefreshHttpService } from "../http/refresh.service";
 import { UsersHttpService } from "../http/users.http.service";
-import { BehaviorSubject } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
-import { CommunicationBehaivorService } from "../communication/communication.behaivor.service";
-import { ChatsHistoryService } from "./chats.service";
+import { CommunicationReplayService } from "../communication/communication.replay.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MeService {
-
-
     constructor(
         private readonly usersHttp: UsersHttpService,
-        private readonly httpReuirements: AuthHttpRequirementService,
-        private readonly behaviorComm: CommunicationBehaivorService
+        private readonly refreshHttpService: RefreshHttpService,
+        private readonly replayComm: CommunicationReplayService
     ) { }
 
     update() {
-        this.httpReuirements.require(this.usersHttp.profile())
+        this.refreshHttpService.require(this.usersHttp.profile())
             .subscribe((res: (UserDto | HttpErrorResponse)) => {
                 if (res) {
                     if ("error" in res) {
                     }
                     else {
                         this.setSource(res)
-                        // this.#behaiverSubject.next(res)
                     }
                 }
             })
     }
     setSource(data: UserDto) {
-        this.behaviorComm.send(MeService.name, { active: true, payload: data })
+        this.replayComm.send(MeService.name, data)
     }
 
-    // setUnsafe(user: UserDto) {
-    //     this.#behaiverSubject.next(user)
-    // }
-
-    // #behaiverSubject: BehaviorSubject<any> = new BehaviorSubject([])
-
-    // listen() {
-    //     return this.#behaiverSubject.asObservable()
-    // }
     listen() {
-        return this.behaviorComm.listen(MeService.name)
-        // return this.#behaiverSubject.asObservable()
+        return this.replayComm.listen(MeService.name)
     }
 }

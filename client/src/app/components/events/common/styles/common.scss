@@ -1,0 +1,28 @@
+.message {
+    max-width: max(15vw, 150px);
+    margin: 0 max(2.5vw, 25px) 0 max(1.5vw, 15px);
+    color: white;
+    * {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    h3 {
+        font-size: max(1vw, 10px);
+    }
+    h4 {
+        font-size: max(0.88vw, 8.8px);
+    }
+    p {
+        font-size: max(0.75vw, 7.5px);
+    }
+}
+.content {
+    pointer-events: fill;
+    box-shadow: 0 0 0.75vw 0vw #1f1f1f;
+    border-radius: 0.5vw;
+    transition: 0.3s all ease;
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    padding: max(1vw, 10px) max(1.5vw, 15px);
+}

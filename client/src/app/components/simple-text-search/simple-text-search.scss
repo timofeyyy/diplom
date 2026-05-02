@@ -1,0 +1,23 @@
+.search {
+    margin: 0;
+    display: flex;
+    border-bottom: 0.1vw solid var(--border-color);
+
+    width: -webkit-fill-available;
+    input {
+        color: var(--main-text);
+        background-color: transparent;
+        border: none;
+        padding: max(0.5vw, 5px) 0;
+        font-size:max(1vw, 10px);
+        font-weight: lighter;
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+    img {
+        margin-right: max(0.5vw, 5px);
+        width:max(.8vw, 8px);
+    }
+}

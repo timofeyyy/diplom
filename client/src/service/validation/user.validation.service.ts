@@ -8,7 +8,7 @@ export class UserValidationService {
         .set("birthday", (value: string) => {
             const date = Date.parse(value)
             if (isNaN(date)) {
-                return "Not valid format needs to be yyyy.mm.dd"
+                return "Дата должна быть в формате yyyy.mm.dd"
             }
             const dateObject = new Date(date);
             const year = dateObject.getFullYear()
@@ -18,10 +18,10 @@ export class UserValidationService {
         .set("userName", (value: string) => {
             const hasRussian = /[а-яА-ЯёЁ]/.test(value);
             if (hasRussian) {
-                return "UserName cannot contain cirilic symbols"
+                return "логин не должен содержать русских символов"
             }
             if (value.length < 6) {
-                return "Length must be more then 5 symbols"
+                return "Длина пароля должна быть больше чем 5 символов"
             }
             return null
         })

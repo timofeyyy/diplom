@@ -1,4 +1,5 @@
-@use "../../../../styles/variables/variables.scss" as v;
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../styles/elements/avatar/circle-avatar.scss";
 
 .phantom {
     position: absolute;
@@ -11,23 +12,27 @@
     }
 }
 
-.avatar {
+.avatar-wrapper {
     padding: max(1vw, 10px);
     overflow: hidden;
-    border-radius: .5vw;
+    border-radius: 0.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-bottom: max(0.5vw, 5px);
-    img {
-        border-radius: 50%;
-        width: max(5vw, 50px);
-    }
     p {
-        color: lightgray;
+        color: var(--main-text);
         padding-top: 0.5vw;
-        font-size: v.$app-size5-vw;
+        font-size:max(1vw, 10px);
+    }
+    .avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        width: max(5vw, 50px);
+        height: max(5vw, 50px);
+        border: 0.1vw solid black;
+        cursor: pointer;
     }
     .photo {
         position: relative;
@@ -35,38 +40,53 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: v.$icon-width4;
-            height: v.$icon-width4;
-            background-color: v.$theme-color-blue;
+            width:max(1.5vw, 15px);
+            height:max(1.5vw, 15px);
+            background-color: var(--color-primary);
             padding: max(0.4vw, 4px);
             overflow: hidden;
             display: flex;
             border-radius: 50%;
-            border: 0.15vw solid #1e1d22;
+            border: 0.1vw solid black;
             cursor: pointer;
             img {
                 border-radius: 50%;
                 width: 100%;
+                height: 100%;
+            }
+            input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                // cursor: pointer;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                opacity: 0;
             }
         }
     }
 }
 .fields {
-    background-color: v.$navigator-bg;
-    padding: max(1vw, 10px) 0;
+    // background-color:#101218;
+    border-top: 0.1vw solid black;
+    background-color: var(--main-main);
+    // padding-bottom: max(1vw, 10px);
     .field {
         &:hover {
-            background-color: v.$border-color;
+            background-color: var(--main-secondary);
+            // background-color:rgb(45, 45, 45);
         }
         display: flex;
         justify-content: flex-start;
         cursor: pointer;
-        font-size: v.$app-size5-5-vw;
+        font-size:max(.88vw, 8.8px);
         font-weight: lighter;
         padding: max(1vw, 10px);
         img {
             margin: 0 max(1vw, 10px) 0 0;
-            width: v.$icon-width5;
+            width:max(1vw, 10px);
         }
         .value {
             margin: 0 0 0 auto;
@@ -75,7 +95,17 @@
         }
         .key {
             margin: 0;
-            color: white;
+            color: var(--main-text);
+        }
+        .icon {
+            // background-color: var(--main-text);
+            // width:max(1vw, 10px);
+            // height:max(1vw, 10px);
+            margin: 0 0.5vw 0 0;
+        }
+
+        .icon-edit {
+            @include icon.icon-mask("../../../../assets/images/edit.svg");
         }
     }
 }

@@ -9,7 +9,7 @@
 //     secure: true
 // });
 // socket.on("user-connected", (userId) => {
-//     console.log("user-connected")
+//     // console.log("user-connected")
 //     connectToNewUser(userId, stream);
 // });
 
@@ -20,11 +20,11 @@
 //         video: true,
 //     })
 //     .then((stream) => {
-//         console.log(stream)
+//         // console.log(stream)
 //         myVideoStream = stream;
 //         addVideoStream(myVideo, stream);
 //         peer.on("call", (call) => {
-//             console.log('someone call me');
+//             // console.log('someone call me');
 //             call.answer(stream);
 //             const video = document.createElement("video");
 //             call.on("stream", (userVideoStream) => {
@@ -45,17 +45,17 @@
 
 
 // const connectToNewUser = (userId, stream) => {
-//     console.log('I call someone' + userId);
+//     // console.log('I call someone' + userId);
 //     const call = peer.call(userId, stream);
 //     const video = document.createElement("video");
 //     call.on("stream", (userVideoStream) => {
 //         addVideoStream(video, userVideoStream);
-//         console.log(`connectToNewUser ${userId}`)
+//         // console.log(`connectToNewUser ${userId}`)
 //     });
 // };
 
 // peer.on("open", (id) => {
-//     console.log('my id is' + id);
+//     // console.log('my id is' + id);
 //     socket.emit("join-room", roomId, id, userName);
 // });
 
@@ -97,20 +97,20 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true })
         });
 
         peer.on("call", call => {
-            console.log("incoming call");
+            // console.log("incoming call");
             call.answer(stream);
             const video = document.createElement("video");
             call.on("stream", userVideoStream => addVideoStream(video, userVideoStream));
         });
 
         peer.on("open", id => {
-            console.log("my peer id:", id);
+            // console.log("my peer id:", id);
             socket.emit("join-room", roomId, id, userName);
         });
 
         // когда приходит событие о новом пользователе, подключаемся к нему
         socket.on("user-connected", userId => {
-            console.log("user-connected:", userId);
+            // console.log("user-connected:", userId);
             connectToNewUser(userId, stream, peer);
         });
     });
@@ -124,7 +124,7 @@ const addVideoStream = (video, stream) => {
 };
 
 const connectToNewUser = (userId, stream, peer) => {
-    console.log("calling user:", userId);
+    // console.log("calling user:", userId);
     const call = peer.call(userId, stream);
     const video = document.createElement("video");
     call.on("stream", userVideoStream => addVideoStream(video, userVideoStream));

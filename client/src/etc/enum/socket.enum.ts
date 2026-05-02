@@ -37,16 +37,19 @@ export enum EmitSocketMessangerEnum {
     SENDER_STATUS_UPDATE = "sender-status-update", 
 }
 
-export enum NotificationTypes {
-    MESSEAGE_RECEIVE,
-    FRIEND_REQUEST_SENDED,
-    FRIEND_REQUEST_CANCELED,
-    UNREAD_MESSAGES
-}
+// export enum NotificationTypes {
+//     MESSEAGE_RECEIVE,
+//     FRIEND_REQUEST_SENDED,
+//     FRIEND_REQUEST_CANCELED,
+//     UNREAD_MESSAGES
+// }
 
 export enum OnSocketNotificationEnum {
-    NOTIFICATION_RECIEVED="notification-recieved"
+    NOTIFICATION_RECEIVE="notification-receive"
 }
+// export enum OnSocketNotificationEnum {
+//     NOTIFICATION_RECIEVED="notification-recieved"
+// }
 
 export enum EmitSocketNotificationEnum {
     NOTIFICATION_SEND="notification-send"

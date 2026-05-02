@@ -11,9 +11,25 @@ import { MongoDbModule } from 'src/mongodb/mongo.module';
 import { NotificationService } from 'src/notifications/notification.service';
 import { SocketNotificationGateway } from './notification.gateway';
 import { SocketConferenceGateway } from './conference.gateway';
+import { CommunicationService } from 'src/etc/service/communication.service';
+import { CommunicationBehaivorService } from 'src/etc/service/communication.behaivor.service';
 
 @Module({
-  imports: [AuthModule, UserModule, MongoDbModule],
-  providers: [SocketGateway, SocketNotificationGateway, SocketConferenceGateway, SocketService, JwtService, NotificationService],
+  imports: [
+    AuthModule, 
+    UserModule, 
+    MongoDbModule
+  ],
+  providers: [
+    SocketGateway, 
+    SocketNotificationGateway, 
+    SocketConferenceGateway, 
+    SocketService, 
+    JwtService, 
+    NotificationService, 
+    // CommunicationService, 
+    // CommunicationBehaivorService, 
+    // NotificationService
+  ]
 })
-export class SocketModule {}
+export class SocketModule { }

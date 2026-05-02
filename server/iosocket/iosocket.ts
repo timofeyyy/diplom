@@ -32,7 +32,7 @@ const app = express()
 app.get("/test_iosocket", (req, res) => {
     res.send("iosocket")
 })
-// console.log(config.key_local, config.cert_local)
+// // console.log(config.key_local, config.cert_local)
 // const server = https.createServer({
 //     key: fs.readFileSync(config.key_local, 'utf-8'),
 //     cert: fs.readFileSync(config.cert_local, 'utf-8'),
@@ -53,7 +53,7 @@ const isUserAuthenticated = async (token: string): Promise<boolean> => {
                 rej(err)
             }
             else {
-                console.log(response)
+                // console.log(response)
                 res(response.status == TokenStatus.EXISTS && response.regDate)
             }
         })
@@ -64,7 +64,7 @@ const isUserAuthenticated = async (token: string): Promise<boolean> => {
 io.use(async (socket, next) => {
     try {
         const cookies = socket.handshake.headers.cookie;
-        // console.log(cookies)
+        // // console.log(cookies)
         if (!cookies) {
             return next(new Error('No cookies'));
         }
@@ -75,15 +75,15 @@ io.use(async (socket, next) => {
         if (!token) {
             return next(new Error('No token'));
         }
-        // console.log(token)
+        // // console.log(token)
         try {
-            console.log(process.env.JWT_SECRET)
+            // console.log(process.env.JWT_SECRET)
             const payload = jwt.verify(token, process.env.JWT_SECRET!);
             socket.data.user = payload;
             let isAuthenticated: boolean = false;
-            console.log(payload)
+            // console.log(payload)
             if (payload) {
-                console.log(isAuthenticated)
+                // console.log(isAuthenticated)
                 isAuthenticated = await isUserAuthenticated(token);
             }
             if (!isAuthenticated) {
@@ -93,14 +93,14 @@ io.use(async (socket, next) => {
                 next()
             }
         } catch (error) {
-            console.log(error)
-            console.log("jwt verification failed")
+            // console.log(error)
+            // console.log("jwt verification failed")
             next(new Error('Unauthorized'));
         }
 
     }
     catch (err: any) {
-        console.log("error")
+        // console.log("error")
         next(new Error(err.message));
     }
 });
@@ -108,18 +108,18 @@ io.use(async (socket, next) => {
 const userData: any = {}
 userData[AppAlias.JAIL] = {}
 io.on("connection", async (socket) => {
-    // console.log((socket as any).token)
+    // // console.log((socket as any).token)
     // const token = "mok"
 
     // const isAuthenticated = await isUserAuthenticated(token)
-    // // console.log(isAuthenticated)
+    // // // console.log(isAuthenticated)
     // if(!isAuthenticated) {
     //     socket.to(AppAlias.JAIL).emit('unauthorized', token);
     // }
 
 
-    console.log("connected")
-    console.log(socket.data)
+    // console.log("connected")
+    // console.log(socket.data)
     socket.on("join-room", (roomId, userId, userName) => {
         if (!userData[roomId]) {
             userData[roomId] = {}
@@ -128,8 +128,8 @@ io.on("connection", async (socket) => {
         (socket as any).roomId = roomId;
         (socket as any).userName = userName;
         (socket as any).userId = userId;
-        console.log(`${userName} joined room ${roomId} ${userId}`);
-        // console.log(userData)
+        // console.log(`${userName} joined room ${roomId} ${userId}`);
+        // // console.log(userData)
 
         socket.join(roomId);
         socket.to(roomId).emit("user-connected", userId, userName);
@@ -144,7 +144,7 @@ io.on("connection", async (socket) => {
     //     io.to(roomId).emit("createMessage", message, userName);
     // });
     socket.on('user-disconnected', (roomId, userId) => {
-        console.log(`user-disconnected ${userId}`)
+        // console.log(`user-disconnected ${userId}`)
         socket.to(roomId).emit('user-disconnected', userId);
     });
 
@@ -154,14 +154,14 @@ io.on("connection", async (socket) => {
         const userId = (socket as any).userId
         if (userData[roomId] && userData[roomId][userId])
             delete userData[roomId][userId];
-        console.log('user-disconnected', userId)
+        // console.log('user-disconnected', userId)
         if (roomId && userId) {
             io.to(roomId).emit('user-disconnected', userId);
         }
-        console.log(userData)
+        // console.log(userData)
     });
 });
-server.listen(9000, () => console.log("iosocket"))
+server.listen(9000, () => // console.log("iosocket"))
 
 
 // в userdata хранить в виде каждой команты как Set айдишники пользователей из редиса и больше ничего

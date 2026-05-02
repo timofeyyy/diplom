@@ -15,16 +15,16 @@ export class EmailVerifierGuard implements CanActivate {
     async canActivate(context: ExecutionContext): Promise<any> {
         const request = context.switchToHttp().getRequest();
         const email = request.body.email
-        // console.log(email)
+        // // console.log(email)
         if (email) {
             const foundUser = await this.authService.getUser({ email: email })
             if (foundUser) {
-                // console.log("send " + email)
+                // // console.log("send " + email)
                 request.user = {
                     _id: foundUser._id,
                     email: foundUser.email
                 }
-                // console.log(request.user)
+                // // console.log(request.user)
                 return request.user
             }
             else {

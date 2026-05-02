@@ -5,26 +5,27 @@ import { UserValidationService } from '../../../../../service/validation/user.va
 import { CommunicationService } from '../../../../../service/communication/communication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppEnum } from '../../../../../etc/enum/app.enum';
-import { AuthHttpRequirementService } from '../../../../../service/http/auth.http.requirements.service';
-import { AuthHttpService } from '../../../../../service/http/auth.http.service';
-import { HttpResponse } from '../../../../../dto/warning.dto';
+import { RefreshHttpService } from '../../../../../service/http/refresh.service';
 import { UsersHttpService } from '../../../../../service/http/users.http.service';
-import { SettingsOptions } from '../../../../../etc/enum/settings.enum';
+import { MeService } from '../../../../../service/user/me.service';
+import { catchError, of } from 'rxjs';
+import { EventNotifierService } from '../../../events/common/services/event-notifier.service';
 
 @Component({
   selector: 'app-field-change',
   imports: [NgClass, FormsModule],
   templateUrl: './field-change.html',
-  styleUrls: ['./field-change.css', '../styles.css', '../../../../../styles/form/form.css'],
+  styleUrls: ['./field-change.css'],
 })
 export class FieldChange {
 
   constructor(
     private readonly validation: UserValidationService,
     private readonly comm: CommunicationService,
-    private readonly requirements: AuthHttpRequirementService,
-    private readonly usersHttp: UsersHttpService
-
+    private readonly refreshHttpService: RefreshHttpService,
+    private readonly usersHttp: UsersHttpService,
+    private readonly meService: MeService,
+    private readonly eventNotifierService: EventNotifierService
   ) { }
 
   focus!: boolean
@@ -34,20 +35,7 @@ export class FieldChange {
   close: EventEmitter<void> = new EventEmitter()
   @Output()
   save: EventEmitter<string> = new EventEmitter()
-
   warning: string | null = null
-  // validateField() {
-  //   const checks: ((value: string) => (string | null))[] = this.validation.getChecks(['userName'])
-  //   for (const check of checks) {
-  //     this.warning = check(this.username)
-  //     if (this.warning) {
-  //       return
-  //     }
-  //   }
-  //   this.save.emit(this.username);
-  //   this.close.emit()
-  // }
-
 
   async validateField() {
     const checks: ((value: string) => (string | null))[] = this.validation.getChecks(['userName'])
@@ -59,9 +47,7 @@ export class FieldChange {
     }
   }
 
-
   async validate() {
-
     const checks: ((value: string) => (string | null))[] = this.validation.getChecks(['userName'])
     this.warning = null
     for (const [index, check] of checks.entries()) {
@@ -73,28 +59,17 @@ export class FieldChange {
     this.send()
   }
 
-
   send() {
-    this.comm.send(AppEnum.LOADER, { active: true, payload: {} })
-
-    this.requirements.require(this.usersHttp.update("userName", this.username))
-      .subscribe((res: (HttpResponse | HttpErrorResponse)) => {
-        this.comm.send(AppEnum.LOADER, { active: false, payload: {} })
-        console.log(res)
-        if (res instanceof HttpErrorResponse) {
-        
-        }
-        else {
-          this.comm.send(AppEnum.NOTIFICATION, {
-            active: true,
-            payload: res
-          })
-          this.comm.send(SettingsOptions.UPDATE_USER_DATA, {
-                active: true, payload: res.body
-              })
+    this.comm.send(AppEnum.LOADER, { active: true })
+    this.refreshHttpService.require(this.usersHttp.update("userName", this.username))
+      .pipe(catchError((err: HttpErrorResponse) => of(err)))
+      .subscribe((res: (any | HttpErrorResponse)) => {
+        this.comm.send(AppEnum.LOADER, { active: false })
+        if (!(res instanceof HttpErrorResponse)) {
+          this.meService.setSource(res.body)
+          this.eventNotifierService.succesNotify("Профиль был обновлен")
         }
         this.close.emit()
       })
   }
-
 }

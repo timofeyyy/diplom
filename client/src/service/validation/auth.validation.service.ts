@@ -2,15 +2,14 @@ import { Injectable } from "@angular/core"
 import { FromAuthDto } from "../../dto/warning.dto"
 import { AuthHttpService } from "../http/auth.http.service"
 import { lastValueFrom } from "rxjs"
-import { CommunicationService } from "../communication/communication.service"
-import { AppEnum } from "../../etc/enum/app.enum"
+import { EventNotifierService } from "../../app/components/events/common/services/event-notifier.service"
 
-@Injectable()
+@Injectable() 
 export class FromAuthMediater {
     validation: FromAuthDto = new FromAuthDto()
     constructor(
         private readonly authHttp: AuthHttpService,
-        private readonly comm: CommunicationService
+        private readonly eventNotifierService: EventNotifierService
     ) { }
 
     alertWindow: boolean = false
@@ -22,7 +21,7 @@ export class FromAuthMediater {
             this.validation.password.error = undefined
         }
         if (!propStr || propStr == "repeatPassword") {
-            this.validation.repeatPassword.error = undefined
+            this.validation.repeatPassword.error = undefined 
         }
         if (!propStr || propStr == "alertWindowError") {
             this.validation.alertWindow = undefined
@@ -38,7 +37,7 @@ export class FromAuthMediater {
                 this.reset("email")
             }
             else {
-                this.validation.email.error = "Email must have a proper form"
+                this.validation.email.error = "Почта должна иметь верный формат"
             }
 
             return Boolean(res)
@@ -54,7 +53,7 @@ export class FromAuthMediater {
                     this.reset("email")
                 }
                 else {
-                    this.validation.email.error = "Domen is not allowed"
+                    this.validation.email.error = "Домен не разрешен"
                 }
             }
             return res
@@ -66,10 +65,10 @@ export class FromAuthMediater {
                 this.reset("password")
             }
             else if (!value) {
-                this.validation.password.error = "Field ie required"
+                this.validation.password.error = "Обязательно к заполнению"
             }
             else if (value.length < 8) {
-                this.validation.password.error = "Password length must be more than 8 chars"
+                this.validation.password.error = "Длина пароля должна быть больше чем 8 символов"
             }
 
             return res
@@ -82,13 +81,13 @@ export class FromAuthMediater {
                 this.reset("password")
             }
             else if (!value) {
-                this.validation.password.error = "Fill the field"
+                this.validation.password.error = "Обязательно к заполнению"
             }
             else if (value.length < 8) {
-                this.validation.password.error = "Password length must be more than 8 chars"
+                this.validation.password.error = "Длина пароля должна быть больше чем 8 символов"
             }
             else {
-                this.validation.password.error = "Password must be upper chars & numbers"
+                this.validation.password.error = "Пароль должен содеражть и заглавные буквы и числа"
             }
 
             return res
@@ -99,10 +98,10 @@ export class FromAuthMediater {
                 this.reset("repeatPassword")
             }
             else if (!this.validation.password.value) {
-                this.validation.password.error = "Fill the field"
+                this.validation.password.error = "Обязательно к заполнению"
             }
             else {
-                this.validation.repeatPassword.error = "Both passport fields must be the same"
+                this.validation.repeatPassword.error = "Оба поля с паролем должны совпадать"
             }
             return res
         })
@@ -114,10 +113,7 @@ export class FromAuthMediater {
             }
             catch (err: any) {
                 this.validation.alertWindow = { ...err.error, transcript: err.error.error }
-                this.comm.send(AppEnum.NOTIFICATION, {
-                    active: true,
-                    payload: this.validation.alertWindow
-                })
+                this.eventNotifierService.errorNotify(err.error.message)
                 this.alertWindow = true
                 return false
             }
@@ -130,10 +126,7 @@ export class FromAuthMediater {
             }
             catch (err: any) {
                 this.validation.alertWindow = err.error
-                this.comm.send(AppEnum.NOTIFICATION, {
-                    active: true,
-                    payload: this.validation.alertWindow
-                })
+                this.eventNotifierService.errorNotify(err.error.message)
                 this.alertWindow = true
                 return false
             }
@@ -146,10 +139,7 @@ export class FromAuthMediater {
             }
             catch (err: any) {
                 this.validation.alertWindow = { ...err.error, transcript: err.error.error }
-                this.comm.send(AppEnum.NOTIFICATION, {
-                    active: true,
-                    payload: this.validation.alertWindow
-                })
+                this.eventNotifierService.errorNotify(err.error.message)
                 return false
             }
         })
@@ -174,7 +164,7 @@ export class FromAuthMediater {
             const checks: [string, () => boolean][] = []
             keys.forEach((key) => {
                 const check = all.find((check) => check[0].toLowerCase() == key.toLowerCase())
-                if(check) {
+                if (check) {
                     checks.push(check)
                 }
             })

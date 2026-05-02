@@ -1,119 +1,58 @@
-@use "../../../../styles/variables/variables.scss" as v;
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../styles/elements/loader-phantom/loader-phantom.scss";
+@use "../../../../styles/elements/avatar/circle-avatar.scss";
 
-.avatar {
-    padding: max(1vw, 10px); 
+.avatar-wrapper {
+    padding: max(1vw, 10px);
     overflow: hidden;
-    border-radius: .5vw;
+    border-radius: 0.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-bottom: max(0.5vw, 5px);
-    img { 
-        border-radius: 50%;
-        width: max(5vw, 50px); 
-    }
     p {
-        color: lightgray;
+        color: var(--main-text);
         padding-top: 0.5vw;
-        font-size: v.$app-size5-vw;
-    }
-    button {
-        transition: all ease 0.5s;
-        border-radius: .5vw;
-        font-size: v.$app-size6-vw;
-        margin-top: max(1vw, 10px);
-        padding: max(0.5vw, 5px) max(1vw, 10px);
-        cursor: pointer;
-        font-weight: 500;
-        border: 0.1vw solid darkgray;
-    }
-
-    .send {
-        background-color: v.$light-blue;
-        &:hover {
-            color: white;
-            background-color: v.$complete-color;
-        }
-    }
-
-    .sent {
-        color: white;
-        background-color: v.$yellow-color;
-        // background-color: v.$light-blue;
-        &:hover {
-            background-color: v.$invalid-color;
-        }
-    }
-
-    .delete {
-        background-color: v.$light-blue;
-        &:hover {
-            color: white;
-            background-color: v.$invalid-color;
-        }
+        font-size:max(1vw, 10px);
     }
 }
 .fields {
-    background-color: v.$navigator-bg;
+    border-top: 0.1vw solid black;
+    background-color: var(--main-main);
     padding: 0 max(1vw, 10px) max(1vw, 10px);
     .field {
-        font-size: v.$app-size5-5-vw;
+        font-size:max(.88vw, 8.8px);
         font-weight: lighter;
         padding-top: max(1vw, 10px);
         .value {
-            color: white;
+            color: var(--main-text);
             line-height: 1;
         }
         .key {
-            color: grey;
+            margin-top: max(0.2vw, 2px);
+            color: var(--color-secondary);
+            font-size:max(.88vw, 8.8px);
         }
     }
 }
 .friends {
-    background-color: v.$navigator-bg;
-    .head {
-        // display: flex;
-        // justify-content: space-between;
-        padding: 0 max(1vw, 10px);
-        h3 {
-            padding-bottom: max(0.5vw, 5px);
-            margin: 0;
-            color: white;
-            font-size: v.$app-size4-vw;
-            font-weight: 500;
-        }
-        .search {
-            margin: 0;
-            display: flex;
-            // justify-content: flex-end;
-            // width: 50%;
-            border-bottom: 0.1vw solid v.$border-color;
-
-            width: -webkit-fill-available;
-            input {
-                color: gray;
-                background-color: transparent;
-                border: none;
-                padding: max(0.5vw, 5px) 0;
-                font-size: v.$app-size5-vw;
-                font-weight: lighter;
-                &:focus {
-                    border: none;
-                    outline: none;
-                }
-            }
-            img {
-                margin-right: max(0.5vw, 5px);
-                width: v.$icon-width6;
-            }
-        }
+    background-color: var(--main-main);
+    h3 {
+        padding: 0 max(1vw, 10px) max(0.5vw, 5px);
+        margin: 0;
+        color: var(--main-text);
+        font-size:max(1.25vw, 12.5px);
+        font-weight: 500;
+    }
+    .search-component {
+        margin: 0 max(1vw, 10px);
     }
     ul {
         padding: max(1vw, 10px) 0;
         li {
             &:hover {
-                background-color: v.$border-color;
+                background-color:rgb(45, 45, 45);
             }
             display: flex;
             justify-content: flex-start;
@@ -121,8 +60,8 @@
             padding: max(0.5vw, 5px) max(1vw, 10px);
             img {
                 margin: 0 max(1vw, 10px) 0 0;
-                width: v.$icon-width2;
-                height: v.$icon-width2;
+                width:max(2.5vw, 25px);
+                height:max(2.5vw, 25px);
                 border-radius: 50%;
             }
             .info {
@@ -136,13 +75,37 @@
                 }
                 .username {
                     color: white;
-                    font-size: v.$app-size5-5-vw;
+                    font-size:max(.88vw, 8.8px);
                 }
                 .when {
                     color: gray;
-                    font-size: v.$app-size5-5-vw;
+                    font-size:max(.88vw, 8.8px);
                 }
             }
+        }
+    }
+    .empty-list {
+        padding: max(1.5vw, 15px) 0 max(2.5vw, 25px) 0;
+        width: max(12vw, 120px);
+        * {
+            text-align: center;
+        }
+        h5 {
+            color: var(--main-text);
+            font-weight: 400;
+            font-size: max(1vw, 10px);
+        }
+        p {
+            color: var(--color-secondary);
+            font-size: max(0.75vw, 7.5px);
+        }
+    }
+    .data-preview {
+        padding: max(1.5vw, 15px) max(1vw, 10px);
+        .warframe {
+            padding: max(1.5vw, 15px) max(1vw, 10px);
+            border-radius: 0.5vw;
+            animation: phantom 1s ease infinite;
         }
     }
 }

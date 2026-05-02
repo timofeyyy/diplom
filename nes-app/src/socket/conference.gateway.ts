@@ -14,7 +14,7 @@ export class SocketConferenceGateway implements OnGatewayConnection   {
     private readonly socketService: SocketService,
   ) { }
   handleConnection(client: any, ...args: any[]) {
-    console.log("\n\n\n\n\n\n\n\n\n\n")
+    // console.log("\n\n\n\n\n\n\n\n\n\n")
   }
 
   private logger = new Logger(SocketConferenceGateway.name)
@@ -38,8 +38,8 @@ export class SocketConferenceGateway implements OnGatewayConnection   {
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ) {
-    console.log(data)
-    console.log('get-user-data')
+    // console.log(data)
+    // console.log('get-user-data')
     const [roomId, userId] = data
     return this.socketService.getUserData(roomId, userId)
   }

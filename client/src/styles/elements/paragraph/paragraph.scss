@@ -1,0 +1,21 @@
+.head {
+    font-size: max(1.25vw, 12.5px);
+    font-weight: 500;
+    color: var(--main-text);
+    margin-bottom: max(1vw, 10px);
+}
+.subhead {
+    color: var(--main-text);
+    font-weight: 600;
+    font-size: max(0.88vw, 8.8px);
+}
+.paragraph {
+    color: var(--main-text);
+    font-size: max(0.88vw, 8.8px);
+}
+.disabled {
+    color: gray;
+}
+.bold {
+    font-weight: bold;
+}

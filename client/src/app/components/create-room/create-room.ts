@@ -3,9 +3,12 @@ import { CustomOnOffSwitcher } from '../custom-on-off-switcher/custom-on-off-swi
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { UsersHttpService } from '../../../service/http/users.http.service';
-import { AuthHttpRequirementService } from '../../../service/http/auth.http.requirements.service';
+import { RefreshHttpService } from '../../../service/http/refresh.service';
 import { HttpResponse } from '../../../dto/warning.dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SettingsCommunicationService } from '../../../service/communication/settings.communication.service';
+import { SettingsHistoryEnum } from '../popup-settings-options/popup-settings-options';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-room',
@@ -17,15 +20,11 @@ export class CreateRoom {
 
   constructor(
     private readonly usersHttp: UsersHttpService,
-    private readonly requirements: AuthHttpRequirementService,
+    private readonly refreshHttpService: RefreshHttpService,
+    private readonly settingsComm: SettingsCommunicationService,
+    private readonly router: Router
   ) { }
-
-  validateField() {
-
-  }
-  @Output()
-  close: EventEmitter<void> = new EventEmitter()
-  constaint: boolean = true
+  constraint: boolean = true
   validationOptions = {
     count: {
       value: null,
@@ -47,22 +46,20 @@ export class CreateRoom {
   }
 
   createAndJoin() {
-    this.requirements.require(this.usersHttp.createVideoRoom())
-      .subscribe((res: (HttpResponse | HttpErrorResponse)) => {
-        console.log(res)
-        // this.comm.send(AppEnum.LOADER, { active: false, payload: {} })
-        if (res instanceof HttpErrorResponse) {
-        }
-        else {
-          // this.comm.send(AppEnum.NOTIFICATION, {
-          //   active: true,
-          //   payload: res
-          // })
-          // this.comm.send(SettingsOptions.UPDATE_USER_DATA, {
-          //   active: true, payload: res.body
-          // })
-        }
-        // this.close.emit()
-      })
+        this.router.navigateByUrl('/room')
+
+    // this.refreshHttpService.require(this.usersHttp.createVideoRoom())
+    //   .subscribe((res: (HttpResponse | HttpErrorResponse)) => {
+    //     // console.log(res)
+    //     if (res instanceof HttpErrorResponse) {
+    //     }
+    //     else {
+
+    //     }
+    //   })
+  }
+
+  close() {
+    this.settingsComm.send(SettingsHistoryEnum.CLEAR)
   }
 }

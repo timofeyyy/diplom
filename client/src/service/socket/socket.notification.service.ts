@@ -1,12 +1,11 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { AppConfigService } from "../config/app-config.service";
 import { io, Socket } from "socket.io-client";
-import { StatusStorageObjService } from "../communication/status.storage.service";
-import { EmitSocketNotificationEnum, NotificationTypes, OnSocketEnum, OnSocketMessangerEnum, OnSocketNotificationEnum, OnSocketUserEnum } from "../../etc/enum/socket.enum";
+import { EmitSocketNotificationEnum, OnSocketEnum, OnSocketNotificationEnum } from "../../etc/enum/socket.enum";
 import { CommunicationService } from "../communication/communication.service";
-import { ChatsHistoryService } from "../user/chats.service";
-import { MeService } from "../user/me.service";
+import { NotificationTypes } from "../../etc/enum/notification.enum";
 import { NotificationService } from "../user/notification.service";
+import { NotificationDto } from "../../dto/notification.dto";
 
 @Injectable({
     providedIn: "root",
@@ -14,7 +13,7 @@ import { NotificationService } from "../user/notification.service";
 export class SocketNotificationService implements OnDestroy {
     constructor(
         private readonly appConfig: AppConfigService,
-        private readonly comm: CommunicationService,
+        private readonly comm: CommunicationService
     ) { }
 
     #socket: Socket<any, any> | undefined
@@ -38,9 +37,11 @@ export class SocketNotificationService implements OnDestroy {
         this.#socket!.on(OnSocketEnum.DISCONNECT, () => {
             console.log("disconnected")
         });
-        this.#socket?.on(OnSocketNotificationEnum.NOTIFICATION_RECIEVED, (notification: Notification) => {
+        this.#socket?.on(OnSocketNotificationEnum.NOTIFICATION_RECEIVE, (notification: NotificationDto) => {
             console.log("NOTIFICATION")
-            this.comm.send(OnSocketNotificationEnum.NOTIFICATION_RECIEVED, { active: true, payload: notification })
+            // console.log(notification)
+            this.comm.send(OnSocketNotificationEnum.NOTIFICATION_RECEIVE, notification)
+            // this.comm.send(OnSocketNotificationEnum.NOTIFICATION_RECEIVE, notification)
         });
     }
 
@@ -48,11 +49,12 @@ export class SocketNotificationService implements OnDestroy {
         this.#socket?.off(OnSocketEnum.CONNECT_ERROR)
         this.#socket?.off(OnSocketEnum.CONNECT)
         this.#socket?.off(OnSocketEnum.DISCONNECT)
+        this.#socket?.off(OnSocketNotificationEnum.NOTIFICATION_RECEIVE)
         this.#socket?.disconnect()
     }
 
     emitNotificationSend(payload: { recieverId: any, notificationType: NotificationTypes, data: any }) {
-        console.log("NOTIFICATION")
-        this.#socket?.emit(EmitSocketNotificationEnum.NOTIFICATION_SEND, payload)
+        // // console.log("NOTIFICATION")
+        // this.#socket?.emit(EmitSocketNotificationEnum.NOTIFICATION_SEND, payload)
     }
 }

@@ -1,0 +1,14 @@
+<div class="notification-types">
+    @for (tab of tabs; track $index) {
+    <div class="notification-type" [ngClass]="{'selected': selectedTab == tab.tabKey}" (click)="tab.command()">
+       <div class="content">
+        <span class="paragraph">{{tab.name}}</span>
+        @if (tab.counter) {
+        <div class="counter">
+            <span class="paragraph">{{tab.counter}}</span>
+        </div>
+        }
+       </div>
+    </div>
+    }
+</div>

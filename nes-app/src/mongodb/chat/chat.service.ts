@@ -4,8 +4,8 @@ import { Model, Types } from 'mongoose';
 import { Chat } from './chat.schema';
 import { MongoWrapper } from '../mongo.types';
 import { User } from '../user/user.schema';
-import { MongoFriendsService } from '../user/friends.service';
 import * as crypto from 'crypto';
+import { MongoUserService } from '../user/user.service';
 
 
 
@@ -14,14 +14,12 @@ export class MongoChatService {
   constructor(
     @InjectModel(Chat.name)
     private readonly chatModel: Model<Chat>,
-    private readonly mongoFriendService: MongoFriendsService
+    private readonly mongoUserService: MongoUserService
   ) { }
 
   async findWithAgregate(userA: MongoWrapper<User>) {
     return this.chatModel.aggregate([
-
       { $match: { participants: userA?._id.toString() } },
-
       {
         $addFields: {
           participantIds: {
@@ -64,7 +62,8 @@ export class MongoChatService {
     return chats.map((chat) => {
       const details = chat.participantDetails as MongoWrapper<User>[]
       const updatedDetails = details.map((detail) => {
-        const status = this.mongoFriendService.changeFriendRecord(userA, detail)
+        const status = this.mongoUserService
+        .changeFriendRecord(userA, detail)
         return {
           ...detail,
           workGroup: null,
@@ -94,7 +93,7 @@ export class MongoChatService {
       });
     }
     catch (e) {
-      console.log(e)
+      // console.log(e)
       return null
     }
   }
@@ -130,7 +129,7 @@ export class MongoChatService {
       return await this.chatModel.create(mock!) as unknown as MongoWrapper<Chat>;;
     }
     catch (e) {
-      console.log(e)
+      // console.log(e)
       return null
     }
   }
@@ -139,7 +138,7 @@ export class MongoChatService {
       return await this.chatModel.create(mock!) as unknown as MongoWrapper<Chat>;;
     }
     catch (e) {
-      console.log(e)
+      // console.log(e)
       return null
     }
   }
@@ -161,7 +160,7 @@ export class MongoChatService {
 
   // async findOneAndUpdate(params: Partial<MongoWrapper<Chat>>, Chat: Chat) {
   //   try {
-  //     console.log(Chat)
+  //     // console.log(Chat)
   //     return await this.chatModel.findOneAndUpdate(params!, Chat, { upsert: true, new: true })
   //   }
   //   catch {

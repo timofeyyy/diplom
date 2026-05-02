@@ -1,0 +1,32 @@
+@use "../../../styles/elements/icon/icon.scss" as icon;
+.wrapper {
+    width: fit-content;
+    margin: 0;
+}
+
+.icon {
+    @include icon.icon-mask("../../../assets/images/left.svg", max(1.5vw, 15px));
+    margin: 0 max(0.5vw, 5px);
+    cursor: pointer;
+}
+
+.icon-right {
+    transform: rotate(180deg);
+}
+
+.horizontal-tabs {
+    display: flex;
+    align-items: center;
+    border-bottom: .1vw solid gray;
+    .wrapper {
+        overflow-x: scroll;
+        transition: ease all 0.3s;
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        .content-wrapper {
+            width: fit-content;
+        }
+    }
+}

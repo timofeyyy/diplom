@@ -1,0 +1,25 @@
+<div class="themes-popup" #window>
+    <div class="theme-wrapper">
+        <p class="head">Основная тема</p>
+        <div class="block-x">
+            <p class="subhead">Темная тема</p>
+            <app-custom-on-off-switcher [value]="savedMainTheme == 'dark'" (onStateChnged)="onSwitchStateChanged($event)" class="switcher" />
+        </div>
+        <p class="head">Подтемы</p>
+        <div class="block-x">
+            <p class="subhead">Цвет ui элементов</p>
+            <div class="preview">
+                @for (theme of themes; track $index) {
+                <span [ngClass]="{'selected' : selectedAppTheme!.name == theme.name}" class="selected" [style.background]="theme.colors.primary" (click)="select(theme)"></span>
+                }
+            </div>
+        </div>
+          <div class="block-x">
+            <p class="subhead">Шаблоны фона мессенджеров</p>
+        </div>
+        <div class="buttons">
+            <button (click)="apply()">Применить</button>
+            <button (click)="close()">Назад</button>
+        </div>
+    </div>
+</div>

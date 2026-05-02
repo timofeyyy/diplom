@@ -6,7 +6,7 @@ export type ChatDocument = HydratedDocument<Chat>;
 @Schema()
 export class Chat {
   @Prop()
-  participants: string[];
+  participants!: string[];
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

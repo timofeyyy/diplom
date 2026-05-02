@@ -1,0 +1,22 @@
+.search {
+  margin: 0;
+  display: flex;
+  border-bottom: 0.1vw solid var(--border-color);
+  width: -webkit-fill-available;
+}
+.search input {
+  color: var(--main-text);
+  background-color: transparent;
+  border: none;
+  padding: max(0.5vw, 5px) 0;
+  font-size: max(1vw, 10px);
+  font-weight: lighter;
+}
+.search input:focus {
+  border: none;
+  outline: none;
+}
+.search img {
+  margin-right: max(0.5vw, 5px);
+  width: max(0.8vw, 8px);
+}/*# sourceMappingURL=simple-text-search.css.map */

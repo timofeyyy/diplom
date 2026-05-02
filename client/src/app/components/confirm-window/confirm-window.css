@@ -1,0 +1,75 @@
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.head {
+  font-size: max(1.25vw, 12.5px);
+  font-weight: 500;
+  color: var(--main-text);
+  margin-bottom: max(1vw, 10px);
+}
+
+.subhead {
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: max(0.88vw, 8.8px);
+}
+
+.paragraph {
+  color: var(--main-text);
+  font-size: max(0.88vw, 8.8px);
+}
+
+.disabled {
+  color: gray;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.confirm-popup {
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(10px);
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.confirm-popup .confirm {
+  padding: max(1vw, 10px);
+  border-radius: 0.5vw;
+  background-color: var(--main-main);
+  border: 0.1vw solid var(--border-color);
+}
+.confirm-popup .confirm .subhead {
+  margin-bottom: max(3vw, 30px);
+}
+.confirm-popup .confirm .buttons {
+  display: flex;
+  gap: max(0.5vw, 5px);
+}/*# sourceMappingURL=confirm-window.css.map */

@@ -5,8 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { GoogleAuthGuard } from './guards/google.guard';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { PassportModule } from '@nestjs/passport';
-// import { RedisAuthService } from 'src/redis/redis.auth.service';
-// import { UsersModule } from 'src/users/users.module';
 import { LocalStrategy } from './strategy/local.strategy';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JwtRefreshStrategy } from './strategy/jwt.refresh.strategy';
@@ -15,6 +13,7 @@ import { RedisTokenService } from 'src/redis/redis.token.service';
 import { MongoDbModule } from 'src/mongodb/mongo.module';
 import { EncryptionService } from './encryption.service';
 import { MailModule } from './../mailer/mailer.module';
+import { NotificationService } from 'src/notifications/notification.service';
 @Module({
   imports: [
     PassportModule.register({ session: false }),
@@ -25,7 +24,6 @@ import { MailModule } from './../mailer/mailer.module';
   controllers: [AuthController],
   providers: [
     AuthService,
-    // RedisAuthService,
     RedisTokenService,
     EncryptionService,
     
@@ -35,14 +33,19 @@ import { MailModule } from './../mailer/mailer.module';
     LocalStrategy,
     JwtService,
     JwtRefreshStrategy,
-    JwtAccessStrategy
+    JwtAccessStrategy,
+    // CommunicationService,
+    // CommunicationBehaivorService,
+    NotificationService,
 
   ],
   exports: [
     AuthService,
-    // RedisAuthService,
     RedisTokenService,
     EncryptionService,
+    // CommunicationService,
+    // CommunicationBehaivorService,
+    NotificationService
   ]
 })
 

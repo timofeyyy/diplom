@@ -1,46 +1,81 @@
-@use "../../../../styles/variables/variables.scss" as v;
+@use "../../../../styles/elements/loader-phantom/loader-phantom.scss";
+@use "../../../../styles/elements/avatar/circle-avatar.scss";
 
-.avatar {
+.avatar-wrapper {
     button {
         transition: all ease 0.5s;
-        border-radius: .5vw;
-        font-size: v.$app-size6-vw;
+        border-radius: 0.5vw;
+        font-size:max(.75vw, 7.5px);
         margin-top: max(1vw, 10px);
         padding: max(0.5vw, 5px) max(1vw, 10px);
         cursor: pointer;
         font-weight: 500;
         border: 0.1vw solid darkgray;
-    } 
- 
+    }
+
+    .avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        width: max(3vw, 30px);
+        height: max(3vw, 30px);
+        border: 0.1vw solid black;
+        cursor: pointer;
+    }
+
     .send {
-        background-color: v.$light-blue;
+        background-color: var(--color-secondary);
         &:hover {
             color: white;
-            background-color: v.$complete-color;
+            background-color:#17ad44;
         }
     }
 
     .sent {
         color: white;
-        background-color: v.$complete-color;
-        // background-color: v.$yellow-color;
-        // background-color: v.$light-blue;
+        background-color:#17ad44;
+        // background-color:#dabe20;
+        // background-color:#8888dc;
         &:hover {
-            background-color: v.$invalid-color;
+            background-color:#ae1b3f;
         }
     }
 
     .accept {
         color: white;
-        background-color: v.$complete-color;
+        background-color:#17ad44;
     }
 
     .delete {
-        // background-color: v.$light-blue;
-        background-color: v.$invalid-color;
+        // background-color:#8888dc;
+        background-color:#ae1b3f;
         // &:hover {
         color: white;
-        //     background-color: v.$invalid-color;
+        //     background-color:#ae1b3f;
         // }
+    }
+}
+
+.empty-list {
+    padding: max(1.5vw, 15px) 0 max(2.5vw, 25px) 0;
+    width: max(12vw, 120px);
+    * {
+        text-align: center;
+    }
+    h5 {
+        color: var(--main-text);
+        font-weight: 400;
+        font-size: max(1vw, 10px);
+    }
+    p {
+        color: var(--color-secondary);
+        font-size: max(0.75vw, 7.5px);
+    }
+}
+.data-preview {
+    padding: max(1.5vw, 15px) max(1vw, 10px);
+    .warframe {
+        padding: max(1.5vw, 15px) max(1vw, 10px);
+        border-radius: 0.5vw;
+        animation: phantom 1s ease infinite;
     }
 }

@@ -14,11 +14,11 @@ const connect = () => {
     let client = (0, redis_1.createClient)();
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         client.on('error', err => {
-            console.log('Redis Client Error', err);
+            // console.log('Redis Client Error', err);
             reject(err);
         });
         client.on('ready', err => {
-            console.log('ready');
+            // console.log('ready');
             resolve(client);
         });
         if (!client.isOpen)

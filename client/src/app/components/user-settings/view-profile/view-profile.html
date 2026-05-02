@@ -1,61 +1,47 @@
 @if(me) {
-    <section class="avatar">
-        <img [src]="me.avatar" alt="">
-        <p>{{me.userName}}</p>
-    </section>
-    <section class="fields">
-        <div class="field">
-            <p class="value">
-                {{me.email}}
-            </p>
-            <p class="key">
-                email
-            </p>
-        </div>
-
-        <div class="field">
-            <p class="value">
-                {{me.birthday ?? "unset"}}
-            </p>
-            <p class="key">
-                birthday
-            </p>
-        </div>
-
-        <!-- <div class="field">
-            <p class="value">
-                {{'*********'}}
-            </p>
-            <p class="key">
-                password
-            </p>
-        </div> -->
-    </section>
-}
-@if(mockFriends.length) {
-    <div class="friends">
-        <div class="head">
-            <h3>Friends</h3>
-            <div class="search">
-                <img src="/assets/images/search.svg" alt="">
-                <input class="search" type="text" placeholder="Search" (change)="search($event)">
-
-            </div>
-        </div>
-        <app-people-list [currentList]="mockFriends" />
-        <!-- <ul>
-            @for (friend of mockFriends; track friend._id) {
-            <li>
-                <img [src]="friend.avatar" alt="friends">
-                <div class="info">
-                    <p class="username">{{friend.userName}}</p>
-                    <p class="when">last seen </p>
-                </div>
-            </li>
-            }
-            @empty {
-            <li>List is empty</li>
-            }
-        </ul> -->
+<section class="avatar-wrapper">
+     <app-avatar [avatar]="me.avatar" [options]="me.displayAvatarSettings!" [borderRadius]="50"
+            [size]="'max(5vw, 50px)'" />
+    <p>{{me.userName}}</p>
+</section>
+<section class="fields">
+    <div class="field">
+        <p class="value">
+            {{me.email}}
+        </p>
+        <p class="key">
+            Почта
+        </p>
     </div>
+
+    <div class="field">
+        <p class="value">
+            @if(me.birthday) {
+                {{ me.birthday | date: 'yyyy-MM-dd' }}
+            }
+            @else {
+                неуказано
+            }
+        </p>
+        <p class="key">
+            Дата рождения
+        </p>
+    </div>
+</section>
 }
+<div class="friends">
+    <h3>Друзья пользователя</h3>
+    <div class="search-component">
+        <app-simple-text-search (onSearchTextCnahged)="search($event)" />
+    </div>
+    @if(displayedFriends.length || loader) {
+    <app-people-list [currentList]="displayedFriends" [loader]="loader" [command]="stateMessanger" />
+    }
+    @else {
+    <div class="empty-list">
+        <img src="/assets/images/women-empty-list.svg">
+        <h5>Ничего не найдено</h5>
+        <p>У пользователя веротяно нет таких друзей</p>
+    </div>
+    }
+</div>

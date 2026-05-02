@@ -10,6 +10,8 @@ import { MongoDbModule } from './mongodb/mongo.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { UserModule } from './user/user.module';
 import { NotificationModule } from './notifications/notification.module';
+import { AvatarHistoryModule } from './avatar-history/avatar-history.module';
+import { CommunicationModule } from './etc/service/communication.modulte';
 
 @Module({
   imports: [
@@ -27,10 +29,12 @@ import { NotificationModule } from './notifications/notification.module';
         },
       },
     }),
+    CommunicationModule,
     AuthModule,
     UserModule,
     SocketModule,
-    NotificationModule
+    NotificationModule,
+    AvatarHistoryModule
   ],
   controllers: [],
   providers: [],

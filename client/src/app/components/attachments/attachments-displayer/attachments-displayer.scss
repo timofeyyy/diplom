@@ -1,6 +1,7 @@
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+
 .images {
     display: grid;
-    margin-bottom: max(1vw, 10px);
 }
 
 .image {
@@ -114,35 +115,40 @@
 .files {
     display: flex;
     flex-direction: column;
-    
+
     .file {
         position: relative;
-        margin: max(.5vw, 5px);
+        margin: max(0.5vw, 5px);
         .file-content {
             display: flex;
             align-items: center;
             gap: max(1vw, 10px);
-            padding: max(1vw, 10px);;
-            border-radius: 12px;
+            padding: max(.5vw, 5px);
+            border-radius: 0.5vw;
             // background: #f5f5f5;
             // background-color: #1f1f1f;
-            border: .1vw solid #1f1f1f;
+            // border: 0.1vw solid #1f1f1f;
             cursor: pointer;
             transition: 0.2s;
             max-width: max(30vw, 300px);
             cursor: pointer;
             background: rgba(255, 255, 255, 0.15);
-color: #fff;
+            color: #fff;
             // &:hover {
             //     // background: #eaeaea;
             // }
             .file-info {
+                // color: var(--color-text);
                 color: black;
+                font-size: max(.75vw, 7.5px);
+                margin-right: 0;
+                text-decoration: underline;
             }
         }
 
         .file-icon {
-            font-size: max(2vw, 20px);
+            width: max(1.5vw, 15px);
+            margin: 0;
         }
 
         .file-info {
@@ -155,8 +161,8 @@ color: #fff;
 
         .remove-icon {
             position: absolute;
-            top: max(.5vw, 5px);
-            right: max(.5vw, 5px);
+            top: max(0.5vw, 5px);
+            right: max(0.5vw, 5px);
             cursor: pointer;
         }
     }

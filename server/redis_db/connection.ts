@@ -6,11 +6,11 @@ const connect = (): Promise<RedisClientType> => {
 
     return new Promise(async (resolve, reject) => {
         client.on('error', err => {
-            console.log('Redis Client Error', err)
+            // console.log('Redis Client Error', err)
             reject(err);
         });
         client.on('ready', err => {
-            console.log('ready')
+            // console.log('ready')
             resolve(client);
         });
         if(!client.isOpen)

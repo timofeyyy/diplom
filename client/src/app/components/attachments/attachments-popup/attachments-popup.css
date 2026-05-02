@@ -1,3 +1,59 @@
+.underlined-input {
+  transition: 0.3s ease all;
+  color: var(--main-text);
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.1vw solid var(--main-text);
+  padding: max(0.25vw, 2.5px) 0;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+}
+.underlined-input:focus {
+  outline: none;
+}
+
+.field-underlined {
+  border-bottom: 0.1vw solid var(--main-text);
+}
+
+.field-horizontal {
+  display: flex;
+  align-items: center;
+}
+.field-horizontal * {
+  margin-left: 0;
+  margin-right: max(1vw, 10px);
+}
+
+.field p {
+  font-weight: 500;
+  color: var(--main-text);
+  font-size: max(0.75vw, 7.5px);
+  transition: 0.3s ease all;
+}
+.field {
+  transition: 0.3s ease all;
+  margin: max(1vw, 10px) 0;
+  width: -webkit-fill-available;
+}
+.field img {
+  margin-right: max(0.5vw, 5px);
+  width: max(0.8vw, 8px);
+}
+
+.focused p {
+  color: var(--color-secondary);
+}
+.focused input::-moz-placeholder {
+  color: transparent;
+}
+.focused input::placeholder {
+  color: transparent;
+}
+.focused input {
+  border-color: var(--color-secondary);
+}
+
 .attachment-popup {
   height: 100vh;
   width: 100vw;
@@ -15,18 +71,19 @@
   border-radius: 0.5vw;
   display: flex;
   flex-direction: column;
-  background-color: #202020;
+  background-color: var(--main-secondary);
 }
 .attachment-popup .attachment-popup-window .attachemnt-header {
   font-size: max(1vw, 10px);
   font-weight: 500;
-  color: white;
-  margin: 0 max(1vw, 10px) max(1vw, 10px) max(1vw, 10px);
+  color: var(--main-text);
+  margin-bottom: max(1vw, 10px);
+  margin-left: 0;
 }
 .attachment-popup .attachment-popup-window .attachment-displayer {
+  min-width: max(30vw, 300px);
   overflow-y: scroll;
   display: block;
-  margin: 0 max(1vw, 10px);
   border-radius: 0.5vw;
 }
 .attachment-popup .attachment-popup-window .footer-wrapper {
@@ -34,7 +91,7 @@
   display: block;
 }
 .attachment-popup .attachment-popup-window .footer-wrapper .field {
-  margin: max(1vw, 10px);
+  margin: max(1vw, 10px) 0;
 }
 .attachment-popup .attachment-popup-window .footer-wrapper .footer-actions {
   display: flex;
@@ -42,4 +99,7 @@
 }
 .attachment-popup .attachment-popup-window .footer-wrapper .footer-actions button:nth-child(2) {
   margin-left: auto;
+}
+.attachment-popup .attachment-popup-window .footer-wrapper .underlined-input {
+  width: 100%;
 }/*# sourceMappingURL=attachments-popup.css.map */

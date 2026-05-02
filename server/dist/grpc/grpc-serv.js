@@ -56,19 +56,19 @@ const proto = grpc.loadPackageDefinition(pkgDef);
 const server = new grpc.Server();
 server.addService(proto.auth.VerifyTokenService.service, {
     VerifyToken: (call, callback) => {
-        console.log("VerifyToken");
+        // console.log("VerifyToken");
         connection_1.default.connect()
             .then((client) => __awaiter(void 0, void 0, void 0, function* () {
             const jwtId = call.request.id;
             let tokensStr = yield client.get("tokens");
             let tokens = tokensStr ? JSON.parse(tokensStr) : {};
             let status;
-            console.log(jwtId);
-            console.log("\n\n\n\n\n");
-            console.log(tokens);
+            // console.log(jwtId);
+            // console.log("\n\n\n\n\n");
+            // console.log(tokens);
             const response = {};
             if (tokens && jwtId) {
-                console.log(tokens[jwtId]);
+                // console.log(tokens[jwtId]);
             }
             if (tokens && jwtId && tokens[jwtId]) {
                 status = enum_1.TokenStatus.EXISTS;
@@ -81,7 +81,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
             callback(null, response);
         }))
             .catch((err) => {
-            console.log(err);
+            // console.log(err);
             callback(err, null);
         });
     },
@@ -90,7 +90,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
             .then((client) => __awaiter(void 0, void 0, void 0, function* () {
             const jwtId = call.request.id;
             let tokensStr = yield client.get("tokens");
-            console.log(tokensStr);
+            // console.log(tokensStr);
             let tokens = tokensStr ? JSON.parse(tokensStr) : {};
             const date = Date.now().toString();
             if (!tokens) {
@@ -98,7 +98,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
             }
             tokens[jwtId] = date;
             yield client.set("tokens", JSON.stringify(tokens));
-            console.log("сохранено");
+            // console.log("сохранено");
             callback(null, {
                 status: enum_1.TokenStatus.EXISTS,
                 regDate: date
@@ -115,7 +115,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
             let tokensStr = yield client.get("tokens");
             let tokens = tokensStr ? JSON.parse(tokensStr) : {};
             const response = {};
-            console.log(tokens, jwtId);
+            // console.log(tokens, jwtId);
             if (tokens[jwtId]) {
                 delete tokens[jwtId];
                 response.status = enum_1.TokenStatus.EXISTS;
@@ -132,6 +132,6 @@ server.addService(proto.auth.VerifyTokenService.service, {
     }
 });
 server.bindAsync('0.0.0.0:12000', grpc.ServerCredentials.createInsecure(), () => {
-    console.log('gRPC server started');
+    // console.log('gRPC server started');
     server.start();
 });

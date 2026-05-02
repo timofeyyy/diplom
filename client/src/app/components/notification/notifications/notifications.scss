@@ -1,0 +1,85 @@
+@use "../../../../styles/elements/paragraph/paragraph.scss";
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+aside {
+    margin: 0;
+    height: 100%;
+    width: max(25vw, 250px);
+    background-color: var(--main-main);
+    border-right: 0.025vw solidrgb(45, 45, 45);
+    overflow-y: scroll;
+    border-left: 0.1vw solid var(--border-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    .header {
+        display: flex;
+        align-items: center;
+        padding: max(1vw, 10px);
+
+        .icon-close {
+            margin-right: 0;
+            @include icon.icon-mask("../../../../assets/images/close.svg", max(1.2vw, 12px));
+            cursor: pointer;
+        }
+        .head {
+            margin: 0;
+        }
+    }
+
+    .notification-types {
+        // width: fit-content;
+        // margin: 0;
+        // border-bottom: 0.1vw solid var(--border-color);
+        overflow-x: scroll;
+        display: flex;
+        // align-items: center;
+        // justify-content: flex-start;
+        transition: ease all 0.3s;
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        .notification-type {
+            padding: max(0.5vw, 5px) 0;
+            margin: 0 0 0 max(1vw, 10px);
+            display: flex;
+            cursor: pointer;
+            .counter {
+                width: max(1vw, 10px);
+                height: max(1vw, 10px);
+                display: flex;
+                padding: 0 max(0.2vw, 2px);
+                border-radius: 0.25vw;
+                background-color: lightgray;
+                margin-left: max(0.5vw, 5px);
+
+                .paragraph {
+                    font-size: max(0.75vw, 7.5px);
+                    color: black;
+                    line-height: 1.3;
+                }
+            }
+        }
+
+        .selected {
+            border-bottom: 0.15vw solid var(--color-secondary);
+            .paragraph {
+                font-weight: 500;
+                color: var(--color-secondary);
+            }
+            .counter {
+                background-color: var(--color-secondary);
+                .paragraph {
+                    color: var(--main-main);
+                }
+            }
+        }
+    }
+    .notifications {
+        padding: 0 max(1vw, 10px) max(1vw, 10px) max(1vw, 10px);
+    }
+    .horizontal-tabs {
+        margin: 0 max(1vw, 10px);
+    }
+}

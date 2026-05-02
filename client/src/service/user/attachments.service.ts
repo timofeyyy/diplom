@@ -29,12 +29,12 @@ export class AttachmentsService {
         this.#data.push(item)
     }
     removeAttachment(index: number) {
-        console.log(this.#data)
+        // console.log(this.#data)
         this.#data.splice(index, 1)
-        console.log(this.#data)
+        // console.log(this.#data)
     }
     send() {
-        this.behaviorComm.send(AttachmentsService.name, { active: true, payload: { attachments: this.#data, message: this.message } })
+        this.behaviorComm.send(AttachmentsService.name, { attachments: this.#data, message: this.message })
     }
 
     listen() {

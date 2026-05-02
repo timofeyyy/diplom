@@ -1,68 +1,77 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { UserDto } from '../../../../dto/user.dto';
 import { CommunicationService } from '../../../../service/communication/communication.service';
-import { SettingsOptions } from '../../../../etc/enum/settings.enum';
-import { FormsModule } from '@angular/forms';
 import { PeopleList } from "../../people-list/people-list";
 import { FriendStatus } from '../../../../etc/enum/friend.enum';
-import { UsersHttpService } from '../../../../service/http/users.http.service';
-import { AppEnum, EventsEnum } from '../../../../etc/enum/app.enum';
 import { MeService } from '../../../../service/user/me.service';
-// import { EmitMessangerEnum } from '../../../../etc/enum/messanger.enum';
-import { lastValueFrom, pipe, Subscription, take, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ChatsHistoryService } from '../../../../service/user/chats.service';
 import { EmitSocketMessangerEnum } from '../../../../etc/enum/socket.enum';
+import { SettingsCommunicationService } from '../../../../service/communication/settings.communication.service';
+import { SettingsHistoryEnum } from '../../popup-settings-options/popup-settings-options';
+import { SimpleTextSearch } from "../../simple-text-search/simple-text-search";
+import { FreindsService } from '../../../../service/user/friends.service';
+import { SettingsOptions } from '../../../../etc/enum/settings.enum';
+import { DatePipe, NgStyle } from '@angular/common';
+import { AvatarSettings } from '../../../../service/avatar/avatar.dto';
+import { Avatar } from "../../avatar/avatar";
+import { FriendStatusEnum } from '../../../../etc/enum/notification.enum';
 
 @Component({
   selector: 'app-view-other-profile',
-  imports: [PeopleList],
+  imports: [PeopleList, SimpleTextSearch, DatePipe, Avatar],
   templateUrl: './view-other-profile.html',
   styleUrls: ['../view-profile/view-profile.scss', './view-other-profile.scss'],
 })
-export class ViewOtherProfile implements OnInit, OnChanges {
+export class ViewOtherProfile implements OnInit {
+  avatarDisplaySettings!: AvatarSettings
+
   constructor(
     private readonly comm: CommunicationService,
-    private readonly UsersHttpService: UsersHttpService,
     private readonly meService: MeService,
-    private readonly chatsService: ChatsHistoryService
+    private readonly chatsService: ChatsHistoryService,
+    private readonly settingsComm: SettingsCommunicationService,
+    private readonly friendsService: FreindsService,
   ) { }
-
-  ngOnChanges(): void {
-    this.mockFriends = [this.opponent]
-    // if (this.me && this.me._id) {
-    //   this.friendStatus = this.calculateFriendStatus()
-    // }
-  }
-
-  private calculateFriendStatus(): FriendStatus {
+  calculateFriendStatus(): FriendStatusEnum | undefined {
+    console.log("calculate")
     console.log(this.me, this.opponent)
-    const myId = this.me!._id!.toString()
-    const opponentId = this.opponent._id!.toString()
-
-    const opponentRequestedMe = this.opponent.friendRequests?.includes(myId)
-    const iRequestedOpponent = this.me!.friendRequests?.includes(opponentId)
-
-    if (opponentRequestedMe && iRequestedOpponent) return FriendStatus.FREIND
-    if (opponentRequestedMe) return FriendStatus.SUBSCRIBED
-    if (iRequestedOpponent) return FriendStatus.DECIDE
-
-    return FriendStatus.UNKNOWN
+    const opponentFriendRequest = this.opponent.friendRequests.find((req) => req.receiverId == this.me?._id)
+    if (opponentFriendRequest) {
+      return opponentFriendRequest.status
+    }
+    return undefined
   }
-
 
   me?: UserDto
   chatUpdateSub?: Subscription
+  originalFriends: UserDto[] = []
+  displayedFriends: UserDto[] = []
+  loader!: boolean
+
   async ngOnInit() {
     this.meService.listen().subscribe((res) => {
-      this.me = res.payload
-
+      this.me = res
       this.friendStatus = this.calculateFriendStatus()
     })
-    this.chatUpdateSub = this.chatsService.listen().subscribe((res) => {
-      console.log("chat update profile")
+    const id: string = this.opponent!._id.toString()
+    this.friendsService.listen(id).subscribe((res) => {
+      console.log(res)
+      if (res) {
+        this.originalFriends = res
+        this.displayedFriends = Array.from(this.originalFriends)
+        this.loader = false
+      }
+      else {
+        this.displayedFriends = [this.opponent!]
+        this.loader = true
+        this.friendsService.update(id)
+      }
+    })
 
+    this.chatUpdateSub = this.chatsService.listen().subscribe((res) => {
       const chatsHistory: any[] = []
-      res.payload.forEach((chatItem: any) => {
+      res.forEach((chatItem: any) => {
         const details = chatItem.participantDetails as any[]
         details.forEach((detail) => {
           if (detail._id != this.me?._id) {
@@ -78,28 +87,35 @@ export class ViewOtherProfile implements OnInit, OnChanges {
         }
       }
       this.friendStatus = this.calculateFriendStatus()
+      this.friendsService.update(id)
+    })
+  }
+
+  stateMessanger = (user: Partial<UserDto> | undefined, index: number): void => {
+    this.settingsComm.send(SettingsHistoryEnum.PUSH, {
+      action: SettingsOptions.USER_SETTINGS, payload: {
+        user: user,
+        mode: user?._id == this.me?._id ? SettingsOptions.USER_VIEW : SettingsOptions.OTHER_USER_VIEW
+      }
     })
   }
   @Input()
   opponent!: UserDto
-  friendStatus?: FriendStatus = FriendStatus.UNKNOWN
-  get FriendStatus() {
-    return FriendStatus
+  friendStatus?: FriendStatusEnum
+  get FriendStatusEnum() {
+    return FriendStatusEnum
   }
   close() {
-    this.comm.send(SettingsOptions.USER_SETTINGS, {
-      active: false,
-      payload: {}
-    })
+    this.settingsComm.send(SettingsHistoryEnum.CLEAR)
   }
 
   mockFriends: UserDto[] = []
 
   receiverRequestRealTime(del: boolean) {
-    this.comm.send(EmitSocketMessangerEnum.RECEIVER_STATUS_UPDATE, { active: true, payload: { recieverId: this.opponent._id.toString(), del: del } })
+    this.comm.send(EmitSocketMessangerEnum.RECEIVER_STATUS_UPDATE, { recieverId: this.opponent._id.toString(), del: del })
   }
   senderRequestRealTime(del: boolean) {
-    this.comm.send(EmitSocketMessangerEnum.SENDER_STATUS_UPDATE, { active: true, payload: { recieverId: this.opponent._id?.toString(), del: del } })
+    this.comm.send(EmitSocketMessangerEnum.SENDER_STATUS_UPDATE, { recieverId: this.opponent._id?.toString(), del: del })
   }
 
   search(event: any): void {
@@ -124,11 +140,9 @@ export class ViewOtherProfile implements OnInit, OnChanges {
 
       return similarity >= 0.3
     })
-
-    console.log(newMockedFriends)
   }
 
-  private countMatches(a: string[], b: string[]): number {
+  countMatches(a: string[], b: string[]): number {
     const setB = new Set(b)
     let matches = 0
 
@@ -140,7 +154,7 @@ export class ViewOtherProfile implements OnInit, OnChanges {
 
     return matches
   }
-  private getTrigrams(str: string): string[] {
+  getTrigrams(str: string): string[] {
     const normalized = str.toLowerCase()
     const trigrams: string[] = []
 

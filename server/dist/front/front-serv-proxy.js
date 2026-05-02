@@ -8,4 +8,4 @@ const app = (0, express_1.default)();
 app.get("/*path", (req, res) => {
     res.redirect(`http://localhost:4200${req.url}`);
 });
-app.listen(4201, () => console.log("angular"));
+app.listen(4201, () => // console.log("angular"));

@@ -1,0 +1,12 @@
+<div class="events">
+    <div class="event-list">
+        @for (event of events; track $index) {
+        <app-custom-event class="event" (close)="close($event)" [index]="$index">
+            <ng-container *ngComponentOutlet="event.template; inputs: {
+                payload: event.payload
+            }">
+            </ng-container>
+        </app-custom-event>
+        }
+    </div>
+</div>

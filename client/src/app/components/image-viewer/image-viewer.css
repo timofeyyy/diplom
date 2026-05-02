@@ -22,13 +22,13 @@
   cursor: pointer;
 }
 .viewer .viewer-wrapper .content {
-  width: 70%;
-  height: 100%;
+  background: var(--main-main);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: max(1vw, 10px);
   box-sizing: border-box;
+  margin: max(5vw, 50px) 0;
 }
 .viewer .viewer-wrapper .image {
   display: flex;

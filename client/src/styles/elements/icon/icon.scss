@@ -1,0 +1,9 @@
+@mixin icon-mask($path, $size:max(1vw, 10px)) {
+  background-color: var(--main-text);
+  mask: url("#{$path}") no-repeat center;
+  -webkit-mask: url("#{$path}") no-repeat center;
+  width: $size;
+  height: $size;
+}
+ 
+ 

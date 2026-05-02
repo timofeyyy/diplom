@@ -67,7 +67,7 @@ const app = (0, express_1.default)();
 app.get("/test_iosocket", (req, res) => {
     res.send("iosocket");
 });
-// console.log(config.key_local, config.cert_local)
+// // console.log(config.key_local, config.cert_local)
 // const server = https.createServer({
 //     key: fs.readFileSync(config.key_local, 'utf-8'),
 //     cert: fs.readFileSync(config.cert_local, 'utf-8'),
@@ -85,7 +85,7 @@ const isUserAuthenticated = (token) => __awaiter(void 0, void 0, void 0, functio
                 rej(err);
             }
             else {
-                console.log(response);
+                // console.log(response);
                 res(response.status == enum_1.TokenStatus.EXISTS && response.regDate);
             }
         });
@@ -94,7 +94,7 @@ const isUserAuthenticated = (token) => __awaiter(void 0, void 0, void 0, functio
 io.use((socket, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const cookies = socket.handshake.headers.cookie;
-        // console.log(cookies)
+        // // console.log(cookies)
         if (!cookies) {
             return next(new Error('No cookies'));
         }
@@ -103,15 +103,15 @@ io.use((socket, next) => __awaiter(void 0, void 0, void 0, function* () {
         if (!token) {
             return next(new Error('No token'));
         }
-        // console.log(token)
+        // // console.log(token)
         try {
-            console.log(process.env.JWT_SECRET);
+            // console.log(process.env.JWT_SECRET);
             const payload = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
             socket.data.user = payload;
             let isAuthenticated = false;
-            console.log(payload);
+            // console.log(payload);
             if (payload) {
-                console.log(isAuthenticated);
+                // console.log(isAuthenticated);
                 isAuthenticated = yield isUserAuthenticated(token);
             }
             if (!isAuthenticated) {
@@ -122,28 +122,28 @@ io.use((socket, next) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
         catch (error) {
-            console.log(error);
-            console.log("jwt verification failed");
+            // console.log(error);
+            // console.log("jwt verification failed");
             next(new Error('Unauthorized'));
         }
     }
     catch (err) {
-        console.log("error");
+        // console.log("error");
         next(new Error(err.message));
     }
 }));
 const userData = {};
 userData[enum_1.AppAlias.JAIL] = {};
 io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log((socket as any).token)
+    // // console.log((socket as any).token)
     // const token = "mok"
     // const isAuthenticated = await isUserAuthenticated(token)
-    // // console.log(isAuthenticated)
+    // // // console.log(isAuthenticated)
     // if(!isAuthenticated) {
     //     socket.to(AppAlias.JAIL).emit('unauthorized', token);
     // }
-    console.log("connected");
-    console.log(socket.data);
+    // console.log("connected");
+    // console.log(socket.data);
     socket.on("join-room", (roomId, userId, userName) => {
         if (!userData[roomId]) {
             userData[roomId] = {};
@@ -152,8 +152,8 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
         socket.roomId = roomId;
         socket.userName = userName;
         socket.userId = userId;
-        console.log(`${userName} joined room ${roomId} ${userId}`);
-        // console.log(userData)
+        // console.log(`${userName} joined room ${roomId} ${userId}`);
+        // // console.log(userData)
         socket.join(roomId);
         socket.to(roomId).emit("user-connected", userId, userName);
     });
@@ -165,7 +165,7 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
     //     io.to(roomId).emit("createMessage", message, userName);
     // });
     socket.on('user-disconnected', (roomId, userId) => {
-        console.log(`user-disconnected ${userId}`);
+        // console.log(`user-disconnected ${userId}`);
         socket.to(roomId).emit('user-disconnected', userId);
     });
     socket.on('disconnect', () => {
@@ -173,11 +173,11 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
         const userId = socket.userId;
         if (userData[roomId] && userData[roomId][userId])
             delete userData[roomId][userId];
-        console.log('user-disconnected', userId);
+        // console.log('user-disconnected', userId);
         if (roomId && userId) {
             io.to(roomId).emit('user-disconnected', userId);
         }
-        console.log(userData);
+        // console.log(userData);
     });
 }));
-server.listen(9000, () => console.log("iosocket"));
+server.listen(9000, () => // console.log("iosocket"));

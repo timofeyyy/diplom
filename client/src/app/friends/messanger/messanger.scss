@@ -1,44 +1,25 @@
-@use "../../../styles/variables/variables.scss" as v;
-.graph {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
+@use "../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../styles/elements/input/input.scss";
 
-    background-color: lightblue;
-    height: 100vh;
-}
 .messanger {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
-    header {
-        height: max(3.5vw, 35px);
-        background-color: #17181d;
-        border-bottom: 0.1vw solid v.$border-color;
-    }
     header,
     footer,
     main {
         width: 100%;
     }
-
-    footer {
-        height: max(3vw, 30px);
-        background-color: #17181d;
-        border-top: 0.1vw solid v.$border-color;
-        form {
-            width: 100%;
-            display: flex;
-        }
-    }
     main {
+        background-color: var(--color-main);
         flex-grow: 1;
         overflow-y: scroll;
         box-sizing: border-box;
         position: relative;
         .messages {
+            margin-bottom: max(5vw, 50px);
             padding: max(1vw, 10px);
             max-height: 100%;
             width: 100%;
@@ -46,18 +27,22 @@
             .date-header {
                 p {
                     color: white;
-                    font-size: v.$app-size6-vw;
+                    font-size: max(0.75vw, 7.5px);
                     background-color: rgba(255, 255, 255, 0.2);
                     border-radius: 20px;
 
                     padding: max(0.5vw, 5px) max(1vw, 10px);
                     width: fit-content;
                     // border: 1px solid gray;
-                    margin:  max(1vw, 10px) auto;
+                    margin: max(1vw, 10px) auto;
                 }
                 position: sticky;
                 top: 1vw;
-               
+                z-index: 1;
+                pointer-events: none;
+            }
+            .messages-list {
+                padding-bottom: max(1vw, 10px);
             }
             .message {
                 overflow: hidden;
@@ -65,18 +50,18 @@
                 border-radius: 0.5vw;
                 margin: max(1vw, 10px);
                 color: white;
-                font-size: v.$app-size5-5-vw;
+                font-size: max(0.88vw, 8.8px);
                 font-weight: lighter;
                 p {
                     padding-right: max(0.5vw, 5px);
                 }
                 span {
-                    font-size: v.$app-size6-vw;
+                    font-size: max(0.75vw, 7.5px);
                     color: #868fbd;
                 }
                 transition: ease all 0.2s;
                 // &:hover {
-                //     background-color: v.$navigator-bg;
+                //     background-color:#101218;
                 //     box-shadow: 0 0 15px 2px rgb(156, 244, 244);
                 // }
                 .text {
@@ -167,24 +152,30 @@
                 // display: flex;
                 justify-self: flex-end;
                 align-items: flex-end;
-                background-color: #4f4dbb;
+                background-color: var(--color-primary);
+                .text {
+                    color: var(--color-text);
+                }
             }
             .oponnent {
                 // display: flex;
                 justify-self: flex-start;
                 align-items: flex-end;
-                background-color: #484848;
+                background-color: var(--main-main);
+                color: var(--main-text);
             }
         }
         .options {
             position: fixed;
             bottom: 3.5vw;
-            border-radius: .5vw;
-            border: 0.1vw solid v.$border-color;
-            background-color: v.$border-color;
+            border-radius: 0.5vw;
+            border: 0.1vw solidrgb(45, 45, 45);
+            // background-color: rgb(45, 45, 45);
+            background-color: var(--main-main);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 0.1vw solid var(--border-color);
 
             .option {
                 position: relative;
@@ -194,10 +185,10 @@
                 transition: 0.2s;
                 margin-left: 0;
                 &:hover {
-                    background-color: #4f4dbb;
+                    background-color: rgb(from var(--color-accent) r g b/0.5);
                 }
 
-                input {
+                .attach-picker {
                     display: none;
                 }
 
@@ -206,14 +197,16 @@
                     align-items: center;
                     padding: max(0.5vw, 5px);
                     color: white;
-                    font-size: v.$app-size5-5-vw;
+                    font-size: max(0.88vw, 8.8px);
                 }
 
                 .icon {
-                    width: v.$icon-width5-5;
-                    height: v.$icon-width5-5;
+                    // width:max(.9vw, 9px);
+                    // height:max(.9vw, 9px);
                     margin-right: max(0.5vw, 5px);
-                    background: url("../../../assets/images/clip.svg") no-repeat center;
+                    @include icon.icon-mask("../../../assets/images/clip.svg");
+
+                    // background: url("../../../assets/images/clip.svg") no-repeat center;
                     background-size: contain;
                     margin-left: 0;
                     &.file {
@@ -222,80 +215,44 @@
                 }
                 .text {
                     margin-left: 0;
+                    color: var(--main-text);
                 }
             }
         }
-        // .options {
-        //     position: absolute;
-        //     bottom: 1vw;
-        //     left: 1vw;
-        //     border-radius: .5vw;
-        //     border: 0.1vw solid v.$border-color;
-        //     background-color: v.$border-color;
-        //     .option {
-        //         padding: max(0.5vw, 5px);
-        //         position: relative;
-        //         box-sizing: border-box;
-        //         p {
-        //             color: white;
-        //             font-size: v.$app-size5-5-vw;
-        //             &::before {
-        //                 content: url("../../../assets/images/clip.svg");
-        //                 display: inline-block;
-        //                 width: v.$icon-width5-5;
-        //                 margin-right: max(0.5vw, 5px);
-        //             }
-        //         }
-        //         input {
-        //             top: 0;
-        //             position: absolute;
-        //             width: 100%;
-        //             height: 100%;
-        //             background: transparent;
-        //             cursor: pointer;
-        //             padding: 0;
-        //             margin: 0;
-        //             &:hover {
-        //                 background-color: #4f4dbb;
-        //             }
-        //         }
-        //     }
-        // }
+        .option {
+            input {
+                display: none;
+            }
+        }
     }
 
     header {
-        background-color: v.$home-bg;
-        border-bottom: 0.1vw solid v.$border-color;
+        background-color: var(--main-main);
+        border-bottom: 0.1vw solidrgb(45, 45, 45);
         display: flex;
         align-items: center;
         cursor: pointer;
         padding: max(1vw, 10px);
+        height: max(3.5vw, 35px);
+        border-bottom: 0.1vw solid var(--border-color);
         * {
             margin: 0;
         }
         img {
-            // padding-left: max(1vw, 10px);
-            // margin: 0 0 0 max(1vw, 10px);
-            width: v.$icon-width5;
+            width: max(1vw, 10px);
             cursor: pointer;
         }
         p {
-            color: white;
+            color: var(--main-text);
             font-weight: lighter;
-            font-size: v.$app-size5-5-vw;
+            font-size: max(0.88vw, 8.8px);
         }
         .when {
             color: gray;
         }
-        // .edit {
-        //     margin-left: auto;
-        // }
-        // .back {
-        //     margin-left: 0;
-        // }
-        // .close {
-        //     margin-right: 0;
-        // }
+        .icon-back {
+            @include icon.icon-mask("../../../assets/images/back.svg");
+        }
     }
 
     .right {
@@ -308,7 +265,7 @@
         }
         img {
             cursor: pointer;
-            width: v.$icon-width4;
+            width: max(1.5vw, 15px);
         }
         button {
             margin: 0;
@@ -319,6 +276,7 @@
     .left {
         width: 50%;
         display: flex;
+        align-items: center;
         justify-content: flex-start;
         * {
             margin-right: max(1vw, 10px);
@@ -331,7 +289,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: v.$icon-width4;
+            width: max(1.5vw, 15px);
             height: fit-content;
 
             img {
@@ -341,36 +299,42 @@
                 width: 100%;
                 height: 100%;
             }
-            input {
-                cursor: pointer;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                margin: 0;
-                padding: 0;
-                position: absolute;
-                opacity: 0;
-                z-index: 1;
-            }
+            // input {
+            //     cursor: pointer;
+            //     width: 100%;
+            //     height: 100%;
+            //     top: 0;
+            //     left: 0;
+            //     margin: 0;
+            //     padding: 0;
+            //     position: absolute;
+            //     opacity: 0;
+            //     z-index: 1;
+            // }
         }
     }
 
     footer {
+        border-top: 0.1vw solid var(--border-color);
+        height: max(3vw, 30px);
+        border-top: 0.1vw solidrgb(45, 45, 45);
+        background-color: var(--main-main);
         margin: 0;
         display: flex;
-        // justify-content: flex-end;
-        // width: 50%;
-        border-bottom: 0.1vw solid v.$border-color;
+        border-bottom: 0.1vw solidrgb(45, 45, 45);
         padding: max(0.25vw, 2.5px) max(1vw, 10px);
         width: -webkit-fill-available;
+        form {
+            width: 100%;
+            display: flex;
+        }
         input {
             width: 100%;
 
             background-color: transparent;
             border: none;
             padding: max(0.5vw, 5px) 0;
-            font-size: v.$app-size5-vw;
+            font-size: max(1vw, 10px);
             font-weight: lighter;
             &:focus {
                 border: none;
@@ -379,11 +343,24 @@
             &::placeholder {
                 color: gray;
             }
-            color: white;
+            color: var(--main-text);
         }
         img {
             margin-right: max(0.5vw, 5px);
-            width: v.$icon-width6;
+            width: max(0.8vw, 8px);
+        }
+        button {
+            border: none;
+            outline: none;
+        }
+        .icon {
+            cursor: pointer;
+        }
+        .icon-attach {
+            @include icon.icon-mask("../../../assets/images/clip.svg", max(1.5vw, 15px));
+        }
+        .icon-send {
+            @include icon.icon-mask("../../../assets/images/send2.svg");
         }
     }
 
@@ -395,7 +372,7 @@
         align-items: center;
         justify-content: center;
         .attachments-wrapper {
-            border-radius: .5vw;
+            border-radius: 0.5vw;
             background-color: gray;
             padding: max(1vw, 10px);
         }

@@ -1,48 +1,27 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-export interface Dispatch<T> {
-  action: T | undefined
-  payload: any
-}
-
-export interface WindowOptions {
-  active: boolean
-  payload: any
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationBehaivorService {
+  #channels = new Map<string, BehaviorSubject<any>>()
 
-  #channels = new Map<string, BehaviorSubject<Dispatch<any>>>()
-
-  listen(action: string): Observable<Dispatch<any>> {
+  listen(action: string): Observable<any> {
     return this.#getChannel(action).asObservable()
   }
 
-  send(action: string, data: WindowOptions) {
+  send(action: string, data: any) {
     const channel = this.#getChannel(action)
-
-    channel.next({
-      action: data.active ? action : undefined,
-      payload: data.payload
-    })
+    channel.next(data)
   }
 
-  #getChannel(action: string): BehaviorSubject<Dispatch<any>> {
+  #getChannel(action: string): BehaviorSubject<any> {
     let channel = this.#channels.get(action)
-
     if (!channel) {
-      channel = new BehaviorSubject<Dispatch<any>>({
-        action: undefined,
-        payload: null
-      })
-
+      channel = new BehaviorSubject<any>(undefined)
       this.#channels.set(action, channel)
     }
-
     return channel
   }
 }

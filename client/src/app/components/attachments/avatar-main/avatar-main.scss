@@ -1,0 +1,25 @@
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../styles/elements/popup/popup.scss";
+
+.component {
+    position: relative;
+    width: max(30vw, 300px);
+    display: block;
+}
+
+.avatar-history {
+    background-color: var(--main-secondary);
+}
+
+.avatar-editor { 
+    margin: max(1vw, 10px)
+}
+.icon-edit {
+    @include icon.icon-mask("../../../../assets/images/edit.svg");
+}
+.icon-back {
+    @include icon.icon-mask("../../../../assets/images/back.svg");
+}
+.icon-close {
+    @include icon.icon-mask("../../../../assets/images/close.svg");
+}

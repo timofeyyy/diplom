@@ -12,4 +12,4 @@ app.get("/*path", (req, res) => {
     res.sendFile(path.join(config.dist_path, 'index.html'));
 });
 
-app.listen(4200, () => console.log("angular"))  
+app.listen(4200, () => // console.log("angular"))  

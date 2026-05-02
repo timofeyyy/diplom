@@ -1,20 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { NotificationTypes } from 'src/etc/enum/notifications.enum';
+import { NotificationMainTypes, NotificationEventTypes, NotificationRequestTypes } from 'src/etc/enum/notifications.enum';
 import { Schema as MongooseSchema } from 'mongoose';
 
 export type NotificationDocument = HydratedDocument<Notification>;
 
 @Schema()
 export class Notification {
+  @Prop()
+  userId!: string
   @Prop({ default: Date.now })
-  createdAt: Date;
+  createdAt!: Date;
   @Prop()
-  message: string;
+  notificationType!: (NotificationEventTypes | NotificationRequestTypes)
   @Prop()
-  notificationType: NotificationTypes
-  @Prop()
-  recieverId: string
+  notificationMainType!: NotificationMainTypes
   @Prop({ type: MongooseSchema.Types.Mixed })
   data: any
 }

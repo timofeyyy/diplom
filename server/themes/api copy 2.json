@@ -1,0 +1,20 @@
+{
+  "dark": {
+    "main": "#101218",
+    "primary": "#13151c",
+    "colors": {
+      "green": "#5CDB95",
+      "red": "#950740",
+      "blue": "#6366f1"
+    }
+  },
+  "light": {
+    "main": "#101218",
+    "primary": "#13151c",
+    "colors": {
+      "green": "#5CDB95",
+      "red": "#950740",
+      "blue": "#6366f1"
+    }
+  }
+}

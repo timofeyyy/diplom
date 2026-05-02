@@ -3,14 +3,14 @@
         <p class="attachemnt-header">{{attahcments.length}} Изображений выбрано</p>
         <app-attachments-displayer class="attachment-displayer" [attahcments]="displayedAttachments" [deleteOption]="true" />
         <footer class="footer-wrapper">
-            <div class="field field-underlined" [ngClass]="{'focused': focus}">
-                <input [(ngModel)]="message" [ngModelOptions]="{ standalone: true }" type="text" placeholder="Сообщение"
+            <div class="field" [ngClass]="{'focused': focus}">
+                <input class="underlined-input" [(ngModel)]="message" [ngModelOptions]="{ standalone: true }" type="text" placeholder="Сообщение"
                     (focus)="focus = true" (blur)="focus = false">
                 
             </div>
             <div class="footer-actions">
                 <button (click)="add()">Добавить</button>
-                <button (click)="save()" >Отправить</button>
+                <button (click)="save()" style="margin-right: max(.5vw, 5px);">Отправить</button>
                 <button (click)="close()">Назад</button>
             </div>
         </footer>

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import * as redis from 'redis';
 import { TokenRecord } from "./dto/token.response.dto";
 import { tokens_ttl_sec, TokenType } from "src/auth/dto/user.dto";
@@ -9,6 +9,7 @@ export class RedisTokenService {
         private readonly redisClient: redis.RedisClientType
     ) { }
 
+    logger = new Logger()
 
     async getToken(token:
         {
@@ -21,8 +22,8 @@ export class RedisTokenService {
             let tokens: Record<string, TokenRecord> = str ? JSON.parse(str) : {};
             return tokens[token.value]
         }
-        catch (err) {
-            console.log(err.message)
+        catch (err: any) {
+            this.logger.debug({ methood: "getToken", service: RedisTokenService.name, err: err?.message })
             return null
         }
     }
@@ -32,7 +33,6 @@ export class RedisTokenService {
             tokenType: TokenType,
             value: string
         },
-        // id: string,
         payload: {
             _id: string,
             data: any
@@ -45,16 +45,11 @@ export class RedisTokenService {
                 tokens = {}
             }
             tokens[token.value] = payload
-            // {
-            //     _id: id,
-            //     birthday: new Date().toISOString()
-            // }
-            // console.log(tokens)
             await this.redisClient.set(token.tokenType, JSON.stringify(tokens), { EX: tokens_ttl_sec[token.tokenType] })
             return true
         }
-        catch (err) {
-            console.log(err.message)
+        catch (err: any) {
+            this.logger.debug({ methood: "setToken", service: RedisTokenService.name, err: err?.message })
             return false
         }
     }
@@ -74,10 +69,6 @@ export class RedisTokenService {
                 tokens = {}
             }
             let res = false
-            // console.log(tokens)
-            // console.log(tokens[token.value])
-            // console.log(tokens[token.value]._id)
-            // console.log(tokens[token.value]._id === id)
             if (tokens[token.value] && tokens[token.value]._id === id) {
                 delete tokens[token.value]
                 res = true
@@ -86,8 +77,8 @@ export class RedisTokenService {
             await this.redisClient.set(token.tokenType, JSON.stringify(tokens))
             return res
         }
-        catch (err) {
-            console.log(err.message)
+        catch (err: any) {
+            this.logger.debug({ methood: "delToken", service: RedisTokenService.name, err: err?.message })
             return false
         }
     }

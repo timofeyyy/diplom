@@ -1,7 +1,7 @@
 <div class="messanger">
     <header>
         <div class="left">
-            <img src="/assets/images/back.svg" alt="" (click)="close.emit()">
+            <div class="icon icon-back" (click)="close.emit()"></div>
             <div class="user" (click)="openSettings()">
                 <p>
                     {{user.userName}}
@@ -25,21 +25,12 @@
                 @for(message of entry[1].messages; track $index) {
                 <div [ngClass]="{'sender': me._id == message.senderId, 'oponnent': me._id != message.senderId}"
                     class="message">
-                    <app-attachments-displayer [attahcments]="message.attachments" />
-                    <!-- @if(message.fileKeys && message.fileKeys.length) {
-                    <div class="images" [ngClass]="getImageClass(message.fileKeys.length)">
-                        @for (src of message.fileKeys; track $index) {
-                        <div class="image" (click)="viewImage($index, message.fileKeys)"
-                            [ngStyle]="{'background-image': `url('${src}')`}">
-                        </div>
-                        }
-                    </div>
-                    } -->
+                    <app-attachments-displayer [attahcments]="message.attachments" [ngStyle]="{'margin-bottom': message.message && message.attachments.length ? 'max(1vw, 10px)' : ''}" />
                     @if(message.message) {
-                    <div class="text">
+                    <div class="text" >
                         <p class="text-message">{{message.message}}</p>
                         <p class="message-date">{{ message.createdAt | date: 'HH:mm' }}</p>
-                        <p class="message-status">status</p>
+                        <!-- <p class="message-status">status</p> -->
                     </div>
                     }
                 </div>
@@ -55,12 +46,12 @@
                         <span class="content">
                             <span class="icon"></span>
                             <span class="text">Изображения</span>
-                        </span>
+                        </span> 
                     </label>
-                    <label class="option files">
+                    <label class="option images">
                         <input type="file" (change)="onFileSelect($event)">
                         <span class="content">
-                            <span class="icon file"></span>
+                            <span class="icon"></span>
                             <span class="text">Файлы</span>
                         </span>
                     </label>
@@ -72,9 +63,8 @@
     <footer>
         <form>
             <div class="left">
-                <div class="attach" (click)="attachState =! attachState">
-
-                    <img src="/assets/images/clip.svg" alt="attach" (click)="toggleAttach($event)">
+                <div class="icon icon-attach" (click)="attachState =! attachState" >
+                    <!-- <img src="/assets/images/clip.svg" alt="attach" (click)="toggleAttach($event)"> -->
                 </div>
 
                 <input type="text" [(ngModel)]="input" [ngModelOptions]="{ standalone: true }"
@@ -82,16 +72,11 @@
             </div>
             <div class="right">
                 <button (click)="sendMessage()">
-                    <img src="/assets/images/send2.svg" alt="">
+                    <div class="icon icon-send">
+
+                    </div>
                 </button>
             </div>
         </form>
     </footer>
-    <!-- <div class="attachments">
-        <div class="attachments-wrapper">
-            @for (img of files; track $index) {
-            <img [src]="getFileUrl(img)">
-            }
-        </div>
-    </div> -->
 </div>

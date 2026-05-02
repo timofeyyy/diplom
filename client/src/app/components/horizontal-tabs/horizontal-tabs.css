@@ -1,0 +1,37 @@
+.wrapper {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0;
+}
+
+.icon {
+  background-color: var(--main-text);
+  mask: url("../../../assets/images/left.svg") no-repeat center;
+  -webkit-mask: url("../../../assets/images/left.svg") no-repeat center;
+  width: max(1.5vw, 15px);
+  height: max(1.5vw, 15px);
+  margin: 0 max(0.5vw, 5px);
+  cursor: pointer;
+}
+
+.icon-right {
+  transform: rotate(180deg);
+}
+
+.horizontal-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 0.1vw solid gray;
+}
+.horizontal-tabs .wrapper {
+  overflow-x: scroll;
+  transition: ease all 0.3s;
+}
+.horizontal-tabs .wrapper::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.horizontal-tabs .wrapper .content-wrapper {
+  width: -moz-fit-content;
+  width: fit-content;
+}/*# sourceMappingURL=horizontal-tabs.css.map */

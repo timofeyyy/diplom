@@ -12,19 +12,19 @@ const server = new grpc.Server();
 
 server.addService(proto.auth.VerifyTokenService.service, {
     VerifyToken: (call: any, callback: any) => {
-        console.log("VerifyToken")
+        // console.log("VerifyToken")
         redisClient.connect()
             .then(async (client: redis.RedisClientType) => {
                 const jwtId = call.request.id;
                 let tokensStr = await client.get("tokens");
                 let tokens: Record<string, string> = tokensStr ? JSON.parse(tokensStr) : {};
                 let status: TokenStatus;
-                console.log(jwtId)
-                console.log("\n\n\n\n\n")
-                console.log(tokens)
+                // console.log(jwtId)
+                // console.log("\n\n\n\n\n")
+                // console.log(tokens)
                 const response: any = {}
                 if (tokens && jwtId) {
-                    console.log(tokens[jwtId])
+                    // console.log(tokens[jwtId])
                 }
                 if (tokens && jwtId && tokens[jwtId]) {
                     status = TokenStatus.EXISTS
@@ -37,7 +37,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
                 callback(null, response)
             })
             .catch((err: any) => {
-                console.log(err)
+                // console.log(err)
                 callback(err, null)
             })
     },
@@ -46,7 +46,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
             .then(async (client: redis.RedisClientType) => {
                 const jwtId = call.request.id;
                 let tokensStr = await client.get("tokens");
-                console.log(tokensStr)
+                // console.log(tokensStr)
                 let tokens: Record<string, string> = tokensStr ? JSON.parse(tokensStr) : {};
                 const date = Date.now().toString()
                 if (!tokens) {
@@ -54,7 +54,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
                 }
                 tokens[jwtId] = date
                 await client.set("tokens", JSON.stringify(tokens))
-                console.log("сохранено")
+                // console.log("сохранено")
                 callback(null, {
                     status: TokenStatus.EXISTS,
                     regDate: date
@@ -71,7 +71,7 @@ server.addService(proto.auth.VerifyTokenService.service, {
                 let tokensStr = await client.get("tokens");
                 let tokens: Record<string, string> = tokensStr ? JSON.parse(tokensStr) : {};
                 const response: any = {}
-                console.log(tokens, jwtId)
+                // console.log(tokens, jwtId)
                 if (tokens[jwtId]) {
                     delete tokens[jwtId];
                     response.status = TokenStatus.EXISTS
@@ -92,7 +92,7 @@ server.bindAsync(
     '0.0.0.0:12000',
     grpc.ServerCredentials.createInsecure(),
     () => {
-        console.log('gRPC server started');
+        // console.log('gRPC server started');
         server.start();
     }
 );

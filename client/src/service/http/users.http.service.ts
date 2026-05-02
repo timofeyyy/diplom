@@ -25,7 +25,7 @@ export class UsersHttpService {
     }
 
     update(param: string, value: any) {
-        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/users/update/${param}`, { [`${param}`]: value }, { withCredentials: true }
+        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/users/update/${param}`, { [`${param}`]: value }, { withCredentials: true, observe: 'response' }
         )
     }
 
@@ -51,5 +51,9 @@ export class UsersHttpService {
 
     createVideoRoom() {
         return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/users/create-video-room`, {}, { withCredentials: true })
+    }
+
+    getUserFriendRequests(userId: string) {
+        return this.httpClient.get(`${this.appConfig.get("fullOrigin")}/users/user-friend-requests/${userId}`, { withCredentials: true })
     }
 }

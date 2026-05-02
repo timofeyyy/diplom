@@ -1,32 +1,28 @@
 <div class="menu">
     <div class="float-menu">
         @if(me) {
-            <div class="profile">
-                <img [src]="me.avatar" alt="avatar">
-                <p>{{me.userName}}</p>
-                <div class="self-managment">
-
-                </div>
+        <div class="profile">
+            <app-avatar [avatar]="me.avatar" [options]="me.displayAvatarSettings!" [borderRadius]="50" [size]="'max(3.5vw, 35px)'" />
+            <p>{{me.userName}}</p>
+            <div class="self-managment">
+ 
             </div>
+        </div>
         }
         <ul>
-            <li (click)="userSetings()">
-                <img src="/assets/images/profile.svg" alt="">
-                <p>User settings</p>
+            <li class="user-settings" (click)="userSetings()">
+                <div class="icon"></div>
+                <p>Настройки пользователя</p>
             </li>
-            <!-- <li>
-                <img src="/assets/images/main.svg" alt="">
-                <p>Masks</p>
-            </li> -->
-            <!-- <li>
-                <img src="/assets/images/main.svg" alt="">
-                <p>Themes</p>
-            </li> -->
+            <li class="themes" (click)="themes()">
+                <div class="icon"></div>
+                <p>Темы</p>
+            </li>
         </ul>
         <div class="log-out" (click)="logout()">
             <div class="wrapper">
-                <img src="/assets/images/leave.svg" alt="">
-                <p>Log out</p>
+                <div class="icon"></div>
+                <p>Выход</p>
             </div>
         </div>
     </div>

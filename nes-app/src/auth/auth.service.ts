@@ -2,7 +2,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RedisTokenService } from 'src/redis/redis.token.service';
-// import { UsersService } from 'src/users/user.service';
 import { tokens_ttl_sec, TokenType } from './dto/user.dto';
 import * as cookie from 'cookie';
 import { MongoUserService } from 'src/mongodb/user/user.service';
@@ -14,7 +13,6 @@ import { MongoWrapper } from 'src/mongodb/mongo.types';
 @Injectable()
 export class AuthService {
   constructor(
-    // private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redisToken: RedisTokenService,
     private readonly mongoUserService: MongoUserService,
@@ -24,7 +22,6 @@ export class AuthService {
 
   generate(length: number) {
     const result = this.encryptionService.generate(length)
-    console.log(result)
     return result
   }
 
@@ -46,12 +43,13 @@ export class AuthService {
     const newUser: User = {
       email: email,
       password: encryptedPassword,
+      defaultAvatar: avatar,
       avatar: avatar,
       userName: userName,
+      displayAvatarSettings: undefined,
       status: {
         show: true,
-        lastTime: new Date(),
-        online: false
+        lastTime: new Date()
       }
     }
     return await this.mongoUserService.insertOne(newUser)
@@ -68,25 +66,12 @@ export class AuthService {
     }
     return null;
   }
-  // async findUser(email: string): Promise<User | null> {
-  //   return await this.mongoUserService.findOne({email:email})
-  // }
-
+  
   async validateUserByCookies(user: any, cookies: string) {
     const parsed = cookie.parse(cookies);
     const refreshToken = await this.verifyToken(TokenType.REFRESH_TOKEN, parsed[TokenType.REFRESH_TOKEN])
-    // console.log("validateUserByCookies")
-    // console.log(user)
-    // console.log(refreshToken)
-    // console.log(refreshToken!._id)
-    // console.log(user._id)
     return refreshToken && refreshToken._id == user._id
   }
-
-  // async getUserId(email: string) {
-  //   const user = await this.mongoUserService.findOne({ email: email })
-  //   return user?._id as string | undefined
-  // }
 
   async getUser(params: Partial<MongoWrapper<User>>) {
     return await this.mongoUserService.findOne(params)
@@ -102,75 +87,6 @@ export class AuthService {
     return tokenRecord && tokenRecord.data.newPassword
   }
 
-  // async update(user: User) {
-  //   const foundUser = await this.isUserExistsByEmail(user.email)
-  //   if(foundUser) {
-
-  //   }
-  // }
-
-  // async removeAccesToken(email: string, token: string) {
-  //   await this.redisToken.delToken({
-  //     tokenType: TokenType.ACCES_TOKEN,
-  //     value: token
-  //   },
-  //     email
-  //   )
-  // }
-
-  // async removeRefreshToken(email: string, token: string) {
-  //   await this.redisToken.delToken({
-  //     tokenType: TokenType.ACCES_TOKEN,
-  //     value: token
-  //   },
-  //     email
-  //   )
-  // }
-
-  // async generateAccessToken(email: string) {
-  //   // console.log("generateAccessToken")
-  //   // console.log(user)
-  //   const token = this.jwtService.sign(
-  //     { email: email },
-  //     {
-  //       secret: process.env.JWT_ACCESS_SECRET,
-  //       expiresIn: `${tokens_ttl_sec.accesToken}s`,
-  //     },
-  //   )
-
-  //   const res = await this.redisToken.setToken({
-  //     tokenType: TokenType.ACCES_TOKEN,
-  //     value: token
-  //   },
-  //     email
-  //   )
-  //   if (res) {
-  //     return token
-  //   }
-  //   return null
-  // }
-
-  // async generateRefreshToken(email: string) {
-  //   const token = this.jwtService.sign(
-  //     { email: email },
-  //     {
-  //       secret: process.env.JWT_REFRESH_SECRET,
-  //       expiresIn: `${tokens_ttl_sec.refreshToken}s`,
-  //     },
-  //   )
-
-  //   const res = await this.redisToken.setToken({
-  //     tokenType: TokenType.REFRESH_TOKEN,
-  //     value: token
-  //   },
-  //     email
-  //   )
-
-  //   if (res) {
-  //     return token
-  //   }
-  //   return null
-  // }
   async removeToken(id: string, type: TokenType, token: string) {
     return await this.redisToken.delToken({
       tokenType: type,
@@ -180,6 +96,7 @@ export class AuthService {
     )
   }
   async verifyToken(tokenType: TokenType, value: string) {
+
     return await this.redisToken.getToken({
       tokenType: tokenType,
       value: value
@@ -200,6 +117,9 @@ export class AuthService {
       },
     )
 
+    // console.log("\n\n\n" + "generateToken" + "\n\n\n")
+    // console.log(token)
+
     const res = await this.redisToken.setToken({
       tokenType: type,
       value: token
@@ -214,6 +134,7 @@ export class AuthService {
   }
 }
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWU3ZTYyMTg1NWQ4NWRlM2Y1NDY0ZWUiLCJpYXQiOjE3NzcxNDEzMjksImV4cCI6MTc3NzE0MTkyOX0.xTA68eSAdVH2qTBoULICvVlvX33qdsw0ii1tvRjfoH0
 
 
 //https://docs.nestjs.com/recipes/passport

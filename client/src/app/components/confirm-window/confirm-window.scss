@@ -1,0 +1,26 @@
+@use '../../../styles/elements/button/button.scss';
+@use '../../../styles/elements/paragraph/paragraph.scss';
+
+.confirm-popup {
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(10px);
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    .confirm {
+        padding: max(1vw, 10px);
+        border-radius: .5vw;
+        background-color: var(--main-main);
+        border: .1vw solid var(--border-color);
+        .subhead {
+            margin-bottom: max(3vw, 30px);
+        }
+        .buttons {
+            display: flex;
+            gap: max(.5vw, 5px);
+        }
+    }
+}

@@ -1,0 +1,6 @@
+.content {
+  background-color: var(--main-main);
+}
+.content * {
+  color: var(--main-text);
+}/*# sourceMappingURL=message-event.css.map */

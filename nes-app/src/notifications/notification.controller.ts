@@ -14,19 +14,19 @@ export class NotificationsController {
 
   logger = new Logger(NotificationsController.name)
 
-  @UseGuards(
-    JwtAccessGuard,
-    UserCookiesGuard
-  )
-  @Post('send')
-  async send(
-    @Req() req,
-    @Body() body: any
-  ) {
+  // @UseGuards(
+  //   JwtAccessGuard,
+  //   UserCookiesGuard
+  // )
+  // @Post('send')
+  // async send(
+  //   @Req() req,
+  //   @Body() body: any
+  // ) {
 
-    const message = this.notificationService.buildNotification(body)
-    return await this.mongoNotificationService.create({ ...body, message: message! })
-  }
+  //   // const message = this.notificationService.buildNotification(body)
+  //   return await this.mongoNotificationService.create({ ...body, message: message! })
+  // }
 
    @UseGuards(
     JwtAccessGuard,
@@ -37,7 +37,6 @@ export class NotificationsController {
     @Req() req,
   ) {
     const userId = req.user._id.toString()
-    this.logger.debug(userId)
     return await this.mongoNotificationService.select(userId)
   }
 

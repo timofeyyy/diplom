@@ -5,8 +5,6 @@ import { CommunicationService } from "../communication/communication.service";
 import { EventsEnum } from "../../etc/enum/app.enum";
 import { AppConfigService } from "../config/app-config.service";
 
-
-
 @Injectable({
     providedIn: 'root'
 })
@@ -26,8 +24,8 @@ export class AuthHttpService {
             { withCredentials: true }
         ).pipe(
             tap((res) => {
-                console.log(res)
-                this.comm.send(EventsEnum.LOGGED_IN, { active: true, payload: { user: res } })
+                // console.log(res)
+                this.comm.send(EventsEnum.LOGGED_IN, { user: res })
             })
         )
     }
@@ -47,11 +45,11 @@ export class AuthHttpService {
     }
 
     newPassword(email: string, newPassword: string) {
-        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/auth/new-password`, { email: email, newPassword: newPassword }, { withCredentials: true })
+        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/auth/new-password`, { email: email, newPassword: newPassword }, { withCredentials: true, observe: 'response' })
     }
 
     updatePassword(passid: string) {
-        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/auth/update-password`, { passid: passid }, { withCredentials: true })
+        return this.httpClient.post(`${this.appConfig.get("fullOrigin")}/auth/update-password`, { passid: passid }, { withCredentials: true, observe: 'response' })
     }
 
     signUp(username: string, password: string) {

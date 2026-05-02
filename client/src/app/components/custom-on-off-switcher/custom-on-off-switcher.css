@@ -15,7 +15,7 @@
   left: 0;
   width: max(2.5vw, 25px);
   height: max(1.2vw, 12px);
-  background-color: #2196f3;
+  background-color: gray;
   border-radius: max(1vw, 10px);
   cursor: pointer;
   transition: background-color 0.3s;
@@ -35,7 +35,7 @@
 }
 
 .toggle-switch .toggle-input:checked + .toggle-label {
-  background-color: #4caf50;
+  background-color: var(--color-primary);
 }
 
 .toggle-switch .toggle-input:checked + .toggle-label::before {

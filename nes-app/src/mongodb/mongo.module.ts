@@ -7,11 +7,12 @@ import { Chat, ChatSchema } from './chat/chat.schema';
 import { MongoChatService } from './chat/chat.service';
 import { Message, MessageSchema } from './message/message.schema';
 import { MongoMessageService } from './message/message.service';
-import { MongoFriendsService } from './user/friends.service';
 import { Conference, ConferenceSchema } from './conference/conference.schema';
 import { MongoConferenceService } from './conference/conference.service';
 import { Notification, NotificationSchema } from './notification/notification.schema';
 import { MongoNotificationService } from './notification/notification.service';
+import { AvatarHistory, AvatarHistorySchema } from './avtar-history/avatar-history.schema';
+import { MongoAvatarHistoryService } from './avtar-history/avatar-historyservice';
 
 @Module({
   imports: [
@@ -30,23 +31,26 @@ import { MongoNotificationService } from './notification/notification.service';
     MongooseModule.forFeature([
       { name: Notification.name, schema: NotificationSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: AvatarHistory.name, schema: AvatarHistorySchema },
+    ]),
   ],
   controllers: [],
   providers: [
     MongoUserService,
     MongoChatService,
     MongoMessageService,
-    MongoFriendsService,
     MongoConferenceService,
-    MongoNotificationService
+    MongoNotificationService,
+    MongoAvatarHistoryService
   ],
   exports: [
     MongoUserService,
     MongoChatService,
     MongoMessageService,
-    MongoFriendsService,
     MongoConferenceService,
-    MongoNotificationService
+    MongoNotificationService,
+    MongoAvatarHistoryService
   ]
 })
 export class MongoDbModule { }

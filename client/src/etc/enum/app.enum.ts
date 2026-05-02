@@ -1,9 +1,11 @@
 export enum AppEnum {
     NOTIFICATION = "notification",
-    LOADER = "LOADER",
+    LOADER = "loader",
     OPEN_IMAGE = "open_image",
     OPEN_NOTIFICATIONS = "open_notifications", 
-    OPEN_ATTACHMENTS = "open_attachments"
+    OPEN_ATTACHMENTS = "open_attachments",
+    OPEN_THEMES = "open_themes",
+    OPEN_AVATAR_UPPLOAD = "open_avatar_pload"
 }
 
 export enum TabEnum {
@@ -23,8 +25,3 @@ export enum UserStatus {
     ONLINE = "online",
     OFFLINE = "offline"
 }
-
-// export enum UserActionEnum {
-    // OPPONENT_UPDATE = "opponent_update",
-    // ME_UPDATE = "me_update"
-// }

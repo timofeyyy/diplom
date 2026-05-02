@@ -7,13 +7,14 @@ import { Test } from './test/test';
 import { UpdatePasswordWindow } from './update-password-window/update-password-window';
 import { Friends } from './friends/friends';
 import { appGuard } from './app.guard';
+import { ThemePicker } from '../themes/theme-picker/theme-picker';
 
 export const routes: Routes = [
     {path:"room", component: Room, canActivate: [appGuard]},
     {path:"user-auth", component: Auth},
     {path:"home", component: Home, canActivate: [appGuard]},
     {path:"error", component: Error},
-    {path:"test", component: Test},
+    {path:"test", component: ThemePicker},
     {path:"friends", component: Friends, canActivate: [appGuard]},
     {path:"new-password/:passid", component: UpdatePasswordWindow},
 ];

@@ -1,6 +1,18 @@
-export enum NotificationTypes {
-    MESSEAGE_RECEIVE,
-    FRIEND_REQUEST_SENDED,
-    FRIEND_REQUEST_CANCELED,
-    UNREAD_MESSAGES
+export enum NotificationEventTypes {
+    PASSWORD_UPDATE,
+    AVATAT_UPDATE,
+    USERNAME_UPDATE
 }
+
+export enum NotificationRequestTypes {
+    SUBSCRIBED,
+    MUTUALLY,
+    INCOMMING,  
+}
+
+export enum NotificationMainTypes {
+    EVENTS,
+    REQUESTS,
+    MENTIONS
+}
+

@@ -18,7 +18,8 @@ export class AppConfigService {
         return this.httpClient.get(`${baseHref}assets/appsettings.json`).toPromise()
             .then(config => {
                 this.config = config;
-            });
+            })
+            .catch((err) => console.log(err));
     }
 
     get(key: string) {
@@ -26,7 +27,6 @@ export class AppConfigService {
     }
 
     getAll() {
-        console.log(this.config)
         return this.config;
     }
 }

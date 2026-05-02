@@ -23,7 +23,7 @@ export function DeleteTokenGuard(types: TokenType[]): Type<CanActivate> {
                     for (const type of types) {
                         const value = parsed[type]
                         if (value) {
-                            // console.log(`delete ${type} ${value}`)
+                            // // console.log(`delete ${type} ${value}`)
 
                             const result = await this.authService.removeToken(id, type, value)
                             if (result) {

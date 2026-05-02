@@ -20,9 +20,9 @@ export class SocketService implements OnModuleInit {
         this.userData[AppAlias.JAIL] = {}
     }
     joinRoom(client: Socket, roomId: string, userId: string, userName: string) {
-        console.log("sdsd")
-        this.logger.debug(roomId, userId, userName)
-        // console.log(data)
+        // console.log("sdsd")
+        // this.logger.debug(roomId, userId, userName)
+        // // console.log(data)
         // const roomId = data.roomId;
         // const userId = data.userId;
         // const userName = data.userName;
@@ -33,8 +33,8 @@ export class SocketService implements OnModuleInit {
         (client as any).roomId = roomId;
         (client as any).userName = userName;
         (client as any).userId = userId;
-        console.log(`${userName} joined room ${roomId} ${userId}`);
-        // console.log(userData)
+        // console.log(`${userName} joined room ${roomId} ${userId}`);
+        // // console.log(userData)
 
         client.join(roomId);
         // socket.to(roomId).emit("user-connected", userId, userName);
@@ -92,7 +92,7 @@ export class SocketService implements OnModuleInit {
     //             }
     //         }),
     //         catchError((err: any) => {
-    //             console.log("jwt verification failed")
+    //             // console.log("jwt verification failed")
     //             return of(err)
     //         })
     //     )
@@ -101,10 +101,10 @@ export class SocketService implements OnModuleInit {
 
 
     // async verifyAuthorization(client: any, next: (...args: any) => void) {
-    //     console.log("verifyAuthorization")
+    //     // console.log("verifyAuthorization")
     //     try {
     //         const cookies = client.handshake.headers.cookie;
-    //         // console.log(cookies)
+    //         // // console.log(cookies)
     //         if (!cookies) {
     //             return next(new Error('No cookies'));
     //         }
@@ -115,15 +115,15 @@ export class SocketService implements OnModuleInit {
     //         if (!token) {
     //             return next(new Error('No token'));
     //         }
-    //         // console.log(token)
+    //         // // console.log(token)
     //         try {
-    //             console.log(process.env.JWT_SECRET)
+    //             // console.log(process.env.JWT_SECRET)
     //             const payload = jwt.verify(token, process.env.JWT_SECRET!);
     //             client.data.user = payload;
     //             let isAuthenticated: boolean = false;
-    //             console.log(payload)
+    //             // console.log(payload)
     //             if (payload) {
-    //                 console.log(isAuthenticated)
+    //                 // console.log(isAuthenticated)
     //                 isAuthenticated = await this.auth.VerifyToken(token);
     //             }
     //             if (!isAuthenticated) {
@@ -133,14 +133,14 @@ export class SocketService implements OnModuleInit {
     //                 next()
     //             }
     //         } catch (error) {
-    //             console.log(error)
-    //             console.log("jwt verification failed")
+    //             // console.log(error)
+    //             // console.log("jwt verification failed")
     //             next(new Error('Unauthorized'));
     //         }
 
     //     }
     //     catch (err: any) {
-    //         console.log("error")
+    //         // console.log("error")
     //         next(new Error(err.message));
     //     }
     // }
@@ -158,10 +158,10 @@ export class SocketService implements OnModuleInit {
         const userId = (client as any).userId
         if (this.userData[roomId] && this.userData[roomId][userId])
             delete this.userData[roomId][userId];
-        console.log('user-disconnected', userId)
+        // console.log('user-disconnected', userId)
         if (roomId && userId) {
             server.to(roomId).emit('user-disconnected', userId);
         }
-        console.log(this.userData)
+        // console.log(this.userData)
     }
 }

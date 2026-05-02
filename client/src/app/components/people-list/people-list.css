@@ -1,3 +1,14 @@
+@keyframes phantom {
+  0% {
+    background-color: gray;
+  }
+  50% {
+    background-color: lightgray;
+  }
+  100% {
+    background-color: gray;
+  }
+}
 ul {
   padding: max(1vw, 10px) 0;
 }
@@ -5,19 +16,13 @@ ul li {
   cursor: pointer;
 }
 ul li:hover {
-  background-color: rgba(45, 45, 45, 0.4);
+  background-color: rgb(from var(--color-accent) r g b/0.5);
 }
 ul li {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: max(0.5vw, 5px) max(1vw, 10px);
-}
-ul li img {
-  margin: 0 max(1vw, 10px) 0 0;
-  width: max(2.5vw, 25px);
-  height: max(2.5vw, 25px);
-  border-radius: 50%;
 }
 ul li .info {
   margin: 0;
@@ -30,17 +35,22 @@ ul li .info p {
   margin: 0;
 }
 ul li .info .username {
-  color: white;
+  color: var(--main-text);
   font-size: max(0.88vw, 8.8px);
 }
 ul li .info .when {
-  color: gray;
+  color: var(--color-primary);
   font-size: max(0.88vw, 8.8px);
 }
 ul .phantom {
   align-items: start;
+  overflow: hidden;
 }
 ul .phantom img {
+  width: max(2.5vw, 25px);
+  height: max(2.5vw, 25px);
+  border-radius: 50%;
+  margin: 0;
   background-color: #1e1d22;
   position: relative;
 }
@@ -73,16 +83,4 @@ ul .empty {
 }
 ul .empty:hover {
   background: none;
-}
-
-@keyframes phantom {
-  0% {
-    background-color: rgb(82, 82, 82);
-  }
-  50% {
-    background-color: gray;
-  }
-  100% {
-    background-color: rgb(82, 82, 82);
-  }
 }/*# sourceMappingURL=people-list.css.map */

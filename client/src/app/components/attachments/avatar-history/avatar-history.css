@@ -1,0 +1,214 @@
+.head {
+  font-size: max(1.25vw, 12.5px);
+  font-weight: 500;
+  color: var(--main-text);
+  margin-bottom: max(1vw, 10px);
+}
+
+.subhead {
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: max(0.88vw, 8.8px);
+}
+
+.paragraph {
+  color: var(--main-text);
+  font-size: max(0.88vw, 8.8px);
+}
+
+.disabled {
+  color: gray;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.avatar-history {
+  padding: 0 max(1vw, 10px);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.avatar-history .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, max(6.4vw, 64px));
+  grid-gap: max(0.75vw, 7.5px);
+  justify-content: center;
+  align-content: start;
+  padding: max(1vw, 10px) 0;
+}
+.avatar-history .date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.avatar-history .date * {
+  margin: 0;
+}
+.avatar-history .date .line {
+  width: 100%;
+  height: 0.05vw;
+  background-color: var(--main-text);
+}
+.avatar-history .date .subhead {
+  margin-right: max(1vw, 10px);
+}
+
+.avatar-card {
+  position: relative;
+  width: max(6.4vw, 64px);
+  aspect-ratio: 1/1;
+  background: linear-gradient(rgb(from var(--main-main) r g b/0.5), rgb(from var(--main-main) r g b/0.5)), lightgray;
+  border-radius: 0.5vw;
+  transition: all ease 0.3s;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  border: 0.1vw solid transparent;
+}
+.avatar-card img {
+  scale: 1;
+  transition: all ease 0.3s;
+}
+.avatar-card:hover {
+  border: 0.1vw solid var(--color-primary);
+}
+.avatar-card:hover img {
+  scale: 1.2;
+}
+.avatar-card img {
+  pointer-events: none;
+  position: relative;
+  z-index: 0;
+}
+
+.avatar-wrapper {
+  position: relative;
+}
+.avatar-wrapper .remove {
+  cursor: pointer;
+  padding: max(0.25vw, 2.5px);
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--main-main);
+  z-index: 2;
+  top: max(-0.5vw, -5px);
+  right: max(-0.5vw, -5px);
+  border: 0.1vw solid rgb(95, 95, 95);
+}
+.avatar-wrapper .remove .icon-remove {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/close.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/close.svg") no-repeat center;
+  width: max(0.75vw, 7.5px);
+  height: max(0.75vw, 7.5px);
+}
+
+.selected {
+  border: 0.2vw solid var(--color-primary);
+}
+.selected::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.selected:hover {
+  border: 0.2vw solid var(--color-primary);
+}
+.selected:hover img {
+  scale: 1;
+}
+
+.new-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.15vw dashed var(--main-text);
+  position: relative;
+  cursor: pointer;
+}
+.new-card:hover {
+  border: 0.15vw dashed var(--main-text);
+}
+.new-card .circle {
+  border-radius: 50%;
+  border: 0.1vw solid var(--main-text);
+}
+.new-card .circle .icon {
+  width: max(2vw, 20px);
+  height: max(2vw, 20px);
+  padding: max(1vw, 10px);
+  margin: 0;
+}
+.new-card .circle .icon-new {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/new.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/new.svg") no-repeat center;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+
+.input-phantom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.popup-footer {
+  background-color: var(--main-main);
+  display: flex;
+  align-items: center;
+  padding: max(1vw, 10px);
+}
+.popup-footer * {
+  margin: 0;
+}
+.popup-footer .apply {
+  margin-left: auto;
+}
+.popup-footer .icon-warning-circle {
+  margin-right: max(0.5vw, 5px);
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/warning-circle.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/warning-circle.svg") no-repeat center;
+  width: max(1.3vw, 13px);
+  height: max(1.3vw, 13px);
+}/*# sourceMappingURL=avatar-history.css.map */

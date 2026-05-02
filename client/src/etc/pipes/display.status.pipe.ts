@@ -20,77 +20,37 @@ export class DisplayStatusPipe implements PipeTransform {
         return this.statusStorageObjService.listen()
             .pipe(
                 map(res => {
-                    console.log(res)
-                    const html = `<span style="color:#8888dc;font-weight: 400;">${UserStatus.ONLINE}</span>`
-                    // if ((res as Set<string>).has(user._id!)) {
-                    //     return this.sanitizer.bypassSecurityTrustHtml(html);
-                    // }
-                    const record = res[user._id!]
+                    const record = res[user._id!];
                     if (record?.online) {
+                        const html = `<span style="color:#8888dc;font-weight: 400;">${UserStatus.ONLINE}</span>`;
                         return this.sanitizer.bypassSecurityTrustHtml(html);
                     }
-                    else if (user.duoChat) {
-                        // if (user.status?.online) {
-                        //     return this.sanitizer.bypassSecurityTrustHtml(html);
-                        // }
-                        // else {
-                        if (record?.online != undefined && user.status?.show && record?.date) {
-                            return this.formatSpecificDate(record.date)
-                        }
-                        else {
-                            return "был(а) в сети недавно"
-                        }
-                        // }
+
+                    if (user.status?.show && record?.date) {
+                        return `был(а) ${this.formatSpecificDate(record.date)}`;
                     }
-                    else {
-                        return "был(а) в сети недавно"
-                    }
+
+                    return "был(а) недавно";
                 })
             )
     }
-    formatSpecificDate(date: Date): string | null {
-        const isToday = new Date().toDateString() === new Date(date).toDateString();
-        const format = isToday ? 'HH:mm' : 'MM.dd.yyyy HH:mm';
-        return this.datePipe.transform(date, format);
+
+    formatSpecificDate(dateInput: Date | string | number): string {
+        const date = new Date(dateInput);
+        const now = new Date();
+
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+        const target = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+        if (target.getTime() === today.getTime()) {
+            return `в ${this.datePipe.transform(date, 'HH:mm')}`;
+        }
+
+        if (target.getTime() === yesterday.getTime()) {
+            return `в вчера ${this.datePipe.transform(date, 'HH:mm')}`;
+        }
+
+        return this.datePipe.transform(date, 'dd.MM.yyyy') || '';
     }
-
 }
-// export class DisplayStatusPipe implements PipeTransform {
-
-//     private statusStorageService = inject(StatusStorageService);
-//     private datePipe = inject(DatePipe);
-//     private sanitizer = inject(DomSanitizer);
-
-//     transform(user: Partial<UserDto>) {
-//         return this.statusStorageService.listen()
-//             .pipe(
-//                 map(res => {
-//                     // console.log("display\n\n\n")
-//                     // console.log(res)
-//                     const html = `<span style="color:#8888dc;font-weight: 400;">${UserStatus.ONLINE}</span>`
-//                     if ((res as Set<string>).has(user._id!)) {
-//                         return this.sanitizer.bypassSecurityTrustHtml(html);
-//                     }
-//                     else if (user.isRelative) {
-//                         // if (user.status?.online) {
-//                         //     return this.sanitizer.bypassSecurityTrustHtml(html);
-//                         // }
-//                         // else {
-//                         if (user.status?.show && user.status?.lastTime!) {
-//                             return this.formatSpecificDate(user.status?.lastTime!)
-//                         }
-//                         else {
-//                             return "recently-seen"
-//                         }
-//                         // }
-//                     }
-//                     else {
-//                         return ""
-//                     }
-//                 })
-//             )
-//     }
-//     formatSpecificDate(date: Date): string | null {
-//         return this.datePipe.transform(date, 'MM.dd.yyyy HH:mm:ss');
-//     }
-// }

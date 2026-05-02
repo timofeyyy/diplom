@@ -17,14 +17,14 @@ export function CreateTokenGuard(types: TokenType[]): Type<CanActivate> {
             const user = request.user;
             const id = (user._id as Types.ObjectId).toString()
             if (id) {
-                // console.log("create token")
+                // // console.log("create token")
                 for (const type of types) {
                     const value = await this.authService.generateToken({
                         _id: id, data: {
                             birthday: new Date().toISOString()
                         }
                     }, type)
-                    // console.log(`create ${type} ${value}`)
+                    // // console.log(`create ${type} ${value}`)
                     if (value) {
                         response.cookie(type, value, {
                             httpOnly: true,

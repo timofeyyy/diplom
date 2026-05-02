@@ -1,0 +1,21 @@
+<aside>
+    <div class="header">
+        <h3 class="head">Ваши уведомления</h3>
+        <div class="icon icon-close" (click)="close()"></div>
+    </div>
+    <div class="horizontal-tabs"> 
+    <app-horizontal-tabs >
+        <app-tab-list [selectedTab]="selectedTab" [tabs]="tabs" />
+    </app-horizontal-tabs>
+    </div>
+    <div class="notifications">
+        @switch(selectedTab) {
+            @case (NotificationMainTypes.REQUESTS) {
+                <app-notification-request [notifications]="requests" />
+            }
+            @case (NotificationMainTypes.EVENTS) {
+                <app-notification-event [notifications]="events"/>
+            }
+        }
+    </div>
+</aside>

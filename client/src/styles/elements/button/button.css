@@ -1,0 +1,25 @@
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}/*# sourceMappingURL=button.css.map */

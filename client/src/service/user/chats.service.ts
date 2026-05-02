@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { SettingsOptions } from "../../etc/enum/settings.enum";
-import { AuthHttpRequirementService } from "../http/auth.http.requirements.service";
+import { RefreshHttpService } from "../http/refresh.service";
 import { UsersHttpService } from "../http/users.http.service";
 import { BehaviorSubject, take } from "rxjs";
 import { CommunicationBehaivorService } from "../communication/communication.behaivor.service";
@@ -12,23 +12,28 @@ export class ChatsHistoryService {
 
     constructor(
         private readonly usersHttp: UsersHttpService,
-        private readonly httpReuirements: AuthHttpRequirementService,
+        private readonly refreshHttpService: RefreshHttpService,
         private readonly behaviorComm: CommunicationBehaivorService
 
     ) { }
 
     update() {
-        this.httpReuirements.require(this.usersHttp.chatsHistory())
+        this.refreshHttpService.require(this.usersHttp.chatsHistory())
             .pipe(take(1))
             .subscribe((res) => {
+                console.log(res)
                 if (res) {
                     this.setSource(res)
                 }
             })
     }
 
+    getChatId() {
+        
+    }
+
     setSource(data: any[]) {
-        this.behaviorComm.send(ChatsHistoryService.name, { active: true, payload: data })
+        this.behaviorComm.send(ChatsHistoryService.name, data)
     }
 
     listen() {

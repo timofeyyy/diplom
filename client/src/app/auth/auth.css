@@ -4,7 +4,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, #151e2f 0%, #253a53 100%);
+  background-color: var(--gradient);
 }
 
 form .wrappers {
@@ -15,10 +15,14 @@ form .wrapper {
   width: max(72%, 230px);
   transition: 0.3s ease all;
 }
+form .wrapper p {
+  font-weight: 500;
+}
 form .bottom {
   width: 100%;
 }
 form {
+  border: 0.1vw solid var(--border-color);
   position: relative;
   display: flex;
   align-items: center;
@@ -26,10 +30,10 @@ form {
   flex-direction: column;
   width: max(30%, 350px);
   height: max(unset, 450px);
-  background-color: #0e131d;
+  background-color: var(--main-main);
   border-radius: 1vw;
   padding: max(2vw, 20px);
-  color: white;
+  color: var(--main-text);
   text-align: center;
 }
 form h3 {
@@ -77,13 +81,12 @@ form .field input {
   padding: max(0.75vw, 8px);
   border-radius: 0.5vw;
   font-size: max(0.88vw, 8.8px);
-  background-color: #2e2e2e;
-  color: white;
+  border: 0.1vw solid var(--border-color);
+  color: black;
 }
 form .field input:focus,
 form .field input {
   outline: none;
-  border: none;
 }
 form .field label,
 form .field input {
@@ -106,15 +109,14 @@ form button {
   margin: max(1vw, 10px) 0;
   border-radius: 0.5vw;
   font-weight: bold;
-  border: none;
+  border: 0.1vw solid var(--border-color);
   font-size: max(1vw, 10px);
-  background-color: white;
-  color: black;
+  background-color: var(--color-primary);
+  color: var(--main-main);
   cursor: pointer;
 }
 form button:hover {
-  background-color: rgb(23, 173, 68);
-  color: white;
+  background-color: var(--color-secondary);
 }
 form .other {
   display: flex;
@@ -123,7 +125,7 @@ form .other {
   width: 70%;
 }
 form .other .line {
-  background-color: lightgray;
+  border: 0.1vw solid var(--border-color);
   height: 0.1vw;
   margin: 0.5vw 0;
   width: 100%;
@@ -131,7 +133,7 @@ form .other .line {
 form .other p {
   font-size: max(0.88vw, 8.8px);
   margin: 0 max(0.25vw, 2.5px);
-  color: lightgray;
+  color: var(--main-text);
   text-transform: uppercase;
 }
 form .auth-options {
@@ -142,7 +144,7 @@ form .auth-options {
 form .auth-options .option {
   margin: 0 0.5vw;
   border-radius: 0.5vw;
-  border: 0.1vw solid lightgray;
+  border: 0.1vw solid var(--border-color);
   padding: max(0.5vw, 10px) max(1vw, 15px);
   display: flex;
   align-items: center;

@@ -1,0 +1,263 @@
+[
+  {
+    "name": "forest",
+    "displayName": "Темно зеленый",
+    "colors": {
+      "first": "#05386B",
+      "second": "#379683",
+      "third": "#8EE4AF",
+      "elements": "#5CDB95",
+      "text": "#EDF5E1"
+    }
+  },
+  {
+    "name": "forest-invert",
+    "displayName": "Зеленый",
+    "colors": {
+      "first": "#5CDB95",
+      "second": "#379683",
+      "third": "#8EE4AF",
+      "elements": "#05386B",
+      "text": "#EDF5E1"
+    }
+  },
+  {
+    "name": "saas-clean",
+    "displayName": "SaaS Clean",
+    "displayNameRu": "Светло голубой",
+    "colors": {
+      "first": "#4f4dbb",
+      "second": "#a5b4fc",
+      "third": "#6366f1",
+      "elements": "#1e293b",
+      "text": "#f8fafc"
+    }
+  },
+  {
+    "name": "red",
+    "displayName": "Алая",
+    "colors": {
+      "first": "#C3073F",
+      "second": "#950740",
+      "third": "#6F2232",
+      "elements": "#1A1A1D",
+      "text": "#ffffff"
+    }
+  },
+  {
+    "name": "dark-red",
+    "displayName": "Темно бордовая",
+    "colors": {
+      "first": "#1A1A1D",
+      "second": "#950740",
+      "third": "#6F2232",
+      "elements": "#C3073F",
+      "text": "#ffffff"
+    }
+  },
+
+  {
+    "name": "bright-playful",
+    "displayName": "Bright Playful",
+    "displayNameRu": "Яркая игривая",
+    "colors": {
+      "first": "#f6f7fb",
+      "second": "#4f4dbb",
+      "third": "#ff7a59",
+      "fourth": "#ffd166",
+      "fifth": "#06d6a0"
+    }
+  },
+  {
+    "name": "minimal-light",
+    "displayName": "Minimal Light",
+    "displayNameRu": "Минималистичная светлая",
+    "colors": {
+      "first": "#ffffff",
+      "second": "#f1f3f5",
+      "third": "#dee2e6",
+      "fourth": "#495057",
+      "fifth": "#212529"
+    }
+  },
+  {
+    "name": "dark-modern",
+    "displayName": "Dark Modern",
+    "displayNameRu": "Современная тёмная",
+    "colors": {
+      "first": "#121212",
+      "second": "#1e1e2f",
+      "third": "#4f4dbb",
+      "fourth": "#ff4d6d",
+      "fifth": "#f1f1f1"
+    }
+  },
+  {
+    "name": "corporate-blue",
+    "displayName": "Corporate Blue",
+    "displayNameRu": "Корпоративная синяя",
+    "colors": {
+      "first": "#f4f7fb",
+      "second": "#1e3a8a",
+      "third": "#3b82f6",
+      "fourth": "#93c5fd",
+      "fifth": "#1f2937"
+    }
+  },
+  {
+    "name": "complementary-blue-orange",
+    "displayName": "Blue Orange",
+    "displayNameRu": "Синий + оранжевый",
+    "colors": {
+      "first": "#f4f7fb",
+      "second": "#2563eb",
+      "third": "#f97316",
+      "fourth": "#fdba74",
+      "fifth": "#1e293b"
+    }
+  },
+  {
+    "name": "analogous-purple",
+    "displayName": "Analogous Purple",
+    "displayNameRu": "Аналоговая фиолетовая",
+    "colors": {
+      "first": "#f5f3ff",
+      "second": "#4f46e5",
+      "third": "#7c3aed",
+      "fourth": "#ec4899",
+      "fifth": "#1f2937"
+    }
+  },
+  {
+    "name": "triadic",
+    "displayName": "Triadic",
+    "displayNameRu": "Триадная",
+    "colors": {
+      "first": "#fefefe",
+      "second": "#ef4444",
+      "third": "#22c55e",
+      "fourth": "#3b82f6",
+      "fifth": "#111827"
+    }
+  },
+  {
+    "name": "pastel-dream",
+    "displayName": "Pastel Dream",
+    "displayNameRu": "Пастельная",
+    "colors": {
+      "first": "#fffafd",
+      "second": "#ffc8dd",
+      "third": "#cdb4db",
+      "fourth": "#bde0fe",
+      "fifth": "#a2d2ff"
+    }
+  },
+  {
+    "name": "retro-vintage",
+    "displayName": "Retro Vintage",
+    "displayNameRu": "Ретро винтаж",
+    "colors": {
+      "first": "#fdf0d5",
+      "second": "#d4a373",
+      "third": "#b08968",
+      "fourth": "#7f5539",
+      "fifth": "#3a2f2f"
+    }
+  },
+  {
+    "name": "cyberpunk",
+    "displayName": "Cyberpunk",
+    "displayNameRu": "Киберпанк",
+    "colors": {
+      "first": "#0a0a0f",
+      "second": "#ff00ff",
+      "third": "#00ffff",
+      "fourth": "#ffea00",
+      "fifth": "#ffffff"
+    }
+  },
+  {
+    "name": "luxury",
+    "displayName": "Luxury",
+    "displayNameRu": "Люкс (чёрное золото)",
+    "colors": {
+      "first": "#0b0b0b",
+      "second": "#1c1c1c",
+      "third": "#d4af37",
+      "fourth": "#f5e6ca",
+      "fifth": "#ffffff"
+    }
+  },
+  {
+    "name": "earthy",
+    "displayName": "Earthy",
+    "displayNameRu": "Природная",
+    "colors": {
+      "first": "#f5f5dc",
+      "second": "#606c38",
+      "third": "#283618",
+      "fourth": "#dda15e",
+      "fifth": "#bc6c25"
+    }
+  },
+  {
+    "name": "ocean",
+    "displayName": "Ocean",
+    "displayNameRu": "Океан",
+    "colors": {
+      "first": "#eef6fb",
+      "second": "#0077b6",
+      "third": "#00b4d8",
+      "fourth": "#90e0ef",
+      "fifth": "#03045e"
+    }
+  },
+  {
+    "name": "sunset",
+    "displayName": "Sunset",
+    "displayNameRu": "Закат",
+    "colors": {
+      "first": "#fff1e6",
+      "second": "#ff6b6b",
+      "third": "#f06595",
+      "fourth": "#cc5de8",
+      "fifth": "#5f3dc4"
+    }
+  },
+  {
+    "name": "forest-dark",
+    "displayName": "Forest Dark",
+    "displayNameRu": "Тёмный лес",
+    "colors": {
+      "first": "#0b1d13",
+      "second": "#1b4332",
+      "third": "#2d6a4f",
+      "fourth": "#40916c",
+      "fifth": "#d8f3dc"
+    }
+  },
+  {
+    "name": "saas-clean",
+    "displayName": "SaaS Clean",
+    "displayNameRu": "SaaS чистая",
+    "colors": {
+      "first": "#f8fafc",
+      "second": "#4f4dbb",
+      "third": "#6366f1",
+      "fourth": "#a5b4fc",
+      "fifth": "#1e293b"
+    }
+  },
+  {
+    "name": "warm-minimal",
+    "displayName": "Warm Minimal",
+    "displayNameRu": "Тёплый минимализм",
+    "colors": {
+      "first": "#fffaf5",
+      "second": "#f4a261",
+      "third": "#e76f51",
+      "fourth": "#e9c46a",
+      "fifth": "#264653"
+    }
+  }
+]

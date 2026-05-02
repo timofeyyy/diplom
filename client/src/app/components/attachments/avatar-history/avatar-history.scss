@@ -1,0 +1,165 @@
+@use "../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../styles/elements/paragraph/paragraph.scss";
+@use "../../../../styles/elements/button/button.scss";
+
+.avatar-history {
+    padding: 0 max(1vw, 10px);
+    max-height: 60vh;
+    overflow-y: auto;
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, max(6.4vw, 64px));
+        grid-gap: max(0.75vw, 7.5px);
+        justify-content: center;
+        align-content: start;
+        padding: max(1vw, 10px) 0;
+    }
+    .date {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        * {
+            margin: 0;
+        }
+        .line {
+            width: 100%;
+            height: 0.05vw;
+            background-color: var(--main-text);
+        }
+        .subhead {
+            margin-right: max(1vw, 10px);
+        }
+    }
+}
+
+.avatar-card {
+    position: relative;
+    width: max(6.4vw, 64px);
+    aspect-ratio: 1 / 1;
+    background:
+        linear-gradient(rgb(from var(--main-main) r g b / 0.5), rgb(from var(--main-main) r g b / 0.5)), lightgray;
+    // background-color: lightgray;
+    // &::before {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: rgb(from var(--main-main) r g b / 0.5);
+    // }
+    border-radius: 0.5vw;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border: 0.1vw solid transparent;
+    img {
+        scale: 1;
+        transition: all ease 0.3s;
+    }
+    &:hover {
+        border: 0.1vw solid var(--color-primary);
+        img {
+            scale: 1.2;
+        }
+    }
+    img {
+        pointer-events: none;
+        position: relative;
+        z-index: 0;
+    }
+}
+
+.avatar-wrapper {
+    position: relative;
+    .remove {
+        cursor: pointer;
+        padding: max(0.25vw, 2.5px);
+        border-radius: 50%;
+        position: absolute;
+        background-color: var(--main-main);
+        z-index: 2;
+        top: max(-0.5vw, -5px);
+        right: max(-0.5vw, -5px);
+        border: 0.1vw solid rgb(95, 95, 95);
+        .icon-remove {
+            @include icon.icon-mask("../../../../assets/images/close.svg", max(0.75vw, 7.5px));
+        }
+    }
+}
+
+.selected {
+    border: 0.2vw solid var(--color-primary);
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        z-index: 1;
+    }
+    &:hover {
+        border: 0.2vw solid var(--color-primary);
+        img {
+            scale: 1;
+        }
+    }
+}
+
+.new-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.15vw dashed var(--main-text);
+    position: relative;
+    cursor: pointer;
+    &:hover {
+        border: 0.15vw dashed var(--main-text);
+    }
+    .circle {
+        border-radius: 50%;
+        border: 0.1vw solid var(--main-text);
+        .icon {
+            width: max(2vw, 20px);
+            height: max(2vw, 20px);
+            padding: max(1vw, 10px);
+            margin: 0;
+        }
+        .icon-new {
+            @include icon.icon-mask("../../../../assets/images/new.svg");
+        }
+    }
+}
+
+.input-phantom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.popup-footer {
+    background-color: var(--main-main);
+    display: flex;
+    align-items: center;
+    padding: max(1vw, 10px);
+    * {
+        margin: 0;
+    }
+    .apply {
+        margin-left: auto;
+    }
+    .icon-warning-circle {
+        margin-right: max(.5vw, 5px);
+        @include icon.icon-mask("../../../../assets/images/warning-circle.svg", max(1.3vw, 13px));
+    }
+}

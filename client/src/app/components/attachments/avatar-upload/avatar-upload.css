@@ -1,0 +1,292 @@
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.popup-blured {
+  backdrop-filter: blur(10px);
+}
+
+.popup-window {
+  background-color: var(--main-main);
+  border-radius: 0.5vw;
+  overflow: hidden;
+}
+
+.popup-header {
+  background-color: var(--main-main);
+  border-bottom: 0.1vw solid black;
+  display: flex;
+  align-items: center;
+  padding: max(1vw, 10px);
+}
+.popup-header * {
+  margin: 0;
+}
+.popup-header img {
+  width: max(1vw, 10px);
+  cursor: pointer;
+}
+.popup-header h3 {
+  color: white;
+  font-weight: 500;
+  font-size: max(1.25vw, 12.5px);
+}
+.popup-header .icon {
+  margin: 0 0.5vw 0 0;
+  cursor: pointer;
+}
+.popup-header .right {
+  margin-left: max(1vw, 10px);
+  display: flex;
+  justify-content: flex-end;
+  gap: max(1vw, 10px);
+  margin-left: auto;
+}
+.popup-header .left {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: max(1vw, 10px);
+}
+
+.head {
+  font-size: max(1.25vw, 12.5px);
+  font-weight: 500;
+  color: var(--main-text);
+  margin-bottom: max(1vw, 10px);
+}
+
+.subhead {
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: max(0.88vw, 8.8px);
+}
+
+.paragraph {
+  color: var(--main-text);
+  font-size: max(0.88vw, 8.8px);
+}
+
+.disabled {
+  color: gray;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.avatar-upload {
+  z-index: 2;
+}
+
+.photo {
+  padding: max(1vw, 10px);
+  position: relative;
+  overflow: hidden;
+  width: max(30vw, 300px);
+  height: max(30vw, 300px);
+  border-radius: 0.5vw;
+  margin: max(1vw, 10px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo .circle-frame {
+  border-radius: 50%;
+  border: 0.15vw solid var(--main-main);
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+  background: transparent;
+}
+.photo .icon {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/left.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/left.svg") no-repeat center;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+.photo {
+  display: flex;
+}
+.photo * {
+  margin: 0;
+}
+.photo .side {
+  width: 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.photo .middle {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.photo .middle .side {
+  height: 5%;
+  width: 100%;
+}
+.photo .middle .circle-frame {
+  height: 90%;
+  width: 100%;
+}
+.photo .icon-bottom {
+  transform: rotate(270deg);
+}
+.photo .icon-right {
+  transform: rotate(180deg);
+}
+.photo .icon-top {
+  transform: rotate(90deg);
+}
+.photo .photo-bg {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.photo .view {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+footer * {
+  margin: 0;
+}
+footer .circle-size {
+  display: flex;
+  align-items: center;
+  gap: max(0.5vw, 5px);
+}
+footer .circle-size * {
+  margin: 0;
+}
+footer .circle-size .subhead {
+  margin-bottom: max(0.5vw, 5px);
+}
+footer .circle-size .size-label {
+  position: relative;
+}
+footer .circle-size .size-label .range-output {
+  color: var(--main-text);
+  font-size: max(0.75vw, 7.5px);
+  top: 0;
+  left: 0;
+  transition: 0.3s ease all;
+  position: absolute;
+  padding: max(0.2vw, 2px);
+  border-radius: 0.2vw;
+  background-color: rgb(from var(--main-text) r g b/0.1);
+}
+footer .circle-size input {
+  accent-color: var(--color-primary);
+  height: max(0.2vw, 2px);
+  width: max(12vw, 120px);
+}
+footer .circle-size .procent {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--main-text);
+  margin-left: max(1vw, 10px);
+}
+footer .circle-size .circle-icon {
+  border: 0.1vw solid var(--main-text);
+  padding: max(0.25vw, 2.5px);
+  border-radius: 50%;
+}
+footer .circle-size .icon {
+  padding: max(0.25vw, 2.5px);
+}
+footer .circle-size .icon-minus-rounded {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/minus.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/minus.svg") no-repeat center;
+  width: max(0.4vw, 4px);
+  height: max(0.4vw, 4px);
+}
+footer .circle-size .icon-plus-rounded {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/new.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/new.svg") no-repeat center;
+  width: max(0.4vw, 4px);
+  height: max(0.4vw, 4px);
+}
+footer .circle-size .icon-repeat {
+  margin-left: max(1vw, 10px);
+  cursor: pointer;
+}
+footer .circle-size .icon-repeat .icon {
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/repeat.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/repeat.svg") no-repeat center;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+footer .circle-size .icon-repeat {
+  overflow: hidden;
+  position: relative;
+}
+footer .circle-size .icon-repeat input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  z-index: 1;
+}
+footer button {
+  height: -moz-max-content;
+  height: max-content;
+}/*# sourceMappingURL=avatar-upload.css.map */

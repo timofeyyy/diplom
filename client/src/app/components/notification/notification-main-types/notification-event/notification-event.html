@@ -1,0 +1,13 @@
+@for (notification of notifications; track $index) {
+@switch(notification.notificationType) {
+@case (NotificationTypes.PASSWORD_UPDATE) {
+<app-password-changed-notification [notification]="notification" />
+}
+@case (NotificationTypes.USERNAME_UPDATE) {
+<app-username-changed-notification [notification]="notification" />
+}
+@case (NotificationTypes.AVATAT_UPDATE) {
+<app-avatar-changed-notification [notification]="notification" />
+}
+}
+}

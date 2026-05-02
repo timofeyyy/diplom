@@ -31,23 +31,19 @@ export class AttachmentsPopup implements OnInit {
 
   ngOnInit(): void {
     this.attachmentsService.listen().subscribe((res) => {
-      this.message = res.payload.message
-      if (res.payload.attachments.length) {
-        this.attahcments = res.payload.attachments
-        // this.message = res.payload.message
-        console.log(res)
+      this.message = res.message
+      if (res.attachments.length) {
+        this.attahcments = res.attachments
         if (this.isLocal) {
           this.displayedAttachments = this.localToDisaply(this.attahcments as AttachmentLocalDto[])
         }
         else {
           this.displayedAttachments = this.attahcments as AttachmentCloudDto[]
         }
-        console.log(this.attahcments, this.message, this.isLocal)
       }
     })
   }
   localToDisaply(files: AttachmentLocalDto[]): AttachmentCloudDto[] {
-    console.log(files)
     return files.map(f => ({
       type: f.type,
       uri: URL.createObjectURL(f.blob)
@@ -58,7 +54,7 @@ export class AttachmentsPopup implements OnInit {
   close() {
     this.attachmentsService.setAttachmentsSource([])
     this.attachmentsService.message = ""
-    this.comm.send(AppEnum.OPEN_ATTACHMENTS, { active: false, payload: {} })
+    this.comm.send(AppEnum.OPEN_ATTACHMENTS, {active: false})
   }
 
   add() {
@@ -69,22 +65,6 @@ export class AttachmentsPopup implements OnInit {
 
     input.onchange = (event: any) => {
       this.onImageSelect(event)
-      // const file: File = event.target.files[0];
-      // if (!file) return;
-
-      // const newAttachment: AttachmentLocalDto = {
-      //   type: 0,
-      //   blob: file
-      // };
-
-      // this.attahcments.push(newAttachment as any);
-      // this.displayedAttachments.push({
-      //   type: 0,
-      //   uri: URL.createObjectURL(file)
-      // })
-
-      // this.attachmentsService.setAttachmentsSource(this.attahcments);
-
     };
 
     input.click();
@@ -122,7 +102,6 @@ export class AttachmentsPopup implements OnInit {
     // this.attahcments.push({ blob: file, type: AttahcmentsEnum.FILE } as any);
     this.displayedAttachments.push({ uri: URL.createObjectURL(file), type: AttahcmentsEnum.FILE } as any)
     this.cdr.detectChanges()
-    console.log(this.displayedAttachments);
   }
 
   onImageSelect(event: any) {
@@ -149,8 +128,6 @@ export class AttachmentsPopup implements OnInit {
       ...this.attahcments,
       { blob: file, type: AttahcmentsEnum.IMAGE }
     ] as any
-    // this.attahcments.push({ blob: file, type: AttahcmentsEnum.IMAGE } as any);
-    // this.displayedAttachments.push({ uri: URL.createObjectURL(file), type: AttahcmentsEnum.FILE } as any)
     this.displayedAttachments = this.attahcments.map(att => ({
       type: att.type,
       uri: 'blob' in att ? URL.createObjectURL(att.blob) : att.uri
@@ -161,7 +138,7 @@ export class AttachmentsPopup implements OnInit {
   }
 
   save() {
-    this.comm.send(MessangerEnum.MESSAGE_SEND, { active: true, payload: { message: this.message, attachments: this.attahcments } })
+    this.comm.send(MessangerEnum.MESSAGE_SEND, { message: this.message, attachments: this.attahcments })
     this.close()
   }
 

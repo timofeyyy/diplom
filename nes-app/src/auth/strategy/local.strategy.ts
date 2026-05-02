@@ -14,7 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, AuthStrategy.LOCAL
   async validate(email: string, password: string): Promise<any> {
     const user = await this.authService.validateUserByPassword(email, password);
     if (!user) {
-      throw new UnauthorizedException("No scuh user or password is not correct");
+      throw new UnauthorizedException("Нет такого пользователя или пароль неверный");
     }
     return user;
   }

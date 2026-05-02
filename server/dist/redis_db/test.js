@@ -18,12 +18,12 @@ connection_1.default.connect()
     // let tokensStr = await client.get("tokens");
     yield client.set("test", 1);
     let test = yield client.get("test");
-    console.log(test);
+    // console.log(test);
     yield client.del("test");
     test = yield client.get("test");
-    console.log(test);
-    console.log(`TEST EXECUTED SUCCESESFULY: \n`);
+    // console.log(test);
+    // console.log(`TEST EXECUTED SUCCESESFULY: \n`);
 }))
     .catch((err) => {
-    console.log(`CATCH ERR: \n${err}`);
+    // console.log(`CATCH ERR: \n${err}`);
 });

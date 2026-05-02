@@ -1,43 +1,37 @@
-@use "../../../styles/variables/variables.scss" as v;
+@use "../../../styles/elements/avatar/circle-avatar.scss";
 
 header {
     width: 100%;
     color: white;
     padding: 0.5vw 1vw;
-    border-bottom: 0.025vw solid rgb(45, 45, 45);
-    background-color: v.$home-bg;
+    border-bottom: 0.025vw solid var(--border-color);
+    background-color: var(--main-main);
     display: flex;
     justify-content: flex-end;
-    .avatar {
-        display: flex;
-        justify-self: flex-end;
+    .icon {
         margin: 0;
-        margin-left: max(1vw, 10px);
         cursor: pointer;
         border-radius: 30%;
-        width: v.$icon-width4;
-        height: v.$icon-width4;
-        img {
-            width: 100%;
-            height: 100%;
-        }
+        width: max(1.5vw, 15px);
+        height: max(1.5vw, 15px);
     }
     .profile {
-        border: 0.1vw solid gray;
-         overflow: hidden;
+        display: flex;
+        justify-self: flex-end;
+        margin-left: max(1vw, 10px);
     }
+
     .notifications {
         position: relative;
         .counter {
             position: absolute;
-            top: -.5vw;
-            right: -.5vw;
-            background-color: red;
-            // background-color: v.$invalid-color;
+            top: -0.5vw;
+            right: -0.5vw;
+            background-color: #ae1b3f;
             color: white;
             padding: max(0.25vw, 2.5px);
-            font-size: v.$app-size6-5-vw;
-            border-radius: .5vw;
+            font-size: max(0.65vw, 6.5px);
+            border-radius: 0.5vw;
             margin: 0 0 0 max(0.5vw, 5px);
             transform: scale(0.75);
             min-width: max(1.2vw, 12px);

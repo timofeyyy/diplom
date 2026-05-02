@@ -1,5 +1,5 @@
 <header>
-    <div class="avatar notifications">
+    <div class="icon notifications">
         @if(me) {
         <img src="/assets/images/bell-alert.svg" alt="уведомление" (click)="notifications()">
         @if(updatedCounter) {
@@ -9,9 +9,10 @@
         }
         }
     </div>
-    <div class="avatar profile" (click)="openSettings=true">
+    <div class="icon profile" (click)="openSettings=true">
         @if(me) {
-        <img [src]="me.avatar" alt="настройки пользователя">
+        <app-avatar [avatar]="me.avatar" [options]="me.displayAvatarSettings!" [borderRadius]="30"
+            [size]="'max(1.5vw, 15px)'" />
         }
     </div>
     @if(openSettings) {

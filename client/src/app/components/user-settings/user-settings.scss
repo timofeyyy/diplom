@@ -1,82 +1,19 @@
-@use "../../../styles/variables/variables.scss" as v;
-
-.popup-window {
-    align-items: flex-start;
-    .window {
-        margin: max(5vw, 50px) 0;
-        overflow: hidden;
-        border-radius: .5vw;
-        width: max(25vw, 250px);
-        background-color: v.$medium-dark;
-        header {
-            background-color: v.$home-bg;
-            border-bottom: 0.1vw solid v.$border-color;
-            display: flex;
-            align-items: center;
-            padding: max(1vw, 10px);
-            * {
-                margin: 0;
-            }
-            img {
-                // padding-left: max(1vw, 10px);
-                // margin: 0 0 0 max(1vw, 10px);
-                width: v.$icon-width5;
-                cursor: pointer;
-            }
-            h3 {
-                color: white;
-                font-weight: 500;
-                font-size: v.$app-size4-vw;
-            }
-            // .edit {
-            //     margin-left: auto;
-            // }
-            // .back {
-            //     margin-left: 0;
-            // }
-            // .close {
-            //     margin-right: 0;
-            // }
-
-            .right {
-                width: 50%;
-                margin-left: max(1vw, 10px);
-                display: flex;
-                justify-content: flex-end;
-                * {
-                    margin-left: max(1vw, 10px);
-                }
-            }
-
-            .left {
-                width: 50%;
-                display: flex;
-                justify-content: flex-start;
-                * {
-                    margin-right: max(1vw, 10px);
-                }
-            }
-        }
-        .main {
-            overflow-y: scroll;
-            max-height: 70vh;
-            transition: 0.3s all ease;
-            .component {
-                animation: appear ease-in-out 0.3s;
-            }
-        }
-    }
-}
+@use "../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../styles/elements/popup/popup.scss";
 
 .component {
     position: relative;
+    width: max(25vw, 250px); 
+    display: block;
+    background-color: var(--main-secondary);
 }
 
-@keyframes appear {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.icon-edit {
+    @include icon.icon-mask("../../../assets/images/edit.svg");
+}
+.icon-back {
+    @include icon.icon-mask("../../../assets/images/back.svg");
+}
+.icon-close {
+    @include icon.icon-mask("../../../assets/images/close.svg");
 }

@@ -7,7 +7,9 @@ import { HttpResponse } from '../../../dto/warning.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppEnum } from '../../../etc/enum/app.enum';
 import { AuthHttpService } from '../../../service/http/auth.http.service';
-import { AuthHttpRequirementService } from '../../../service/http/auth.http.requirements.service';
+import { RefreshHttpService } from '../../../service/http/refresh.service';
+import { EventNotifierService } from '../../components/events/common/services/event-notifier.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-password-recovery',
@@ -18,9 +20,10 @@ import { AuthHttpRequirementService } from '../../../service/http/auth.http.requ
 export class PasswordRecovery {
   constructor(
     private readonly authHttp: AuthHttpService,
-    private readonly authHttpRequirements: AuthHttpRequirementService,
+    private readonly refreshHttpService: RefreshHttpService,
     private readonly authValidation: FromAuthMediater,
-    private readonly comm: CommunicationService
+    private readonly comm: CommunicationService,
+    private readonly eventNotifierService: EventNotifierService
   ) { }
   @Output()
   close: EventEmitter<void> = new EventEmitter()
@@ -32,31 +35,26 @@ export class PasswordRecovery {
       }
     }
   }
- 
+
   async validateForm() {
     const checks: (() => boolean)[] = this.authValidation.getChecks(['email', 'email-domen', 'password-validation-sign-up', 'email-exists'])
     this.authValidation.reset()
     for (const [index, check] of checks.entries()) {
       const res = await check()
-      console.log(check)
-      console.log(res)
       if (!res) {
         return
       }
     }
-    this.comm.send(AppEnum.LOADER, { active: true, payload: {} })
-    this.authHttpRequirements.require(this.authHttp.newPassword(this.authValidation.validation.email.value!, this.authValidation.validation.password.value!))
-      .subscribe((res: (HttpResponse | HttpErrorResponse)) => {
-        this.comm.send(AppEnum.LOADER, {active: false, payload: {}})
-          console.log(res)
-        if (res instanceof HttpErrorResponse) {
-          
-        }
-        else {
-          this.comm.send(AppEnum.NOTIFICATION, {
-            active: true,
-            payload: res
-          })
+    this.comm.send(AppEnum.LOADER, { active: true })
+    this.refreshHttpService.require(this.authHttp.newPassword(this.authValidation.validation.email.value!, this.authValidation.validation.password.value!))
+      .pipe(catchError((err: HttpErrorResponse) => {
+        this.eventNotifierService.errorNotify(err.error.message)
+        return of(err)
+      }))
+      .subscribe((res: (any | HttpErrorResponse)) => {
+        this.comm.send(AppEnum.LOADER, { active: false })
+        if (!(res instanceof HttpErrorResponse)) {
+          this.eventNotifierService.succesNotify("Профиль был обновлен")
         }
         this.close.emit()
       })

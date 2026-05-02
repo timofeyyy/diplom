@@ -1,1 +1,45 @@
- 
+@use "../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../styles/elements/popup/popup.scss";
+
+header {
+    background-color: var(--main-main);
+    border-bottom: 0.1vw solid black;
+    display: flex;
+    align-items: center;
+    padding: max(1vw, 10px);
+    * {
+        margin: 0;
+    } 
+    img { 
+        width:max(1vw, 10px);
+        cursor: pointer;
+    }
+    h3 { 
+        color: white;
+        font-weight: 500;
+        font-size:max(1.25vw, 12.5px);
+    } 
+    .icon {
+        margin: 0 0.5vw 0 0;
+        cursor: pointer;
+    }
+    .right {
+        width: 50%;
+        margin-left: max(1vw, 10px);
+        display: flex;
+        justify-content: flex-end;
+        * {
+            margin-left: max(1vw, 10px);
+        }
+    }
+
+    .left {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        * {
+            margin-right: max(1vw, 10px);
+        }
+    }
+}

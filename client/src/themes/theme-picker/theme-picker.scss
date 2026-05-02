@@ -1,0 +1,84 @@
+@use "../../styles/elements/button/button.scss";
+@use "../../styles/elements/paragraph/paragraph.scss";
+
+.themes-popup {
+  .theme-wrapper {
+    border-radius: 0.5vw;
+    height: max(35vw, 350px);
+    width: max(30vw, 300px);
+    padding: max(1.5vw, 15px) max(2vw, 20px);
+    display: flex;
+    flex-direction: column;
+    * {
+      margin: 0;
+    }
+
+    .block-x {
+      margin-bottom: max(0.75vw, 7.5px);
+      display: flex;
+      align-items: center;
+      color: var(--main-text);
+      font-weight: 600;
+      font-size: max(0.88vw, 8.8px);
+      margin-left: max(1vw, 10px);
+      .switcher {
+        margin-left: max(1vw, 10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      margin-bottom: max(1vw, 10px);
+    }
+
+    .buttons {
+      margin-top: auto;
+      margin-left: auto;
+      button {
+        display: inline-block;
+        margin-left: max(1vw, 10px);
+        font-weight: 500;
+      }
+    }
+
+    .theme-card {
+      margin-bottom: max(0.5vw, 5px);
+      border-radius: 0.5vw;
+      padding: max(0.5vw, 5px);
+      border: 0.1vw solid #1f1f1f;
+      cursor: pointer;
+    }
+
+    .preview {
+      margin-left: max(1vw, 10px);
+      display: flex;
+      gap: max(0.5vw, 5px);
+      span {
+        border-radius: 0.55vw;
+        border: 0.1vw solid #1f1f1f;
+        padding: max(0.5vw, 5px);
+        cursor: pointer;
+      }
+      .selected {
+        border-radius: 0.25vw;
+        outline: 0.1vw solid var(--main-text);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &::before {
+          content: url("../../assets/images/tick.svg");
+          position: absolute;
+          background-color: rgba($color: #000000, $alpha: 0.6);
+          height: 100%;
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+
+    .head {
+      margin-bottom: max(1vw, 10px);
+    }
+    background-color: var(--main-main);
+  }
+}

@@ -12,12 +12,11 @@ export class MongoNotificationService {
   ) { }
 
   async create(payload: Partial<Notification>) {
-    console.log(payload)
     return await this.notificationModel.create(payload)
   }
 
   async select(userId: string) {
-    return await this.notificationModel.find({ recieverId: userId})
+    return await this.notificationModel.find({ userId: userId})
   }
 }
 

@@ -1,5 +1,3 @@
-@use "../../../styles/variables/variables.scss" as v;
-
 .custom-alert {
     width: 100vw;
     height: 100vh;
@@ -52,9 +50,9 @@
             button {
                 // padding: 0.25vw 1vw;
                 border-radius: 2vw;
-                background-color: v.$theme-color-blue;
+                background-color:#2748c3;
                 border: none;
-                font-size: v.$app-size6-vw;
+                font-size:max(.75vw, 7.5px);
                 background-color: white;
                 color: #161616;
                 cursor: pointer;

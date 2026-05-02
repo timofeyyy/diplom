@@ -1,0 +1,16 @@
+@use "../../../../../styles/elements/paragraph/paragraph.scss";
+@use "../../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../../styles/elements/notification/user-notifications.scss";
+@use "../notification.scss";
+
+.icon {
+    width: max(3vw, 30px);
+    height: max(3vw, 30px);
+}
+
+.icon-wrapper {
+    transition: ease all 0.3s;
+    padding: 0;
+    overflow: hidden;    
+    cursor: pointer;
+}

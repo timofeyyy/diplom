@@ -1,6 +1,5 @@
 .images {
   display: grid;
-  margin-bottom: max(1vw, 10px);
 }
 
 .image .content {
@@ -92,9 +91,8 @@
   display: flex;
   align-items: center;
   gap: max(1vw, 10px);
-  padding: max(1vw, 10px);
-  border-radius: 12px;
-  border: 0.1vw solid #1f1f1f;
+  padding: max(0.5vw, 5px);
+  border-radius: 0.5vw;
   cursor: pointer;
   transition: 0.2s;
   max-width: max(30vw, 300px);
@@ -104,9 +102,13 @@
 }
 .files .file .file-content .file-info {
   color: black;
+  font-size: max(0.75vw, 7.5px);
+  margin-right: 0;
+  text-decoration: underline;
 }
 .files .file .file-icon {
-  font-size: max(2vw, 20px);
+  width: max(1.5vw, 15px);
+  margin: 0;
 }
 .files .file .file-info .file-name {
   font-size: max(1vw, 10px);

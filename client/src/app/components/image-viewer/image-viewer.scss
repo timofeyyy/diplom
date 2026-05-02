@@ -1,5 +1,3 @@
-@use "../../../styles/variables/variables.scss" as v;
-
 .viewer {
     width: 100vw;
     height: 100vh;
@@ -14,21 +12,23 @@
         justify-content: center;
         height: 100%;
         .closer {
-            width: v.$icon-width4;
-            height: v.$icon-width4;
+            width:max(1.5vw, 15px);
+            height:max(1.5vw, 15px);
             position: absolute;
             right: max(2vw, 20px);
             top: (max(2vw, 20px));
             cursor: pointer;
         }
         .content {
-            width: 70%;
-            height: 100%;
+            background: var(--main-main);
+            // width: 60%;
+            // height: 90%;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: max(1vw, 10px);
             box-sizing: border-box;
+            margin: max(5vw, 50px) 0;
         }
         .image {
             display: flex;
@@ -47,8 +47,8 @@
             align-items: center;
             justify-content: center;
             img {
-                width: v.$icon-width3;
-                height: v.$icon-width3;
+                width:max(2vw, 20px);
+                height:max(2vw, 20px);
             }
         }
         .right {

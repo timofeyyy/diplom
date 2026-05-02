@@ -44,9 +44,9 @@ const config = (0, app_config_1.getConfig)();
 const pkgDef = protoLoader.loadSync(config.proto.root_dir + config.proto.contracts.test);
 const proto = grpc.loadPackageDefinition(pkgDef);
 const rootCert = fs_1.default.readFileSync(config.root_ca_pem);
-console.log(`${config.host}:${config.port}`);
+// console.log(`${config.host}:${config.port}`);
 const client = new proto.hello.HelloService(`${config.host}:${3000}`, grpc.credentials.createSsl(rootCert));
 client.Hello({ number: 5 }, (err, response) => {
-    console.log(err);
-    console.log(response);
+    // console.log(err);
+    // console.log(response);
 });

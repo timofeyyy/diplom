@@ -67,8 +67,8 @@ passport.use(new Strategy(
         // callbackURL: "http://localhost:10000/google/callback"
     },
     (accesToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) => {
-        // console.log("отправка в бд инфы о пользователе")
-        // console.log(profile)
+        // // console.log("отправка в бд инфы о пользователе")
+        // // console.log(profile)
         // const user: any = {}
         // user.displayName = profile.displayName;
         // user.email = profile.emails;
@@ -83,12 +83,12 @@ passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user as any))
 
 app.use((req, res, next) => {
-    console.log(req.sessionID)
+    // console.log(req.sessionID)
     next();
 });
 
 app.get('/test_auth', (req, res) => {
-    console.log("test_auth")
+    // console.log("test_auth")
     res.send("auth")
 })
 
@@ -107,9 +107,9 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
         { expiresIn: '1h' }
     );
     SaveToken(token, (err: any, response: any) => {
-        console.log(err)
-        console.log("\n\n\n\n\n")
-        console.log(response)
+        // console.log(err)
+        // console.log("\n\n\n\n\n")
+        // console.log(response)
         if (response) {
             res.cookie('jwt', token, {
                 httpOnly: false,
@@ -129,17 +129,17 @@ app.get("/google/callback", passport.authenticate("google", { failureRedirect: "
 app.get("/logout", (req, res) => {
 
     // res.redirect("/login")
-    // console.log(`log out ${req.session.id}`)
+    // // console.log(`log out ${req.session.id}`)
     // req.logOut(() => {
     // res.clearCookie("jwt")
     // Cookies that have not been signed
     const token = req.cookies["jwt"]
     if (token) {
-        // console.log(jwt)
+        // // console.log(jwt)
         RemoveToken(token, (err: any, response: any) => {
-            console.log(err)
-            console.log("\n\n\n\n\n")
-            console.log(response)
+            // console.log(err)
+            // console.log("\n\n\n\n\n")
+            // console.log(response)
             if (response) {
                 res.clearCookie("jwt")
                 res.redirect(`https://${config.host}:${config.port}/front-serv/user-auth`);
@@ -154,13 +154,13 @@ app.get("/logout", (req, res) => {
     }
 
 
-    // req.session.destroy(() => console.log("Пользовтаель отключился"))
-    // console.log(`log out ${req.session.id}`)
+    // req.session.destroy(() => // console.log("Пользовтаель отключился"))
+    // // console.log(`log out ${req.session.id}`)
 
     // })
 })
 
-app.listen(10000, () => console.log("auth"))
+app.listen(10000, () => // console.log("auth"))
 
 
 

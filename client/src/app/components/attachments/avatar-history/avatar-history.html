@@ -1,0 +1,40 @@
+<main class="avatar-history">
+    <div class="cards">
+        <div class="avatar-card new-card">
+            <div class="circle">
+                <div class="icon icon-new"></div>
+            </div>
+            <input class="input-phantom" type="file" accept="image/*" (change)="onFileSelected($event)">
+        </div>
+        <div class="avatar-card photo-card" [ngClass]="{'selected': !selectedAvatar}"
+            (click)="onAvatarSelected(undefined)">
+            @if(me) {
+            <img [src]="me.defaultAvatar">
+            }
+        </div>
+    </div>
+    @for (period of displayedPeriods; track $index) {
+    <div class="date">
+        <h3 class="subhead">{{period[0]}}</h3>
+        <div class="line"></div>
+    </div>
+    <div class="cards">
+        @for (item of period[1]; track $index) {
+        <div class="avatar-wrapper">
+            <div class="remove" (click)="deleteFromHistory(item.uri)">
+                <div class="icon icon-remove"></div>
+            </div>
+            <div class="avatar-card photo-card" [ngClass]="{'selected': selectedAvatar && selectedAvatar.uri == item.uri}"
+                (click)="onAvatarSelected(item)">
+                <img [src]="item.uri" style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+        </div>
+        }
+    </div>
+    }
+</main>
+<footer class="popup-footer">
+    <div class="icon icon-warning-circle"></div>
+    <h3 class="subhead">Срок хранения картинок только 30 дней!</h3>
+    <button class="apply" (click)="applyChanges()">Применить</button>
+</footer>

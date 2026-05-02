@@ -1,0 +1,42 @@
+.field-underlined {
+    border-bottom: 0.1vw solid var(--main-text);
+}
+.field-horizontal {
+    display: flex;
+    align-items: center;
+    * {
+        margin-left: 0;
+        margin-right: max(1vw, 10px);
+    }
+}
+
+.field {
+    p {
+        font-weight: 500;
+        color: var(--main-text);
+        font-size:max(.75vw, 7.5px);
+        transition: 0.3s ease all;
+    }
+    transition: 0.3s ease all;
+    margin: max(1vw, 10px) 0;
+
+    width: -webkit-fill-available;
+
+    img {
+        margin-right: max(0.5vw, 5px);
+        width:max(.8vw, 8px);
+    }
+}
+
+
+.focused {
+    p {
+        color: var(--color-secondary);
+    }
+    input {
+        &::placeholder {
+            color: transparent;
+        }
+        border-color: var(--color-secondary);
+    }
+}

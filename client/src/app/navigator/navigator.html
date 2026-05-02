@@ -1,34 +1,50 @@
 <aside [ngClass]="{collapse: collapse}">
-    <header>
+    <div class="wrapper">
+        
+    </div>
+    <div class="content">
+        <header>
         <div class="logo">
-            <p>VideoConferenceApp</p>
+            <p>Диплом</p>
             <!-- <img src="/favicon.ico" alt="logo"> -->
         </div>
         <div class="extension-holder" (click)="collapse=!collapse">
-            <img [src]="'assets/images/collapse.svg'" alt="collapse">
+            <div class="icon"></div>
+            <!-- <app-collapse-icon /> -->
+            <!-- <img [src]="'assets/images/collapse.svg'" alt="collapse"> -->
         </div>
     </header>
 
     <nav [ngClass]="{vertical: true, collapse: collapse}">
         <ul>
-            <li [ngClass]="{'selected': action == TabEnum.HOME, 'default': action != TabEnum.HOME}" (click)="open(TabEnum.HOME)">
-                <img [src]="'assets/images/main-colorful.svg'" alt="Home">
-                <div>
-                    <p>Home</p>
+            <li [ngClass]="{'selected': action == TabEnum.HOME, 'default': action != TabEnum.HOME}"
+                (click)="open(TabEnum.HOME)">
+                <div class="icon">
+                    <img [src]="'assets/images/main-colorful.svg'" alt="Home">
                 </div>
+                <!-- <div class="route-wrapper"> -->
+                    <p  class="tab-name">Главная</p>
+                <!-- </div> -->
             </li>
-            <li [ngClass]="{'selected': action == TabEnum.CALL_HISTORY, 'default': action != TabEnum.CALL_HISTORY}" (click)="open(TabEnum.CALL_HISTORY)" >
-                <img [src]="'assets/images/phone-colorful.svg'" alt="Call history">
-                <div>
-                    <p>Call History</p>
+            <li [ngClass]="{'selected': action == TabEnum.CALL_HISTORY, 'default': action != TabEnum.CALL_HISTORY}"
+                (click)="open(TabEnum.CALL_HISTORY)">
+                <div class="icon">
+                    <img [src]="'assets/images/phone-colorful.svg'" alt="Call history">
                 </div>
+                <!-- <div class="route-wrapper"> -->
+                <p class="tab-name">История звонков</p>
+                <!-- </div> -->
             </li>
-            <li [ngClass]="{'selected': action == TabEnum.FRIENDS, 'default': action != TabEnum.FRIENDS}" (click)="open(TabEnum.FRIENDS)">
-                <img [src]="'assets/images/messages-colorful.svg'" alt="Messanger">
-                <div>
-                    <p>Chats</p>
+            <li [ngClass]="{'selected': action == TabEnum.FRIENDS, 'default': action != TabEnum.FRIENDS}"
+                (click)="open(TabEnum.FRIENDS)">
+                <div class="icon">
+                    <img [src]="'assets/images/messages-colorful.svg'" alt="Messanger">
                 </div>
+                <!-- <div class="route-wrapper"> -->
+                    <p  class="tab-name">Чаты</p>
+                <!-- </div> -->
             </li>
         </ul>
     </nav>
+    </div>
 </aside>

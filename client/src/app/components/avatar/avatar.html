@@ -1,0 +1,10 @@
+<div class="avatar"  [style.border-radius.%]="borderRadius"
+     [style.width]="size"
+     [style.height]="size">
+    <div class="avatar-bg" [style.background-image]="getAvatarUrl(avatar)" [style]="{
+                        'background-position-x': options?.positionX ? `calc(50% + ${options?.positionX}%)` : '',
+                        'background-position-y': options?.positionY ? `calc(50% + ${options?.positionY}%)` : '',
+                        'transform': options?.scale ?  `scale(calc(1 + ${options!.scale/100}))` : ''
+                    }">
+    </div>
+</div>

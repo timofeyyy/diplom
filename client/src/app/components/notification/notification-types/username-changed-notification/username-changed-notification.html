@@ -1,0 +1,12 @@
+<div class="notification">
+    <div class="icon-wrapper">
+        <div class="icon"></div>
+    </div>
+    <div class="message-block">
+        <p class="paragraph">Вы изменили имя на <span class="bold">{{notification.data.newUserName}}</span></p>
+        <div class="createdAt">
+            <p class="paragraph time">{{ notification.createdAt | timeAgo: currentDate }}</p>
+        </div>
+    </div>
+    <p class="action" (click)="userSetings()">Открыть профиль</p>
+</div>

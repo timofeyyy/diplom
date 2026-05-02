@@ -1,30 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Res, UnauthorizedException, BadRequestException, ConflictException, HttpStatus, NotFoundException, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req, Res, UnauthorizedException, BadRequestException, ConflictException, NotFoundException, Logger } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ConfigService } from '@nestjs/config';
 import { GoogleAuthGuard } from './guards/google.guard';
-import jwt from 'jsonwebtoken';
-import { TokenResponse } from 'src/redis/dto/token.response.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './guards/local.guard';
-import { JwtAccessGuard } from './guards/jwt.acces.guard';
 import { JwtRefreshGuard } from './guards/jwt.refresh.guard';
 import { TokenType } from './dto/user.dto';
-import * as cookie from 'cookie';
 import { DeleteTokenGuard } from './guards/delete.token.guard';
 import { CreateTokenGuard } from './guards/create.token.guard';
 import { UserCookiesGuard } from './guards/user.cookies.guard';
-import { EncryptionService } from './encryption.service';
 import { EmailVerifierGuard } from './guards/email.verifier.guard';
 import { MailService } from '../mailer/mailer.service'
-import { User } from 'src/mongodb/user/user.schema';
-import { ok } from 'node:assert';
+import { NotificationService } from 'src/notifications/notification.service';
+import { NotificationMainTypes, NotificationEventTypes } from 'src/etc/enum/notifications.enum';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly auth: AuthService,
-    private readonly mailService: MailService
-
+    private readonly mailService: MailService,
+    private readonly notificationService: NotificationService
   ) { }
 
   @UseGuards()
@@ -37,16 +30,16 @@ export class AuthController {
     if (email && password) {
       const foundUser = await this.auth.getUser({ email: email })
       if (foundUser) {
-        throw new ConflictException('User with this email already exists.');
+        throw new ConflictException('Аккаунт с такой почтой уже зарегистрирован.');
       }
       else {
         const res = await this.auth.createUser(email, password, {} as any) != null
         if (res) {
-          return { statusCode: 200, transcript: 'OK', message: 'Account successesfully created!' }
+          return { message: "Аккаунт успешно был создан" }
         }
       }
     }
-    throw new BadRequestException('Invalid input data provided.');
+    throw new BadRequestException('Неверный формат данных.');
   }
   logger = new Logger()
   @Post('new-password')
@@ -57,7 +50,6 @@ export class AuthController {
     @Res({ passthrough: true }) res
   ) {
     const newPassword = body.newPassword
-    // console.log(body, newPassword)
     if (newPassword) {
       const token = await this.auth.generateToken({
         _id: req.user._id,
@@ -67,13 +59,13 @@ export class AuthController {
           birthday: new Date().toISOString()
         }
       }, TokenType.PASSWORD_TOKEN)
-      this.logger.debug({controller: AuthController.name, str: process.env.PASSWORD_RESET_URL_FRONT})
-      const link = `${process.env.PASSWORD_RESET_URL_FRONT}${token}`
+      const link = `${process.env.PASSWORD_RESET_URL_FRONT}/${token}`
       await this.mailService.sendTest(link, req.user.email)
-      return { statusCode: 200, transcript: 'ok', message: 'Check your email, we have sent you a link to submit changes.' }
+      return { message: 'На вашу почту была выслана ссылка для подтверждения пароля.' }
     }
     throw new BadRequestException()
   }
+  
   @Post('update-password')
   async updatePassword(@Req() req, @Body() body) {
     const passid = body.passid
@@ -82,10 +74,10 @@ export class AuthController {
       if (tokenRecord && tokenRecord.data.email) {
         const user = await this.auth.getUser({ email: tokenRecord.data.email })
         if (user) {
-          let res =await this.auth.updatePassword(user, passid)
+          await this.auth.updatePassword(user, passid)
           await this.auth.removeToken(user._id.toString(), TokenType.PASSWORD_TOKEN, passid)
-          return { statusCode: 200, transcript: 'ok', message: 'Passport was updated.' }
-
+          await this.notificationService.send({ userId: tokenRecord._id, notificationType: NotificationEventTypes.PASSWORD_UPDATE, notificationMainType: NotificationMainTypes.EVENTS, data: {} })
+          return { message: 'Пароль был успешно изменен.' }
         }
       }
       else {
@@ -96,8 +88,7 @@ export class AuthController {
       throw new BadRequestException()
     }
   }
-
-
+     
   @Get('google')
   @UseGuards(GoogleAuthGuard)
   async googleAuth() { }
@@ -162,10 +153,10 @@ export class AuthController {
     if (email) {
       const foundUser = await this.auth.getUser({ email: email })
       if (foundUser) {
-        return { statusCode: 302, transcript: 'Found', message: 'User founded' }
+        return { message: 'Такой пользоватьель уже существует.' }
       }
       else {
-        throw new NotFoundException("User not founded")
+        throw new NotFoundException("Пользоватьеля не существует.")
       }
     }
     else {

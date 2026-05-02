@@ -1,0 +1,54 @@
+.icon-wrapper {
+  padding: max(0.5vw, 5px);
+  background-color: var(--color-primary);
+  margin: 0 max(1vw, 10px) 0 0;
+  border-radius: 0.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createdAt {
+  margin-right: 0;
+  text-align: end;
+}
+.createdAt .time {
+  color: var(--color-primary);
+  margin-bottom: max(0.5vw, 5px);
+  font-size: max(0.75vw, 7.5px);
+}
+.createdAt .date {
+  font-size: max(0.75vw, 7.5px);
+}
+
+.message-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: -webkit-fill-available;
+  margin: 0;
+}
+.message-block * {
+  margin: 0;
+}
+
+.paragraph {
+  margin: 0;
+  font-size: max(0.8vw, 8px);
+}
+
+.action {
+  text-decoration: underline;
+  color: var(--color-primary);
+  font-size: max(0.75vw, 7.5px);
+  margin: auto 0 0 auto;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+app-avatar {
+  margin: 0 max(1vw, 10px) 0 0;
+  border-radius: 0.5vw;
+  overflow: hidden;
+}/*# sourceMappingURL=user-notifications.css.map */

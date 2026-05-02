@@ -1,0 +1,67 @@
+<!-- <div class="popup-window preview"> -->
+    <!-- <div class="head bordered-head">
+        <div class="icon icon-back" (back)="back()"></div>
+        <p class="header">Фото профиля</p>
+        <div class="icon icon-close" (click)="close()"></div>
+    </div> -->
+    <main #photo class="photo">
+        <div class="photo-bg" [ngStyle]="{
+            'background-image': getAvatarUrl(uri),
+            'background-position-x': `calc(50% + ${this.displayAvatarSettings!.positionX}%)`, 
+            'background-position-y': `calc(50% + ${this.displayAvatarSettings!.positionY}%)`,
+            'transform': `scale(calc(1 + ${this.displayAvatarSettings!.scale/100}))`
+            }">
+
+        </div>
+        <div class="view">
+            <div class="side side-left" [ngStyle]="{'opacity': renderenImageWidth == containerWidth ? 0 : 1 }"
+                (pointerdown)="startAction(moveLeft)" (pointerup)="stopAction()" (pointerleave)="stopAction()"
+                (pointercancel)="stopAction()">
+                <div class="icon-left icon">
+
+                </div>
+            </div>
+            <div class="middle">
+                <div class="side side-top" [ngStyle]="{'opacity': containerHeight == renderenImageHeight ? 0 : 1 }"
+                    (pointerdown)="startAction(moveUp)" (pointerup)="stopAction()" (pointerleave)="stopAction()"
+                    (pointercancel)="stopAction()">
+                    <div class="icon-top icon"></div>
+                </div>
+                <div class="circle-frame">
+
+                </div>
+                <div class="side side-bottom" [ngStyle]="{'opacity': containerHeight == renderenImageHeight ? 0 : 1 }"
+                    (pointerdown)="startAction(moveDown)" (pointerup)="stopAction()" (pointerleave)="stopAction()"
+                    (pointercancel)="stopAction()">
+                    <div class="icon-bottom icon"></div>
+                </div>
+            </div>
+            <div class="side side-right" [ngStyle]="{'opacity': renderenImageWidth == containerWidth ? 0 : 1 }"
+                (pointerdown)="startAction(moveRight)" (pointerup)="stopAction()" (pointerleave)="stopAction()"
+                (pointercancel)="stopAction()">
+                <div class="icon-right icon">
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="circle-size">
+            <div class="circle-icon">
+                <div class="icon icon-minus-rounded"></div>
+            </div>
+            <input type="range" [(ngModel)]="this.displayAvatarSettings!.scale" min="5" max="100">
+            <div class="circle-icon">
+                <div class="icon icon-plus-rounded"></div>
+            </div>
+            <p class="procent">
+                {{this.displayAvatarSettings!.scale}}%
+            </p>
+            <div class="icon-repeat">
+                <input type="file" accept="image/*" (change)="onAvatarSelect($event)">
+                <div class="icon "></div>
+            </div>
+        </div>
+        <button (click)="editMode ? edit() : save()">Сохранить</button>
+    </footer>
+<!-- </div> -->

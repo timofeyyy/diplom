@@ -1,0 +1,8 @@
+@use "../../../../../styles/elements/paragraph/paragraph.scss";
+@use "../../../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../../../styles/elements/notification/user-notifications.scss";
+@use "../notification.scss";
+
+.icon {
+    @include icon.icon-mask("../../../../../assets/images/user.svg", max(2vw, 20px));
+} 

@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { MongoWrapper } from '../mongo.types';
 import { User } from '../user/user.schema';
-import { MongoFriendsService } from '../user/friends.service';
 import * as crypto from 'crypto';
 import { Conference } from './conference.schema';
 
@@ -14,7 +13,6 @@ export class MongoConferenceService {
   constructor(
     @InjectModel(Conference.name)
     private readonly conferenceModel: Model<Conference>,
-    private readonly mongoFriendService: MongoFriendsService
   ) { }
 
   
@@ -133,7 +131,7 @@ export class MongoConferenceService {
   //     return await this.chatModel.create(mock!) as unknown as MongoWrapper<Conference>;;
   //   }
   //   catch (e) {
-  //     console.log(e)
+  //     // console.log(e)
   //     return null
   //   }
   // }
@@ -142,7 +140,7 @@ export class MongoConferenceService {
   //     return await this.chatModel.create(mock!) as unknown as MongoWrapper<Conference>;;
   //   }
   //   catch (e) {
-  //     console.log(e)
+  //     // console.log(e)
   //     return null
   //   }
   // }

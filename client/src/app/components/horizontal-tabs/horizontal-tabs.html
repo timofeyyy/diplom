@@ -1,0 +1,15 @@
+<div class="horizontal-tabs" #parent>
+    @if(scrollState) {
+    <div class="icon icon-left" (click)="scroll(-1)"></div>
+    }
+    <div class="wrapper" [ngStyle]="{'width': scrollState ? '90%' : 'fit-content'}" #contentWrapper>
+        <div class="content-wrapper" #content>
+            <ng-content>
+
+            </ng-content>
+        </div>
+    </div>
+    @if(scrollState) {
+    <div class="icon icon-right" (click)="scroll(1)"></div>
+    }
+</div>

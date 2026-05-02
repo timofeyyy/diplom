@@ -1,0 +1,130 @@
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.head {
+  font-size: max(1.25vw, 12.5px);
+  font-weight: 500;
+  color: var(--main-text);
+  margin-bottom: max(1vw, 10px);
+}
+
+.subhead {
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: max(0.88vw, 8.8px);
+}
+
+.paragraph {
+  color: var(--main-text);
+  font-size: max(0.88vw, 8.8px);
+}
+
+.disabled {
+  color: gray;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.themes-popup .theme-wrapper {
+  border-radius: 0.5vw;
+  height: max(35vw, 350px);
+  width: max(30vw, 300px);
+  padding: max(1.5vw, 15px) max(2vw, 20px);
+  display: flex;
+  flex-direction: column;
+}
+.themes-popup .theme-wrapper * {
+  margin: 0;
+}
+.themes-popup .theme-wrapper .block-x {
+  margin-bottom: max(0.75vw, 7.5px);
+  display: flex;
+  align-items: center;
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: max(0.88vw, 8.8px);
+  margin-left: max(1vw, 10px);
+}
+.themes-popup .theme-wrapper .block-x .switcher {
+  margin-left: max(1vw, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.themes-popup .theme-wrapper .block-x {
+  margin-bottom: max(1vw, 10px);
+}
+.themes-popup .theme-wrapper .buttons {
+  margin-top: auto;
+  margin-left: auto;
+}
+.themes-popup .theme-wrapper .buttons button {
+  display: inline-block;
+  margin-left: max(1vw, 10px);
+  font-weight: 500;
+}
+.themes-popup .theme-wrapper .theme-card {
+  margin-bottom: max(0.5vw, 5px);
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px);
+  border: 0.1vw solid #1f1f1f;
+  cursor: pointer;
+}
+.themes-popup .theme-wrapper .preview {
+  margin-left: max(1vw, 10px);
+  display: flex;
+  gap: max(0.5vw, 5px);
+}
+.themes-popup .theme-wrapper .preview span {
+  border-radius: 0.55vw;
+  border: 0.1vw solid #1f1f1f;
+  padding: max(0.5vw, 5px);
+  cursor: pointer;
+}
+.themes-popup .theme-wrapper .preview .selected {
+  border-radius: 0.25vw;
+  outline: 0.1vw solid var(--main-text);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.themes-popup .theme-wrapper .preview .selected::before {
+  content: url("../../assets/images/tick.svg");
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+.themes-popup .theme-wrapper .head {
+  margin-bottom: max(1vw, 10px);
+}
+.themes-popup .theme-wrapper {
+  background-color: var(--main-main);
+}/*# sourceMappingURL=theme-picker.css.map */

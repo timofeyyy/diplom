@@ -1,23 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { s3 } from './s3';
 
 @Injectable()
 export class FileStorageService {
-  private bucketName = 'chat-media';
 
   async uploadFile(file: Express.Multer.File, path: string) {
-    const key = `${path}/${Date.now()}-${file.originalname}`;
-    console.log(key)
+    const key = `${path}/${file.originalname}`;
     await s3.send(
       new PutObjectCommand({
-        Bucket: this.bucketName,
+        Bucket: process.env.BUCKET_NAME,
         Key: key,
         Body: file.buffer,
         ContentType: file.mimetype,
       })
     );
 
-    return `https://pub-203fb2a074554628b6c39a496fe236a3.r2.dev/${key}`;
+    return `${process.env.S3_CLOUD_BASE_URL}${key}`;
+  }
+
+  async removeFile(fileUrl: string) {
+    const key = fileUrl.replace(process.env.S3_CLOUD_BASE_URL!, '');
+    // console.log(key)
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: key,
+      })
+    );
+
+    return true;
   }
 }

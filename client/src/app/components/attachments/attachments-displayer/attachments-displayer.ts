@@ -23,7 +23,6 @@ export class AttachmentsDisplayer implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.files = this.attahcments.filter((attahcment) => attahcment.type == AttahcmentsEnum.FILE).map((attachment) => attachment.uri)
     this.images = this.attahcments.filter((attahcment) => attahcment.type == AttahcmentsEnum.IMAGE).map((attachment) => attachment.uri)
-    console.log(this.attahcments, this.images)
   }
 
   @Input()
@@ -35,14 +34,14 @@ export class AttachmentsDisplayer implements OnChanges {
   remove(index: number) {
     this.attachmentsService.removeAttachment(index)
     this.attachmentsService.send()
-    console.log(this.attachmentsService.data)
     if (!this.attachmentsService.data.length) {
-      this.comm.send(AppEnum.OPEN_ATTACHMENTS, { active: false, payload: {} })
+      this.comm.send(AppEnum.OPEN_ATTACHMENTS, {active: false})
     }
 
   }
 
   getFileName(url: string): string {
+    // console.log(url)
     return url.split('/').pop() || 'file';
   }
 
@@ -51,8 +50,7 @@ export class AttachmentsDisplayer implements OnChanges {
   }
 
   viewImage(index: number, images: string[]) {
-    console.log(images)
-    this.comm.send(AppEnum.OPEN_IMAGE, { active: true, payload: { openIndex: index, urls: images } })
+    this.comm.send(AppEnum.OPEN_IMAGE, { openIndex: index, urls: images })
   }
 
   getImageClass(length: number): any {
@@ -70,8 +68,5 @@ export class AttachmentsDisplayer implements OnChanges {
         return { "multiple-tripple-col": true, "multiple": true }
       }
     }
-  }
-  downloadFile(file: any) {
-
   }
 }

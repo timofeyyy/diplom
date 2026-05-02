@@ -21,11 +21,7 @@ export class Navigator {
   action: TabEnum = TabEnum.HOME
   open(action: TabEnum) {
     this.action = action
-    console.log(action)
-    this.comm.send(action, {
-      active: true, 
-      payload: {}
-    })
+    this.comm.send(action)
   }
 
   get TabEnum() {

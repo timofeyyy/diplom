@@ -1,4 +1,4 @@
 <div class="toggle-switch">
-  <input class="toggle-input" id="toggle" type="checkbox"  (change)="onCheckChange($event)">
+  <input class="toggle-input" id="toggle" type="checkbox" [(ngModel)]="value"  (change)="onCheckChange($event)">
   <label class="toggle-label" for="toggle"></label>
 </div>

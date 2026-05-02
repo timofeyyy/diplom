@@ -10,22 +10,16 @@
     @else {
            @for (user of currentList; track $index) {
             <li (click)="execCommand(user, $index)">
-                <img [src]="user.avatar" >
+                <app-avatar [avatar]="user.avatar!" [options]="user.displayAvatarSettings!" [borderRadius]="50" [size]="'max(2.5vw, 25px)'" style="margin: 0 max(1vw, 10px) 0 0;"  />
                 <div class="info">
                     <p class="username">{{user.userName}}</p>
-                    <!-- <p class="when">{{ friend!._id! | displayStatus:
-                     
-                        (friend.status?.lastTime | date)!
-                       
-                        | async }}</p> -->
                         <p class="when" [innerHTML]="user | displayStatus | async">
-                            <!-- {{user | displayStatus | async}} -->
                         </p>
                 </div>
             </li>
         }
         @empty {
-            <li class="empty">No contacts</li>
+            <li class="empty">Пусто</li>
         }
     }
 </ul>

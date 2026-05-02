@@ -1,9 +1,9 @@
-import { NotificationTypes } from "../etc/enum/socket.enum"
+import { FriendStatusEnum, NotificationMainTypes, NotificationTypes } from "../etc/enum/notification.enum"
 
 export interface NotificationDto {
-    notificationType: NotificationTypes
-    recieverId: string,
+    notificationType: NotificationTypes | FriendStatusEnum,
+    notificationMainType: NotificationMainTypes,
+    userId: string,
     createdAt: Date,
-    message: string,
     data: any
 }

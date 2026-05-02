@@ -1,28 +1,28 @@
-@if(action == 'create') {
+<!-- @if(action == 'create') {
     <app-create-room (close)="action = undefined"/>
-}
+} -->
 <main class="sections">
     <section class="actions">
         <div class="wrapper">
-            <h1>Quick actions</h1>
+            <h1>Быстрые действия</h1>
             <div class="cards">
                 <div class="card">
                     <div class="icon">
                         <img src="/assets/images/statistic.svg" alt="stat">
                     </div>
                     <div class="content">
-                        <h3>Statistic</h3>
-                        <p>This section gives you a clear overview of your activity in the app. </p>
+                        <h3>Статистика</h3>
+                        <p>В этом разделе вы найдете наглядный обзор вашей активности в приложении. </p>
                     </div>
                 </div>
-                <div class="card" (click)="doAction('create')">
+                <div class="card" (click)="createRoom()">
                     <div class="icon">
                         <img src="/assets/images/meeting.svg" alt="create">
                         <!-- <img src="/assets/images/button_7586854.png" alt=""> -->
                     </div>
                     <div class="content">
-                        <h3>Create room</h3>
-                        <p>Launch a new meeting and invite participants instantly.</p>
+                        <h3>Создание конференции</h3>
+                        <p>Запустите новую встречу и мгновенно пригласите участников.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -32,8 +32,8 @@
                         <!-- <img src="/assets/images/meeting1.svg" alt=""> -->
                     </div>
                     <div class="content">
-                        <h3>Join by room id</h3>
-                        <p>Connect to an existing room using a unique ID.</p>
+                        <h3>Присоединиться по коду</h3>
+                        <p>Подключитесь к существующей конференции, используя уникальный идентификатор.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -41,8 +41,8 @@
                         <img src="/assets/images/qr-code.svg" alt="qr_code">
                     </div>
                     <div class="content">
-                        <h3>Join by qe code</h3>
-                        <p>Scan a QR code to join a meeting in seconds. A fast and convenient way to connect.</p>
+                        <h3>Присоединиться по qr-коду</h3>
+                        <p>Отсканируйте QR-код, чтобы присоединиться к встрече за считанные секунды. Быстрый и удобный способ связи.</p>
                     </div>
                 </div>
             </div>

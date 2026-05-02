@@ -17,4 +17,4 @@ app.get("/test_peerjs", (req, res) => {
 // }, app);
 const server = http_1.default.createServer({}, app);
 app.use("/peerjs1", (0, peer_1.ExpressPeerServer)(server, {}));
-server.listen(8000, () => console.log("peerjs"));
+server.listen(8000, () => // console.log("peerjs"));

@@ -12,4 +12,4 @@ app.use(express_1.default.static(config.dist_path));
 app.get("/*path", (req, res) => {
     res.sendFile(path_1.default.join(config.dist_path, 'index.html'));
 });
-app.listen(4200, () => console.log("angular"));
+app.listen(4200, () => // console.log("angular"));

@@ -1,0 +1,13 @@
+.underlined-input {
+  transition: 0.3s ease all;
+  color: var(--main-text);
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.1vw solid var(--main-text);
+  padding: max(0.25vw, 2.5px) 0;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+}
+.underlined-input:focus {
+  outline: none;
+}/*# sourceMappingURL=input.css.map */

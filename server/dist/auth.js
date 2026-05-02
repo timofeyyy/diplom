@@ -75,8 +75,8 @@ passport_1.default.use(new passport_google_oauth20_1.Strategy({
     callbackURL: `https://${config.host}:${config.port}/auth-serv/google/callback`
     // callbackURL: "http://localhost:10000/google/callback"
 }, (accesToken, refreshToken, profile, done) => {
-    // console.log("отправка в бд инфы о пользователе")
-    // console.log(profile)
+    // // console.log("отправка в бд инфы о пользователе")
+    // // console.log(profile)
     // const user: any = {}
     // user.displayName = profile.displayName;
     // user.email = profile.emails;
@@ -86,11 +86,11 @@ passport_1.default.use(new passport_google_oauth20_1.Strategy({
 passport_1.default.serializeUser((user, done) => done(null, user));
 passport_1.default.deserializeUser((user, done) => done(null, user));
 app.use((req, res, next) => {
-    console.log(req.sessionID);
+    // console.log(req.sessionID);
     next();
 });
 app.get('/test_auth', (req, res) => {
-    console.log("test_auth");
+    // console.log("test_auth");
     res.send("auth");
 });
 // app.get("/login", (req, res) => {
@@ -101,9 +101,9 @@ app.get("/google/callback", passport_1.default.authenticate("google", { failureR
     const user = req.user;
     const token = jsonwebtoken_1.default.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
     SaveToken(token, (err, response) => {
-        console.log(err);
-        console.log("\n\n\n\n\n");
-        console.log(response);
+        // console.log(err);
+        // console.log("\n\n\n\n\n");
+        // console.log(response);
         if (response) {
             res.cookie('jwt', token, {
                 httpOnly: false,
@@ -120,15 +120,15 @@ app.get("/google/callback", passport_1.default.authenticate("google", { failureR
 });
 app.get("/logout", (req, res) => {
     // res.redirect("/login")
-    // console.log(`log out ${req.session.id}`)
+    // // console.log(`log out ${req.session.id}`)
     // req.logOut(() => {
     res.clearCookie("jwt");
-    // req.session.destroy(() => console.log("Пользовтаель отключился"))
-    // console.log(`log out ${req.session.id}`)
+    // req.session.destroy(() => // console.log("Пользовтаель отключился"))
+    // // console.log(`log out ${req.session.id}`)
     res.redirect("/user-auth");
     // })
 });
-app.listen(10000, () => console.log("auth"));
+app.listen(10000, () => // console.log("auth"));
 // google auth + custom email/password => mongodb (или mssql)
 // redis server с бэкапом в mongo db
 // межссесийные действия mongodb

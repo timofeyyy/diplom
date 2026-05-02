@@ -1,3 +1,120 @@
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.field-change {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+}
+
+.field-change .window {
+  background-color: var(--main-main);
+  width: max(15vw, 150px);
+  height: max(15vw, 150px);
+  border-radius: 0.5vw;
+  padding: max(1vw, 10px) max(1vw, 10px) max(0.5vw, 5px) max(1vw, 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.field-change .window h3 {
+  color: var(--main-text);
+  font-size: max(1vw, 10px);
+  font-weight: 500;
+  margin: 0;
+}
+
+footer {
+  margin: auto 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.warning p {
+  color: #ae1b3f;
+}
+
+.warning input {
+  color: #ae1b3f;
+}
+
+.warning input::-moz-placeholder {
+  color: transparent;
+}
+
+.warning input::placeholder {
+  color: transparent;
+}
+
+.warning input:focus {
+  border-bottom: 0.1vw solid #ae1b3f;
+}
+
+.warning input {
+  border-bottom: 0.1vw solid #ae1b3f;
+}
+
+.warning .err {
+  color: #ae1b3f;
+  border-bottom: unset;
+} 
 .field-change .window {
   width: max(15vw, 150px);
   height: max(15vw, 150px);
@@ -7,7 +124,11 @@
 .field-change .window__opts {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin: 0;
+}
+.field-change .window__opts h3 {
+  margin-right: auto;
 }
 .field-change .window__body {
   margin: auto 0;
@@ -21,10 +142,17 @@
   margin: 0;
   margin-right: max(0.25vw, 2.5px);
 }
+.field-change .window .icon {
+  background-color: var(--main-text);
+  mask: url("../../../../../assets/images/left.svg") no-repeat center;
+  -webkit-mask: url("../../../../../assets/images/left.svg") no-repeat center;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
 .field-change .window__icon__right {
   margin-left: max(0.25vw, 2.5px);
 }
-.field-change .window__icon__right img {
+.field-change .window__icon__right .icon-right {
   transform: rotate(180deg);
 }
 .field-change .window__days {
@@ -36,7 +164,7 @@
   text-align: center;
   font-weight: bold;
   font-size: max(0.88vw, 8.8px);
-  color: #c5c8ca;
+  color: var(--color-primary);
 }
 .field-change .window__dates {
   width: 100%;
@@ -46,14 +174,15 @@
   padding-top: max(0.5vw, 5px);
 }
 .field-change .window__date {
-  color: white;
+  color: var(--main-text);
   transition: all ease 0.3s;
   text-align: center;
   padding: max(0.25vw, 2.5px);
   border-radius: 0.5vw;
 }
 .field-change .window__date:hover {
-  background-color: #2748c3;
+  background-color: var(--color-accent);
+  color: var(--main-text);
 }
 .field-change .window__date {
   font-weight: 400;
@@ -69,39 +198,15 @@
 .field-change .window__date--grey {
   color: gray;
 }
-.field-change .window__date--grey:hover {
-  background-color: transparent;
-}
-.field-change .window__buttons {
-  padding: 10px var(--side-padding) 20px;
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-}
-.field-change .window__button {
-  cursor: pointer;
-}
-.field-change .window__button--grey {
-  background-color: #f3f4f6;
-}
-.field-change .window__button--primary {
-  background-color: #1752ff;
-  color: #fff;
-  transition: box-shadow 0.3s cubic-bezier(0.21, 0.68, 0.09, 0.27), transform 0.2s linear;
-}
-.field-change .window__button--primary:hover {
-  box-shadow: 0 20px 30px -13px rgba(23, 82, 255, 0.45);
-  transform: translateY(-3px);
-}
-.field-change .window__button--primary:active {
-  box-shadow: 0 10px 10px -6px rgba(23, 82, 255, 0.45);
-  transform: translateY(-1px);
+.field-change .window select {
+  color: var(--main-text);
 }
 .field-change .window select:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--color-primary);
+  color: var(--main-main);
 }
 .field-change .window select {
   text-align: center;
-  color: white;
   background-color: transparent;
   margin: 0 0 0 max(0.25vw, 2.5px);
   font-family: inherit;
@@ -113,10 +218,11 @@
   padding: max(0.25vw, 2.5px) max(0.5vw, 5px);
 }
 .field-change .window select option {
-  background: gray;
+  background: var(--main-main);
+  color: var(--main-text);
   text-align: left;
 }
-
-.selected {
-  background-color: #17ad44;
+.field-change .window .selected {
+  background-color: var(--color-primary);
+  color: white;
 }/*# sourceMappingURL=calendar-pick.css.map */

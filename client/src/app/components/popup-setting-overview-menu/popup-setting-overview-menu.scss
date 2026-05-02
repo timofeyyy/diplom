@@ -1,4 +1,5 @@
-@use "../../../styles/variables/variables.scss" as v;
+@use "../../../styles/elements/icon/icon.scss" as icon;
+@use "../../../styles/elements/avatar/circle-avatar.scss";
 
 .menu {
     position: relative;
@@ -8,60 +9,82 @@
         position: absolute;
         top: 3.5vw;
         right: 0;
-        border-radius: .5vw;
-        border: 0.1vw solid v.$border-color;
+        border-radius: 0.5vw;
+        border: 0.1vw solidrgb(45, 45, 45);
         padding: 1vw 1vw 0.25vw;
-        background-color: v.$navigator-bg;
-
+        background-color: var(--main-main);
         .profile {
-            background-color: v.$border-color;
+            background-color: var(--main-primary);
+            border: 0.1vw solid black;
             padding: max(2vw, 20px) max(1vw, 10px);
             overflow: hidden;
-            border-radius: .5vw;
+            border-radius: 0.5vw;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             margin-bottom: max(0.5vw, 5px);
-            img {
+            .avatar {
                 border-radius: 50%;
+                overflow: hidden;
                 width: max(3vw, 30px);
+                height: max(3vw, 30px);
+                border: 0.1vw solid black;
+                cursor: pointer;
             }
             p {
                 padding-top: 0.5vw;
-                font-size: v.$app-size5-5-vw;
+                font-size:max(.88vw, 8.8px);
+                color: var(--main-text);
             }
         }
-
         ul {
             li {
                 padding: 0.25vw 0.5vw;
                 list-style-type: none;
                 display: flex;
                 align-items: center;
+                color: var(--main-text);
             }
         }
-
+        .icon {
+            margin: 0 0.5vw 0 0;
+        }
+        .user-settings {
+            .icon {
+                @include icon.icon-mask("../../../assets/images/profile.svg");
+            }
+        }
+        .themes {
+            .icon {
+                @include icon.icon-mask("../../../assets/images/themes.svg");
+            }
+        }
+        .log-out {
+            .icon {
+                @include icon.icon-mask("../../../assets/images/leave.svg");
+            }
+        }
         ul li,
         .log-out .wrapper {
             img {
-                width: v.$icon-width5;
+                width:max(1vw, 10px);
                 margin: 0 0.5vw 0 0;
             }
             p {
                 font-weight: lighter;
-                font-size: v.$app-size5-5-vw;
+                font-size:max(.88vw, 8.8px);
                 margin: 0;
+                color: var(--main-text);
             }
-
             &:hover {
-                background-color: v.$li-hover-color;
+                background-color: rgb(from var(--color-secondary) r g b / 0.5);
             }
             cursor: pointer;
-            border-radius: .5vw;
+            border-radius: 0.5vw;
         }
         .log-out {
-            border-top: 0.1vw solid grey;
+            border-top: 0.1vw solid var(--border-color);
             margin: 0.75vw 0 0.5vw 0;
             .wrapper {
                 padding: 0.25vw 0.5vw;

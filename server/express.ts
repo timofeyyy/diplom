@@ -35,7 +35,7 @@ app.get("/:roomId", (req, res) => {
 // keys - https://slproweb.com/products/Win32OpenSSL.html - old
 // keys - mkcert localhost 127.0.0.1 - used
 app.use("/peerjs", ExpressPeerServer(server, {}));
-server.listen(8000, () => console.log("express"))
+server.listen(8000, () => // console.log("express"))
 
 
 

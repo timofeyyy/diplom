@@ -1,32 +1,30 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { UserDto } from '../../../dto/user.dto';
-import { CommunicationService, Dispatch } from '../../../service/communication/communication.service';
+import { CommunicationService } from '../../../service/communication/communication.service';
 import { SettingsOptions } from '../../../etc/enum/settings.enum';
 import { AsyncPipe, DatePipe, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DisplayStatusPipe } from '../../../etc/pipes/display.status.pipe';
-
-import { AuthHttpRequirementService } from '../../../service/http/auth.http.requirements.service';
+import { RefreshHttpService } from '../../../service/http/refresh.service';
 import { UsersHttpService } from '../../../service/http/users.http.service';
-import { BehaviorSubject, lastValueFrom, Observable, ReplaySubject, Subject, Subscription, take, takeUntil } from 'rxjs';
-import { StatusStorageEnum, StatusStorageObjService } from '../../../service/communication/status.storage.service';
-import { AppEnum, EventsEnum } from '../../../etc/enum/app.enum';
+import { lastValueFrom, Subject, Subscription, take } from 'rxjs';
+import { AppEnum } from '../../../etc/enum/app.enum';
 import { MeService } from '../../../service/user/me.service';
-import { SameDayDisplayPipe } from '../../../etc/pipes/display.time.pipe';
 import { MessageDto } from '../../../dto/message.dto';
 import { SocketUserService } from '../../../service/socket/socket.user.service';
-import { EmitSocketMessangerEnum, NotificationTypes, OnSocketMessangerEnum } from '../../../etc/enum/socket.enum';
+import { EmitSocketMessangerEnum, OnSocketMessangerEnum } from '../../../etc/enum/socket.enum';
 import { SocketNotificationService } from '../../../service/socket/socket.notification.service';
-import { NotificationService } from '../../../service/user/notification.service';
 import { AttachmentsDisplayer } from "../../components/attachments/attachments-displayer/attachments-displayer";
-import { AttachmentCloudDto, AttachmentLocalDto } from '../../../dto/attachment.dto';
+import { AttachmentLocalDto } from '../../../dto/attachment.dto';
 import { AttahcmentsEnum } from '../../../etc/enum/attahcment.enum';
 import { MessangerEnum } from '../../../etc/enum/messanger.enum';
 import { AttachmentsService } from '../../../service/user/attachments.service';
+import { SettingsCommunicationService } from '../../../service/communication/settings.communication.service';
+import { SettingsHistoryEnum } from '../../components/popup-settings-options/popup-settings-options';
 
 @Component({
   selector: 'app-messanger',
-  imports: [NgClass, FormsModule, DisplayStatusPipe, AsyncPipe, NgStyle, DatePipe, AttachmentsDisplayer],
+  imports: [NgClass, NgStyle, FormsModule, DisplayStatusPipe, AsyncPipe, DatePipe, AttachmentsDisplayer],
   providers: [DisplayStatusPipe],
   templateUrl: './messanger.html',
   styleUrl: './messanger.css',
@@ -36,12 +34,12 @@ export class Messanger implements OnInit, OnDestroy {
     private readonly comm: CommunicationService,
     private readonly cdr: ChangeDetectorRef,
     private readonly socketMessanger: SocketUserService,
-    private readonly httpRequirements: AuthHttpRequirementService,
+    private readonly refreshHttpService: RefreshHttpService,
     private readonly userHttp: UsersHttpService,
     private readonly meService: MeService,
     private readonly socketNotificationService: SocketNotificationService,
-    private readonly notificationService: NotificationService,
     private readonly attachmentsService: AttachmentsService,
+    private readonly settingsComm: SettingsCommunicationService
   ) { }
 
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
@@ -79,6 +77,7 @@ export class Messanger implements OnInit, OnDestroy {
   messagesHistory: [string, { messages: MessageDto[], date: Date }][] = []
 
   appendMessage(body: MessageDto) {
+    console.log(body)
     const today = new Date()
     const dateId = `${today.getMonth()} ${today.getDate()}`
     let messages = this.mapper.get(dateId)
@@ -91,17 +90,19 @@ export class Messanger implements OnInit, OnDestroy {
     this.messagesHistory = Object.entries(Object.fromEntries(this.mapper))
   }
 
+  get AttahcmentsEnum() {
+    return AttahcmentsEnum
+  }
+
   async ngOnInit() {
 
 
-    this.me = (await lastValueFrom(this.meService.listen().pipe(take(1)))).payload;
+    this.me = (await lastValueFrom(this.meService.listen().pipe(take(1))));
     this.loadMessagesHandler = this.comm.listen(OnSocketMessangerEnum.LOAD_MESSAGES)
       .subscribe((messages) => {
-        console.log("loadMessagesHandler", messages)
         if (this.chatId) {
-          console.log(`${messages} load messages `);
-          (messages.payload as MessageDto[]).forEach((item) => {
-            console.log(item.createdAt)
+          this.mapper = new Map();
+          (messages as MessageDto[]).forEach((item) => {
             const currentDate = new Date(item.createdAt)
             const dateId = `${currentDate.getMonth()} ${currentDate.getDate()}`
             let messages = this.mapper.get(dateId)
@@ -112,7 +113,6 @@ export class Messanger implements OnInit, OnDestroy {
             messages.messages.push(item)
           })
           this.messagesHistory = Object.entries(Object.fromEntries(this.mapper))
-          console.log(this.messagesHistory)
           this.cdr.detectChanges()
           this.scrollToBottom();
         }
@@ -120,7 +120,7 @@ export class Messanger implements OnInit, OnDestroy {
     this.messagesRecieveHandler = this.comm.listen(OnSocketMessangerEnum.MESSAGE_RECIEVE).subscribe((res) => {
       console.log("messagesRecieveHandler", res, this.chatId)
       if (this.chatId) {
-        this.appendMessage({ chatId: this.chatId, ...res.payload })
+        this.appendMessage({ chatId: this.chatId, ...res })
         this.cdr.detectChanges()
         this.scrollToBottom();
       }
@@ -129,45 +129,42 @@ export class Messanger implements OnInit, OnDestroy {
 
     this.chatJoinedHandler = this.comm.listen(OnSocketMessangerEnum.CHAT_JOINED)
       .subscribe((chatId) => {
-        console.log(`${chatId} chatJoinedHandler`)
-        this.chatId = chatId.payload
-        this.comm.send(AppEnum.LOADER, { active: false, payload: {} })
-        this.socketMessanger.emitLoadMessage(chatId.payload)
+        // console.log(`${chatId} chatJoinedHandler`)
+        this.chatId = chatId
+        this.comm.send(AppEnum.LOADER, { active: false })
+        this.socketMessanger.emitLoadMessage(chatId)
       })
 
     this.freindRequestAction = this.comm.listen(EmitSocketMessangerEnum.RECEIVER_STATUS_UPDATE).subscribe((res) => {
-      const payload = res.payload as { recieverId: string, del: boolean }
-      console.log("freindRequestAction")
+      const payload = res as { recieverId: string, del: boolean }
+      console.log("RECEIVER_STATUS_UPDATE", this.chatId)
       if (this.chatId) {
         this.socketMessanger.emitFriendRequests(this.chatId, payload.recieverId, payload.del)
-        this.socketNotificationService.emitNotificationSend({ recieverId: this.user._id?.toString(), notificationType: NotificationTypes.FRIEND_REQUEST_SENDED, data: { avatar: this.me?.avatar, userName: this.me?.userName } })
+        // this.socketNotificationService.emitNotificationSend({ recieverId: this.user._id?.toString(), notificationType: NotificationTypes.FRIEND_REQUEST_SENDED, data: { avatar: this.me?.avatar, userName: this.me?.userName } })
       }
     })
     this.declineAction = this.comm.listen(EmitSocketMessangerEnum.SENDER_STATUS_UPDATE).subscribe((res) => {
-      const payload = res.payload as { recieverId: string, del: boolean }
-      console.log("declineAction")
+      const payload = res as { recieverId: string, del: boolean }
+      console.log("SENDER_STATUS_UPDATE", this.chatId)
       if (this.chatId) {
         this.socketMessanger.emitAcceptOrDecline(this.chatId, payload.recieverId, payload.del)
-        this.socketNotificationService.emitNotificationSend({ recieverId: this.user._id?.toString(), notificationType: NotificationTypes.FRIEND_REQUEST_CANCELED, data: { avatar: this.me?.avatar, userName: this.me?.userName } })
+        // this.socketNotificationService.emitNotificationSend({ recieverId: this.user._id?.toString(), notificationType: NotificationTypes.FRIEND_REQUEST_CANCELED, data: { avatar: this.me?.avatar, userName: this.me?.userName } })
       }
     })
     this.comm.listen(MessangerEnum.MESSAGE_SEND).subscribe((res) => {
-      this.input = res.payload.message
-      this.files = res.payload.attachments
-      console.log(this.input)
+      this.input = res.message
+      this.files = res.attachments
       this.sendMessage()
     })
 
-    this.comm.send(AppEnum.LOADER, { active: true, payload: {} })
-    console.log(this.user._id, this.socketMessanger.isConnected)
+    this.comm.send(AppEnum.LOADER, { active: true })
     this.socketMessanger.emitJoinChat(this.user._id!)
 
   }
   files: AttachmentLocalDto[] = [];
 
   viewImage(index: number, images: string[]) {
-    console.log(images)
-    this.comm.send(AppEnum.OPEN_IMAGE, { active: true, payload: { openIndex: index, urls: images } })
+    this.comm.send(AppEnum.OPEN_IMAGE, { openIndex: index, urls: images })
   }
 
   onFileSelect(event: any) {
@@ -194,9 +191,7 @@ export class Messanger implements OnInit, OnDestroy {
     this.attachmentsService.setAttachmentsSource(this.files)
     this.attachmentsService.message = this.input
     this.attachmentsService.send()
-    this.comm.send(AppEnum.OPEN_ATTACHMENTS, { active: true, payload: { message: this.input, attachments: this.files } })
-
-    console.log('file ok', file);
+    this.comm.send(AppEnum.OPEN_ATTACHMENTS, { message: this.input, attachments: this.files, active: true })
   }
 
   onImageSelect(event: any) {
@@ -223,9 +218,7 @@ export class Messanger implements OnInit, OnDestroy {
     this.attachmentsService.setAttachmentsSource(this.files)
     this.attachmentsService.message = this.input
     this.attachmentsService.send()
-    this.comm.send(AppEnum.OPEN_ATTACHMENTS, { active: true, payload: { } })
-
-    console.log('image ok', file);
+    this.comm.send(AppEnum.OPEN_ATTACHMENTS, { active: true })
   }
 
   getFileUrl(file: File) {
@@ -244,17 +237,14 @@ export class Messanger implements OnInit, OnDestroy {
         formData.append('files', file.blob);
         formData.append('types', `${file.type}`);
       });
-      this.httpRequirements.require(this.userHttp.sendMessage(formData)).subscribe((res) => {
+      this.refreshHttpService.require(this.userHttp.sendMessage(formData)).subscribe((res) => {
         if ("error" in res) {
 
         }
         else {
           this.socketMessanger.emitSendMessage(res)
-          this.socketNotificationService.emitNotificationSend({ recieverId: this.user._id?.toString(), notificationType: NotificationTypes.UNREAD_MESSAGES, data: { avatar: this.me?.avatar, userName: this.me?.userName } })
         }
-        console.log(res)
       })
-      console.log(this.input)
       this.input = ""
       this.files = []
     }
@@ -263,32 +253,31 @@ export class Messanger implements OnInit, OnDestroy {
   @ViewChild('attachWrapper') attachWrapper!: ElementRef;
   toggleAttach(event: MouseEvent) {
     event.stopPropagation();
+    console.log(this.attachState)
     this.attachState = !this.attachState;
+    console.log(this.attachState)
   }
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: MouseEvent) {
-    if (!this.attachWrapper.nativeElement.contains(event.target)) {
-      this.attachState = false;
-    }
-  }
+  // @HostListener('document:click', ['$event'])
+  // onClickOutside(event: MouseEvent) {
+  //   console.log(this.attachState)
+  //   if (!this.attachWrapper.nativeElement.contains(event.target) && this.attachState) {
+  //     this.attachState = false;
+  //   }
+  // }
 
   input!: string
   openSettings() {
-    this.comm.send(SettingsOptions.USER_SETTINGS, {
-      active: true, payload: {
+    this.settingsComm.send(SettingsHistoryEnum.PUSH, {
+      action: SettingsOptions.USER_SETTINGS, payload: {
         user: this.user,
         mode: SettingsOptions.OTHER_USER_VIEW
       }
     })
   }
-  // messages: MessageDto[] = []
   attachState: boolean = false
   @Input()
   user!: Partial<UserDto>
   @Output()
   close: EventEmitter<void> = new EventEmitter()
-
-
-
 }

@@ -1,10 +1,11 @@
-@if(notificationBody) {
-  <app-notification class="notification" [body]="notificationBody" (closeEvent)="closeAlert()" />
-}
+<app-event-list />
 @if(loader) {
-  <app-loader />
+<app-loader class="popup" />
 }
 @if(images) {
-  <app-image-viewer [urls]="images.urls" [currentIndex]="images.openIndex" (close)="closeImage()"/>
+<app-image-viewer class="popup" [urls]="images.urls" [currentIndex]="images.openIndex" (close)="closeImage()" />
+}
+@if(confirmAction) {
+<app-confirm-window class="popup" [action]="confirmAction" [confirmMessage]="confirmMessage" />
 }
 <router-outlet />

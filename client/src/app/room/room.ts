@@ -34,9 +34,10 @@ export class Room implements AfterViewInit {
 
   // config: any
   ngAfterViewInit(): void {
-    // const config = this.appConfig.getAll()
+    const config = this.appConfig.getAll()
+    console.log(config)
     // this.appConfig.getConfig().subscribe((config: any) => {
-    // console.log(config)
+    // // console.log(config)
     // this.config = config
     // const cookies = document.cookie.split("; ")
     // const jwt = cookies.find((val: string) => val.toLowerCase().includes("jwt"))
@@ -45,7 +46,7 @@ export class Room implements AfterViewInit {
     //   this.router.navigateByUrl("/user-auth")
     //   return;
     // }
-    console.log()
+    // console.log()
     const query: Map<string, string> = new Map(Object.entries((this.route.snapshot.queryParamMap as any).params))
     this.roomId = query.get("roomId")
     // this.userName = query.get("userName")
@@ -57,10 +58,10 @@ export class Room implements AfterViewInit {
       withCredentials: true,
     });
     this.socket.on('connect_error', (err) => {
-      console.log('Connection error:', err.message);
+      // console.log('Connection error:', err.message);
     });
     this.socket.on('connect', () => {
-      console.log("connected")
+      // console.log("connected")
       this.onClientStreamLoaded()
     });
   }
@@ -88,28 +89,28 @@ export class Room implements AfterViewInit {
         });
         peer.on("call", call => {
 
-          // console.log("incoming call");
+          // // console.log("incoming call");
           call.answer(stream);
 
-          console.log(`addVideoStream call`)
+          // console.log(`addVideoStream call`)
           call.on("stream", userVideoStream => this.addVideoStream(userVideoStream, call.peer));
         });
 
         peer.on("open", id => {
-          // console.log("my peer id:", id);
+          // // console.log("my peer id:", id);
           this.socket!.emit("join-video-room", this.roomId, id, this.userName);
-          console.log(`addVideoStream open`)
+          // console.log(`addVideoStream open`)
           this.addVideoStream(stream, id);
         });
 
         this.socket!.on("user-connected", (userId: any) => {
-          console.log("user-connected:", userId);
+          // console.log("user-connected:", userId);
           setTimeout(() => {
             this.connectToNewUser(userId, stream, peer);
           }, 2000)
         });
         this.socket!.on("user-disconnected", (userId: any) => {
-          console.log(`close ${userId}`)
+          // console.log(`close ${userId}`)
           this.activeUsers.delete(userId);
           this.removeVideoStream(userId)
         });
@@ -126,10 +127,10 @@ export class Room implements AfterViewInit {
     video.muted = true;
     video.srcObject = stream;
     video.addEventListener("loadedmetadata", () => {
-      console.log(`loading other user stream..`)
+      // console.log(`loading other user stream..`)
       this.socket!.emit('get-user-data', this.roomId, userId, (userName: any) => {
         if (!this.activeUsers.get(userId)) {
-          console.log(userName, userId)
+          // console.log(userName, userId)
           p.innerText = userName
 
           div.setAttribute("id", userId)
@@ -150,7 +151,7 @@ export class Room implements AfterViewInit {
     });
   };
   removeVideoStream(userId: string): void {
-    console.log(userId)
+    // console.log(userId)
     const escapedId = CSS.escape(userId)
     const parentElement = this.otherFrames.nativeElement.querySelector(`#${escapedId}`)
     if (parentElement) {
@@ -163,12 +164,12 @@ export class Room implements AfterViewInit {
     // this.activeUsers.set(userId, call);
 
     call.on("stream", (userVideoStream: any) => {
-      console.log(`addVideoStream ${userId}`)
+      // console.log(`addVideoStream ${userId}`)
       this.addVideoStream(userVideoStream, userId);
     });
 
     call.on("close", () => {
-      console.log(`close ${userId}`)
+      // console.log(`close ${userId}`)
       this.activeUsers.delete(userId);
       this.removeVideoStream(userId)
       this.activeUsers.forEach(call => {
@@ -180,14 +181,14 @@ export class Room implements AfterViewInit {
     });
 
     call.on("error", err => {
-      console.log("call error", err);
+      // console.log("call error", err);
       this.activeUsers.delete(userId);
       this.removeVideoStream(userId);
     });
 
     ((call as any).peerConnection as any).oniceconnectionstatechange = () => {
       const state = (call as any).peerConnection.iceConnectionState;
-      console.log("ICE state:", state);
+      // console.log("ICE state:", state);
 
       if (state === "disconnected" || state === "failed") {
         this.removeVideoStream(call.peer);

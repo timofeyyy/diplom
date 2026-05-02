@@ -1,0 +1,14 @@
+<div class="notification">
+    <!-- <div class="icon-wrapper">
+        <img class="icon" [src]="notification.data.avatar" />
+    </div> -->
+    <app-avatar  [avatar]="notification.data.avatar" [options]="notification.data.displayAvatarSettings!" [borderRadius]="20"
+            [size]="'max(3vw, 30px)'" />
+    <div class="message-block">
+        <p class="paragraph">Вы изменили аватар</p>
+        <div class="createdAt">
+            <p class="paragraph time">{{ notification.createdAt | timeAgo: currentDate }}</p>
+        </div>
+    </div>
+    <p class="action" (click)="userSetings()">Открыть профиль</p>
+</div>

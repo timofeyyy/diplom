@@ -1,17 +1,21 @@
+import { FriendStatusEnum } from "../etc/enum/notification.enum"
+import { AvatarSettings } from "../service/avatar/avatar.dto"
+
 export class UserDto {
     avatar!: string
+    defaultAvatar!: string
     email!: string
     userName!: string
     birthday?: string
     isRelative!: boolean
-    friendRequests!: string[]
+    friendRequests!: { receiverId: string, status: FriendStatusEnum }[]
     isFriend!: boolean
     duoChat!: any
-    // password!: string
+    displayAvatarSettings?: AvatarSettings
     status: Partial<{
         lastTime: Date,
         show: boolean,
-        online: boolean 
+        online: boolean
     }> = {}
     _id!: string
 }

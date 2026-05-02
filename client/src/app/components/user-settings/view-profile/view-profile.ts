@@ -1,101 +1,76 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserDto } from '../../../../dto/user.dto';
-import { CommunicationService } from '../../../../service/communication/communication.service';
-import { SettingsOptions } from '../../../../etc/enum/settings.enum';
-import { FormsModule } from '@angular/forms';
 import { PeopleList } from "../../people-list/people-list";
 import { MeService } from '../../../../service/user/me.service';
-import { lastValueFrom, Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { SettingsCommunicationService } from '../../../../service/communication/settings.communication.service';
+import { SettingsHistoryEnum } from '../../popup-settings-options/popup-settings-options';
+import { FreindsService } from '../../../../service/user/friends.service';
+import { SimpleTextSearch } from '../../simple-text-search/simple-text-search';
+import { SettingsOptions } from '../../../../etc/enum/settings.enum';
+import { DatePipe, NgStyle } from '@angular/common';
+import { Avatar } from "../../avatar/avatar";
 
 @Component({
   selector: 'app-view-profile',
-  imports: [PeopleList],
-  templateUrl: './view-profile.html',
+  imports: [PeopleList, SimpleTextSearch, DatePipe, Avatar],
+  templateUrl: './view-profile.html', 
   styleUrls: ['./view-profile.css'],
 })
 export class ViewProfile implements OnInit {
   constructor(
-    private readonly comm: CommunicationService,
-    private readonly meService: MeService
+    private readonly meService: MeService,
+    private readonly friendsService: FreindsService,
+    private readonly settingsComm: SettingsCommunicationService,
   ) { }
 
   ngOnDestroy(): void {
     this.meSub?.unsubscribe()
   }
-
+  loader!: boolean
   me?: UserDto
   meSub?: Subscription
+  originalFriends: UserDto[] = []
+  displayedFriends: UserDto[] = []
 
   ngOnInit() {
     this.meSub = this.meService.listen().subscribe((res) => {
-      this.me = res.payload
-      this.mockFriends = [this.me!]
+      this.me = res
+      const id: string = this.me!._id.toString()
+      this.friendsService.listen(id).subscribe((res) => {
+        if (res) {
+          this.originalFriends = res
+          this.displayedFriends = Array.from(this.originalFriends)
+          this.loader = false
+        }
+        else {
+          this.displayedFriends = [this.me!]
+          this.loader = true
+          this.friendsService.update(id)
+        }
+      })
     })
-
   }
-  // @Input() 
-  // me!: UserDto
-
   close() {
-    this.comm.send(SettingsOptions.USER_SETTINGS, {
-      active: false,
-      payload: {}
+    this.settingsComm.send(SettingsHistoryEnum.CLEAR)
+  }
+
+  stateMessanger = (user: Partial<UserDto> | undefined, index: number): void => {
+    this.settingsComm.send(SettingsHistoryEnum.PUSH, {
+      action: SettingsOptions.USER_SETTINGS, payload: {
+        user: user,
+        mode: user?._id == this.me?._id ? SettingsOptions.USER_VIEW : SettingsOptions.OTHER_USER_VIEW
+      }
     })
   }
 
-  mockFriends: UserDto[] = []
-
-  // buffPartsSplit(lengthPart: number, buffer: string[]) {
-  //   const chunkedArray = []
-  //   for (let i = 0; i < buffer.length; i += lengthPart) {
-  //     chunkedArray.push(buffer.slice(i, i + lengthPart));
-  //   }
-  //   return chunkedArray
-  // }
-
-  // search(event: any): void {
-  //   const value = event.target.value as string
-  //   const satisfyNum = 3
-  //   const newMockedFriends : UserDto[] = []
-  //   this.mockFriends.forEach((friend) => {
-  //     const half = Math.ceil(satisfyNum / 2)
-  //     const chunkedUserName = this.buffPartsSplit(satisfyNum, friend.userName.split(''))
-  //     const chunkedInput = this.buffPartsSplit(satisfyNum, value.split(''))
-  //     let total = 0
-  //     for (let i = 0; i < chunkedUserName.length; i++) {
-  //       const userNameParts = chunkedUserName[i]
-  //       const inputParts = chunkedInput[i]
-  //       if (inputParts) {
-  //         let satisfyPartCount = 0
-  //         for (const inputChar of inputParts) {
-  //           const res = userNameParts.find((char) => char.toLowerCase() === inputChar.toLowerCase())
-  //           if (res) {
-  //             satisfyPartCount++
-  //           }
-  //         }
-  //         console.log(satisfyPartCount)
-  //         if (satisfyPartCount >= Math.ceil(inputParts.length/2)) {
-  //           total++
-  //         }
-  //       }
-  //       else {
-  //         break
-  //       }
-  //     }
-  //     console.log(total, Math.floor(chunkedUserName.length / 2), Math.ceil(chunkedInput.length / 2))
-  //     if (total >= Math.ceil(chunkedUserName.length / 2) || total >= Math.ceil(chunkedInput.length / 2)) {
-  //       newMockedFriends.push(friend)
-  //     }
-  //   })
-  //   console.log(newMockedFriends)
-
-  // }
-  search(event: any): void {
-    const value = (event.target.value as string).toLowerCase()
-
-    if (!value) return
-
-    const newMockedFriends = this.mockFriends.filter(friend => {
+  search(input: string): void {
+    const value = input.toLowerCase()
+    if (!value) {
+      this.displayedFriends = Array.from(this.originalFriends)
+      return
+    }
+    const newDisplayedFriends = this.originalFriends.filter(friend => {
       const userName = friend.userName.toLowerCase()
 
       if (value.length < 4) {
@@ -112,8 +87,8 @@ export class ViewProfile implements OnInit {
 
       return similarity >= 0.3
     })
-
-    console.log(newMockedFriends)
+    // console.log(newDisplayedFriends)
+    this.displayedFriends = Array.from(newDisplayedFriends)
   }
 
   private countMatches(a: string[], b: string[]): number {
@@ -128,6 +103,7 @@ export class ViewProfile implements OnInit {
 
     return matches
   }
+
   private getTrigrams(str: string): string[] {
     const normalized = str.toLowerCase()
     const trigrams: string[] = []
@@ -137,5 +113,9 @@ export class ViewProfile implements OnInit {
     }
 
     return trigrams
+  }
+
+  getAvatarUrl(url: string) {
+    return `url("${url}")`;
   }
 }

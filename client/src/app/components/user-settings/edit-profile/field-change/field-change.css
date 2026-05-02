@@ -1,1 +1,138 @@
-/*# sourceMappingURL=field-change.css.map */
+.underlined-input {
+  transition: 0.3s ease all;
+  color: var(--main-text);
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.1vw solid var(--main-text);
+  padding: max(0.25vw, 2.5px) 0;
+  font-size: max(0.88vw, 8.8px);
+  font-weight: lighter;
+}
+.underlined-input:focus {
+  outline: none;
+}
+
+.field-underlined {
+  border-bottom: 0.1vw solid var(--main-text);
+}
+
+.field-horizontal {
+  display: flex;
+  align-items: center;
+}
+.field-horizontal * {
+  margin-left: 0;
+  margin-right: max(1vw, 10px);
+}
+
+.field p {
+  font-weight: 500;
+  color: var(--main-text);
+  font-size: max(0.75vw, 7.5px);
+  transition: 0.3s ease all;
+}
+.field {
+  transition: 0.3s ease all;
+  margin: max(1vw, 10px) 0;
+  width: -webkit-fill-available;
+}
+.field img {
+  margin-right: max(0.5vw, 5px);
+  width: max(0.8vw, 8px);
+}
+
+.focused p {
+  color: var(--color-secondary);
+}
+.focused input::-moz-placeholder {
+  color: transparent;
+}
+.focused input::placeholder {
+  color: transparent;
+}
+.focused input {
+  border-color: var(--color-secondary);
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.color-main-theme {
+  color: var(--main-text);
+}
+
+button {
+  font-size: max(0.75vw, 7.5px);
+  color: var(--color-text);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  padding: max(0.5vw, 5px) max(1vw, 10px);
+  margin: 0 0 0 max(0.25vw, 2.5px);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  font-weight: 600;
+}
+button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.field-change {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+}
+.field-change .window {
+  background-color: var(--main-main);
+  width: max(15vw, 150px);
+  height: max(15vw, 150px);
+  border-radius: 0.5vw;
+  padding: max(1vw, 10px) max(1vw, 10px) max(0.5vw, 5px) max(1vw, 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.field-change .window h3 {
+  color: var(--main-text);
+  font-size: max(1vw, 10px);
+  font-weight: 500;
+  margin: 0;
+}
+
+footer {
+  margin: auto 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.warning p {
+  color: #ae1b3f;
+}
+.warning input {
+  color: #ae1b3f;
+}
+.warning input::-moz-placeholder {
+  color: transparent;
+}
+.warning input::placeholder {
+  color: transparent;
+}
+.warning input:focus {
+  border-bottom: 0.1vw solid #ae1b3f;
+}
+.warning input {
+  border-bottom: 0.1vw solid #ae1b3f;
+}
+.warning .err {
+  color: #ae1b3f;
+  border-bottom: unset;
+}/*# sourceMappingURL=field-change.css.map */

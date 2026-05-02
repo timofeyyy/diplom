@@ -7,13 +7,13 @@ const pkgDef = protoLoader.loadSync(config.proto.root_dir+config.proto.contracts
 const proto = grpc.loadPackageDefinition(pkgDef) as any;
 
 const rootCert = fs.readFileSync(config.root_ca_pem);
-console.log(`${config.host}:${config.port}`)
+// console.log(`${config.host}:${config.port}`)
 const client = new proto.hello.HelloService(
     `${config.host}:${3000}`,
     grpc.credentials.createSsl(rootCert)
 ); 
 
 client.Hello({ number: 5 }, (err: any, response: any) => {
-    console.log(err);
-    console.log(response);
+    // console.log(err);
+    // console.log(response);
 });

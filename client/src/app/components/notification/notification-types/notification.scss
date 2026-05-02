@@ -1,0 +1,6 @@
+.notification {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: .1vw solid var(--border-color);
+    padding: max(1vw, 10px) 0;
+} 

@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
     // The key length is dependent on the algorithm.
     // In this case for aes256, it is 32 bytes.
     const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
-    console.log(key)
+    // console.log(key)
     const cipher = createCipheriv('aes-256-ctr', key, iv);
 
     const textToEncrypt = 'Nest';

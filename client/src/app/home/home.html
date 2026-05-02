@@ -1,16 +1,16 @@
-@if(response) {
+<!-- @if(response) {
     <app-notification  [body]="response!" (closeEvent)="response = undefined" />
-} 
-<app-popup-settings-options />
+}  -->
+<app-popup-settings-options/>
 <div class="home">
     <app-navigator class="navigator" />
     <main>
         <app-horizontal-header />
         <div class="content">
             @switch (action) {
-                @case (TabEnum.HOME) {
+                <!-- @case (TabEnum.HOME) {
                     <app-main />
-                }
+                } -->
                 @case (TabEnum.FRIENDS) {
                     <app-friends />
                 }
@@ -21,6 +21,9 @@
      <app-notifications class="notofications"/>
    }
    @if(attachmentsState) {
-        <app-attachments-popup />
+        <app-attachments-popup class="popup" />
+   }
+     @if(themesState) {
+        <app-theme-picker class="popup" />
    }
 </div>

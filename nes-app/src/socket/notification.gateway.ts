@@ -1,26 +1,13 @@
-import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer, WsException } from '@nestjs/websockets';
-import { SocketService } from './socket.service';
+import { OnGatewayConnection, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io'
 import jwt from 'jsonwebtoken';
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Res, UnauthorizedException, BadRequestException, ConflictException, HttpStatus, NotFoundException, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import * as cookie from 'cookie';
 import { TokenType } from 'src/auth/dto/user.dto';
 import { AuthService } from 'src/auth/auth.service';
-import { UserService } from 'src/user/user.service';
-import { JwtService } from '@nestjs/jwt';
-import { MongoChatService } from 'src/mongodb/chat/chat.service';
-import { MongoWrapper } from 'src/mongodb/mongo.types';
-import { User } from 'src/mongodb/user/user.schema';
-import { UserStatusStorageService } from 'src/user/user.status.storage.service';
-import { MongoMessageService } from 'src/mongodb/message/message.service';
-import { MongoUserService } from 'src/mongodb/user/user.service';
-import { MongoFriendsService } from 'src/mongodb/user/friends.service';
-import { ObjectId } from 'mongoose';
-import { NotificationTypes } from 'src/etc/enum/notifications.enum';
 import { NotificationService } from 'src/notifications/notification.service';
 import { MongoNotificationService } from 'src/mongodb/notification/notification.service';
-
-
+import { Console } from 'node:console';
 
 @WebSocketGateway({
   path: '/notifications',
@@ -32,13 +19,13 @@ export class SocketNotificationGateway implements OnGatewayConnection {
   constructor(
     private readonly authService: AuthService,
     private readonly notificationService: NotificationService,
-    private readonly mongoNotificationService: MongoNotificationService
+    private readonly mongoNotificationService: MongoNotificationService,
   ) { }
 
   private logger = new Logger(SocketNotificationGateway.name)
 
   @WebSocketServer()
-  server: Server;
+  server!: Server;
 
   async handleConnection(client: Socket) {
     this.logger.debug("handleConnection")
@@ -54,6 +41,10 @@ export class SocketNotificationGateway implements OnGatewayConnection {
       }
       (client as any).userId = userId;
       client.join(`userId:${userId}`)
+      this.notificationService.listen(userId).subscribe((res) => {
+        client.emit('notification-receive', res)
+        console.log(userId+":notification")
+      })
     }
     catch (e) {
       this.logger.debug("disconnect")
@@ -61,13 +52,13 @@ export class SocketNotificationGateway implements OnGatewayConnection {
     }
   }
 
-  @SubscribeMessage('notification-send')
-  async sendNotification(
-    @MessageBody() payload: { recieverId: any, notificationType: NotificationTypes, data: any },
-  ) {
-    console.log("notification-recieved", payload.recieverId)
-    const message = this.notificationService.buildNotification(payload)
-    const res = await this.mongoNotificationService.create({ ...payload, message: message })
-    this.server.to(`userId:${payload.recieverId}`).emit("notification-recieved", res)
-  }
+  // @SubscribeMessage('notification-send')
+  // async sendNotification(
+  //   @MessageBody() payload: { recieverId: any, notificationType: NotificationTypes, data: any },
+  // ) {
+  //   // console.log("notification-recieved", payload.recieverId)
+  //   const message = this.notificationService.buildNotification(payload)
+  //   const res = await this.mongoNotificationService.create({ ...payload, message: message })
+  //   this.server.to(`userId:${payload.recieverId}`).emit("notification-recieved", res)
+  // }
 }

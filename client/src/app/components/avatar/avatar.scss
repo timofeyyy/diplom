@@ -1,0 +1,10 @@
+@use "../../../styles/elements/avatar/circle-avatar.scss";
+
+.avatar {
+    /* border-radius: 50%; */
+    overflow: hidden;
+    /* width: max(3vw, 30px);
+    height: max(3vw, 30px); */
+    border: 0.1vw solid black;
+    cursor: pointer;
+}

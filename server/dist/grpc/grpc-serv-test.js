@@ -43,13 +43,13 @@ const server = new grpc.Server();
 server.addService(proto.hello.HelloService.service, {
     Hello: (call, callback) => {
         const num = call.request.number;
-        console.log("hello from client");
+        // console.log("hello from client");
         callback(null, {
             result: num + 1
         });
     }
 });
 server.bindAsync('0.0.0.0:12000', grpc.ServerCredentials.createInsecure(), () => {
-    console.log('gRPC server started');
+    // console.log('gRPC server started');
     server.start();
 });

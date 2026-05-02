@@ -1,0 +1,38 @@
+.events {
+    pointer-events: fill;
+    position: absolute;
+    bottom: max(1vw, 10px);
+    right: max(1vw, 10px);
+    transition: 0.3s all ease;
+    opacity: 1;
+    z-index: 10;
+    .event-list {
+        display: flex;
+        flex-direction: column;
+        gap: max(.5vw, 5px);
+        .event {
+            margin-right: 0;
+        }
+    }
+}
+
+@keyframes init {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .custom-notification {
+        .content {
+            width: inherit;
+            width: -webkit-fill-available;
+            .message {
+                width: 100%;
+            }
+        }
+    }
+}

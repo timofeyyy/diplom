@@ -1,0 +1,54 @@
+.custom-event {
+  position: relative;
+}
+
+.event {
+  pointer-events: none;
+  transition: ease all 0.3s;
+  animation: init ease-in-out 0.6s;
+}
+
+.hide {
+  animation: disapear ease-in-out 0.6s;
+}
+
+.icon-close {
+  margin: auto max(1vw, 10px) auto auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  background-color: var(--main-text);
+  mask: url("../../../../assets/images/close.svg") no-repeat center;
+  -webkit-mask: url("../../../../assets/images/close.svg") no-repeat center;
+  width: max(1vw, 10px);
+  height: max(1vw, 10px);
+}
+
+@keyframes init {
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes disapear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .custom-notification .content {
+    width: inherit;
+    width: -webkit-fill-available;
+  }
+  .custom-notification .content .message {
+    width: 100%;
+  }
+}/*# sourceMappingURL=custom-event.css.map */

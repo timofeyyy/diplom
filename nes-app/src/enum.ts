@@ -9,7 +9,6 @@ export enum AppAlias {
     RELATIONSHIP = "relationship",
 }
 
-
 export enum ChatListEnum {
     PEOPLE,
     WORK_GROUPS,
@@ -18,8 +17,12 @@ export enum ChatListEnum {
     OUTPUT
 }
 
-
 export enum AttahcmentsEnum {
     IMAGE = "0",
     FILE = "1"
+}
+
+export enum BucketNamesEnum {
+    CHAT_MEDIA = "chat-media",
+    AVATAR = "avatar"
 }
